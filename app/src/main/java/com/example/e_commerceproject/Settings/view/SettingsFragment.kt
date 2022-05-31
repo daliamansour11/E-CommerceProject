@@ -1,4 +1,4 @@
-package com.example.e_commerceproject.cart.view
+package com.example.e_commerceproject.Settings.view
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -6,18 +6,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.example.e_commerceproject.R
-import com.example.e_commerceproject.home.model.DummyData
+class SettingsFragment : Fragment() {
 
-class CartFragment : Fragment() {
-
-    lateinit var recyclerView: RecyclerView
-    lateinit var cartAdapter: CartAdapter
-    //lateinit var cartFragmentView: View
+    lateinit var backArrow: ImageView
+    lateinit var settingsFragmentView: View
     lateinit var addressArrow: ImageView
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,22 +22,24 @@ class CartFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        settingsFragmentView = inflater.inflate(R.layout.fragment_settings, container, false)
+        return settingsFragmentView
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_cart, container, false)
+
     }
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        backArrow= settingsFragmentView.findViewById(R.id.settingArrowBack)
+        backArrow.setOnClickListener(View.OnClickListener {
+            val fragmentManager=parentFragmentManager
+            val fragmentTransaction=fragmentManager.beginTransaction()
 
-        recyclerView=view.findViewById(R.id.cartRecyclerView)
-        val cartLinearLayoutManager: LinearLayoutManager = LinearLayoutManager(context)
-        cartLinearLayoutManager.orientation= RecyclerView.VERTICAL
-        cartAdapter= CartAdapter(requireContext())
-        cartAdapter.setDataList(DummyData.PRODUCT_DATA)
-        recyclerView.layoutManager=cartLinearLayoutManager
-        recyclerView.adapter=cartAdapter
-
-        addressArrow= view.findViewById(R.id.shoppingCartArrowBack)
+            //  fragmentTransaction.replace(R.id.,fragment)
+            fragmentTransaction.commit()
+        })
+        addressArrow= settingsFragmentView.findViewById(R.id.navigateToAddressScreenBtn)
         addressArrow.setOnClickListener(View.OnClickListener {
             val fragmentManager=parentFragmentManager
             val fragmentTransaction=fragmentManager.beginTransaction()
@@ -52,6 +48,7 @@ class CartFragment : Fragment() {
             fragmentTransaction.commit()
         })
 
-
     }
+
+
 }
