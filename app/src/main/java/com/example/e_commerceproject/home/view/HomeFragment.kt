@@ -13,7 +13,7 @@ import com.example.e_commerceproject.R
 import com.example.e_commerceproject.home.model.DummyData
 
 
-class HomeFragment : Fragment() {
+class HomeFragment : Fragment() , OnBrandClickListener{
 
 
     lateinit var recyclerView: RecyclerView
@@ -42,7 +42,7 @@ class HomeFragment : Fragment() {
         recyclerView=view.findViewById(R.id.brandsRecycleView)
         val brandsLinearLayoutManager: LinearLayoutManager = LinearLayoutManager(context)
         brandsLinearLayoutManager.orientation= RecyclerView.HORIZONTAL
-        brandsAdapter= BrandsAdapter(requireContext())
+        brandsAdapter= BrandsAdapter(requireContext(), this)
         brandsAdapter.setDataList(DummyData.BRAND_DATA)
         recyclerView.layoutManager=brandsLinearLayoutManager
         recyclerView.adapter=brandsAdapter
@@ -68,6 +68,10 @@ class HomeFragment : Fragment() {
 //
 //        })
 
+    }
+
+    override fun OnBrandClick() {
+        Toast.makeText(requireContext() , "uyuyuyu" , Toast.LENGTH_SHORT ).show()
     }
 
 

@@ -6,12 +6,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.example.e_commerceproject.R
 import com.example.e_commerceproject.home.model.BrandModel
 
 
-class BrandsAdapter(private  var context: Context): RecyclerView.Adapter<BrandsAdapter.ViewHolder>() {
+class BrandsAdapter(private  var context: Context,var onBrandClickListener: OnBrandClickListener): RecyclerView.Adapter<BrandsAdapter.ViewHolder>() {
 
     //    private var brandname = arrayListOf<String>("Zara","Addidas","polo","Poma")
 //    private var brandImage = arrayOf(R.drawable.dummyproductimage)
@@ -33,7 +34,9 @@ class BrandsAdapter(private  var context: Context): RecyclerView.Adapter<BrandsA
 
         holder.brandLogo.setImageResource(data[position].brandImage)
         holder.brandName.text= data[position].brandname
-
+        holder.brandCard.setOnClickListener{
+            onBrandClickListener.OnBrandClick()
+        }
     }
 
 
@@ -45,7 +48,7 @@ class BrandsAdapter(private  var context: Context): RecyclerView.Adapter<BrandsA
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var brandName: TextView = itemView.findViewById(R.id.brandName)
         var brandLogo: ImageView = itemView.findViewById(R.id.brandlogo)
-
+        var brandCard: ConstraintLayout = itemView.findViewById(R.id.brandsCartConstraint)
     }
 
 
