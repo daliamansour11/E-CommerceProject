@@ -27,8 +27,7 @@ class SettingsFragment : Fragment() {
         // Inflate the layout for this fragment
 
     }
-    /// address toast
-    // back setting arrow profile
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

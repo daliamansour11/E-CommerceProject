@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.e_commerceproject.R
@@ -15,6 +16,7 @@ class CartFragment : Fragment() {
     lateinit var recyclerView: RecyclerView
     lateinit var cartAdapter: CartAdapter
     lateinit var cartFragmentView: View
+    lateinit var addressArrow: ImageView
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -40,6 +42,16 @@ class CartFragment : Fragment() {
         cartAdapter.setDataList(DummyData.PRODUCT_DATA)
         recyclerView.layoutManager=cartLinearLayoutManager
         recyclerView.adapter=cartAdapter
+
+        addressArrow= cartFragmentView.findViewById(R.id.shoppingCartArrowBack)
+        addressArrow.setOnClickListener(View.OnClickListener {
+            val fragmentManager=parentFragmentManager
+            val fragmentTransaction=fragmentManager.beginTransaction()
+
+            //  fragmentTransaction.replace(R.id.,fragment)
+            fragmentTransaction.commit()
+        })
+
 
     }
 }
