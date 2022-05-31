@@ -71,7 +71,7 @@ class HomeFragment : Fragment() , OnBrandClickListener{
     }
 
     override fun OnBrandClick() {
-        Toast.makeText(requireContext() , "uyuyuyu" , Toast.LENGTH_SHORT ).show()
+        Toast.makeText(requireContext() ,"uyuyuyu" , Toast.LENGTH_SHORT ).show()
     }
 
 
