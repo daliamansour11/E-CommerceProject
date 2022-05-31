@@ -5,10 +5,19 @@
       <map>
         <entry key="..\:/Users/Dell/AndroidStudioProjects/E-CommerceProject/app/src/main/res/drawable/shapeforconstrains.xml" value="0.1" />
         <entry key="..\:/Users/Dell/AndroidStudioProjects/E-CommerceProject/app/src/main/res/layout/activity_main.xml" value="0.22056159420289856" />
+        <entry key="..\:/Users/Dell/AndroidStudioProjects/E-CommerceProject/app/src/main/res/layout/categorycustomrow.xml" value="0.12360688956433637" />
         <entry key="..\:/Users/Dell/AndroidStudioProjects/E-CommerceProject/app/src/main/res/layout/fragment_cart.xml" value="0.22056159420289856" />
-        <entry key="..\:/Users/Dell/AndroidStudioProjects/E-CommerceProject/app/src/main/res/layout/fragment_category.xml" value="0.22056159420289856" />
+        <entry key="..\:/Users/Dell/AndroidStudioProjects/E-CommerceProject/app/src/main/res/layout/fragment_category.xml" value="0.1" />
+        <entry key="..\:/Users/Dell/AndroidStudioProjects/E-CommerceProject/app/src/main/res/layout/fragment_details.xml" value="0.136" />
         <entry key="..\:/Users/Dell/AndroidStudioProjects/E-CommerceProject/app/src/main/res/layout/fragment_favorite.xml" value="0.22056159420289856" />
+        <entry key="..\:/Users/Dell/AndroidStudioProjects/E-CommerceProject/app/src/main/res/layout/fragment_kids.xml" value="0.11676798378926039" />
+        <entry key="..\:/Users/Dell/AndroidStudioProjects/E-CommerceProject/app/src/main/res/layout/fragment_login.xml" value="0.20878623188405798" />
+        <entry key="..\:/Users/Dell/AndroidStudioProjects/E-CommerceProject/app/src/main/res/layout/fragment_men.xml" value="0.10526315789473684" />
+        <entry key="..\:/Users/Dell/AndroidStudioProjects/E-CommerceProject/app/src/main/res/layout/fragment_payment.xml" value="0.20878623188405798" />
+        <entry key="..\:/Users/Dell/AndroidStudioProjects/E-CommerceProject/app/src/main/res/layout/fragment_register.xml" value="0.20878623188405798" />
+        <entry key="..\:/Users/Dell/AndroidStudioProjects/E-CommerceProject/app/src/main/res/layout/fragment_women.xml" value="0.10526315789473684" />
         <entry key="..\:/Users/Dell/AndroidStudioProjects/E-CommerceProject/app/src/main/res/menu/bottomnavigationmenue.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/Dell/AndroidStudioProjects/E-CommerceProject/app/src/main/res/menu/categorytoolbarmenue.xml" value="0.1287037037037037" />
       </map>
     </option>
   </component>

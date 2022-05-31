@@ -1,33 +1,27 @@
 package com.example.e_commerceproject.category.view
 
 import android.os.Bundle
+import android.view.*
+import android.widget.EditText
+import android.widget.Toast
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.widget.Toolbar
+import androidx.appcompat.widget.SearchView
+import androidx.viewpager.widget.ViewPager
 import com.example.e_commerceproject.R
+import com.example.e_commerceproject.category.model.CategoriesModel
+import com.example.e_commerceproject.category.view.adapters.MyAdapter
+import com.google.android.material.tabs.TabLayout
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
+class CategoryFragment : Fragment()  {
 
-/**
- * A simple [Fragment] subclass.
- * Use the [CategoryFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
-class CategoryFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+    lateinit var toolbar: Toolbar
+    lateinit var tabLayout: TabLayout
+    lateinit var viewPager: ViewPager
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
+
     }
 
     override fun onCreateView(
@@ -38,23 +32,61 @@ class CategoryFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_category, container, false)
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment CategoryFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            CategoryFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        //  toolbar =
+
+        val title = "KotlinApp"
+
+        tabLayout = view.findViewById(R.id.tabLayout)
+        viewPager = view.findViewById(R.id.viewPager)
+        tabLayout.addTab(tabLayout.newTab().setText("Football"))
+        tabLayout.addTab(tabLayout.newTab().setText("Cricket"))
+        tabLayout.addTab(tabLayout.newTab().setText("NBA"))
+        tabLayout.tabGravity = TabLayout.GRAVITY_FILL
+        val adapter = getFragmentManager()?.let {
+            MyAdapter(requireContext(), it,
+                tabLayout.tabCount)
+        }
+        viewPager.adapter = adapter
+        viewPager.addOnPageChangeListener(TabLayout.TabLayoutOnPageChangeListener(tabLayout))
+        tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
+            override fun onTabSelected(tab: TabLayout.Tab) {
+                viewPager.currentItem = tab.position
             }
+            override fun onTabUnselected(tab: TabLayout.Tab) {}
+            override fun onTabReselected(tab: TabLayout.Tab) {}
+        })
     }
+
+
+
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        val inflater = inflater
+        inflater.inflate(R.menu.categorytoolbarmenue , menu)
+
+
+
+        val search = menu.findItem(R.id.searh)
+        val searchView = search.actionView as SearchView
+        val editText = searchView.findViewById<EditText>(R.id.searh)
+        searchView.queryHint = "Search"
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                return false
+            }
+            override fun onQueryTextChange(newText: String?): Boolean {
+
+                return true
+            }
+        })
+        return super.onCreateOptionsMenu(menu , inflater)
+
+    }
+
+
+
+
 }
