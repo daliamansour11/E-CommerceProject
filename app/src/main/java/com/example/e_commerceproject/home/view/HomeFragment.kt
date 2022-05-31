@@ -56,6 +56,15 @@ class HomeFragment : Fragment() {
             fragmentTransaction.commit()
         })
 
+        brandLogo.setOnClickListener(View.OnClickListener {
+            val fragmentManager=parentFragmentManager
+            val fragmentTransaction=fragmentManager.beginTransaction()
+
+//            fragmentTransaction.replace(R.id.,fragment)
+            fragmentTransaction.commit()
+
+        })
+
     }
 
 
