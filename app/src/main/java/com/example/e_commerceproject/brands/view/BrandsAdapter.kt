@@ -13,9 +13,9 @@ import com.example.e_commerceproject.R
 import com.example.e_commerceproject.profile.view.OnOrderClickListener
 
 
-class BrandsAdapter(var context: Context?, var brandClick: onBrandClicked): RecyclerView.Adapter<BrandsAdapter.ViewHolder>() {
+class BrandsAdapter(var context: Context?, var brandClick: OnBrandClicked): RecyclerView.Adapter<BrandsAdapter.ViewHolder>() {
     private var productprice = arrayOf("123","550","456")
-    private  var productimg = arrayOf(R.drawable.beauty,R.drawable.product1,    R.drawable.product)
+    private  var productimg = arrayOf(R.drawable.online,R.drawable.online,    R.drawable.online)
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
         val v = layoutInflater.inflate(R.layout.product_row, parent, false)
@@ -29,7 +29,7 @@ class BrandsAdapter(var context: Context?, var brandClick: onBrandClicked): Recy
 
 
         holder.product_price.text = productprice[position]
-        holder.product_img.setImageResource(productimg[position])
+       // holder.product_img.setImageResource(productimg[position])
         holder.itemView.setOnClickListener {
             brandClick.onbrandClicked( )
 
@@ -64,7 +64,7 @@ class BrandsAdapter(var context: Context?, var brandClick: onBrandClicked): Recy
 
     class ProductAdapter: RecyclerView.Adapter<ProductAdapter.ViewHolder>() {
         private var productprice = arrayOf("123", "550", "456")
-        private var productimg = arrayOf(R.drawable.beauty, R.drawable.product1, R.drawable.product)
+        private var productimg = arrayOf(R.drawable.online, R.drawable.online, R.drawable.online)
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
             val layoutInflater = LayoutInflater.from(parent.context)
             val v = layoutInflater.inflate(R.layout.product_row, parent, false)

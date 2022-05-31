@@ -9,7 +9,6 @@
         android:layout_rowWeight="1"
         android:layout_column="0"
         android:layout_gravity="fill"
-        android:background="@drawable/myshape"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
         <LinearLayout
@@ -24,13 +23,13 @@
                 android:layout_width="50dp"
                 android:layout_height="40dp"
                 android:layout_gravity="right"
-                android:src="@drawable/ic_baseline_favorite_border_24" />
+                android:src="@drawable/favorite_24" />
             <ImageView
 
                 android:id="@+id/product_img"
                 android:layout_width="150dp"
                 android:layout_height="wrap_content"
-                android:src="@drawable/product" />
+                android:src="@drawable/online" />
             <TextView
                 android:id="@+id/product_price"
                 android:layout_width="wrap_content"

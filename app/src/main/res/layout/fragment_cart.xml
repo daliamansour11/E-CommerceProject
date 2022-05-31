@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".cart.view.CartFragment"
-    android:background="@color/purple_500">
+    android:background="@color/back">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"

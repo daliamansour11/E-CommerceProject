@@ -13,7 +13,7 @@ import com.example.e_commerceproject.R
 
 class MoreOrders( var context: Context?, var onMoreOrderClick: OnOrderClickListener): RecyclerView.Adapter<MoreOrders.ViewHolder>() {
     private var productprice = arrayOf("123","550","456")
-    private  var productimg = arrayOf(R.drawable.beauty, R.drawable.product1,    R.drawable.product)
+    private  var productimg = arrayOf(R.drawable.online, R.drawable.online,    R.drawable.online)
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
         val v = layoutInflater.inflate(R.layout.product_row, parent, false)

@@ -20,7 +20,7 @@
             android:id="@+id/addressback_btn"
             android:layout_width="48dp"
             android:layout_height="wrap_content"
-            android:drawableLeft="@drawable/ic_baseline_arrow_back_ios_24"
+            android:drawableLeft="@drawable/arrow_back"
             tools:ignore="SpeakableTextPresentCheck"
             tools:layout_editor_absoluteX="16dp"
             tools:layout_editor_absoluteY="6dp" />
@@ -104,7 +104,6 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="132dp"
         android:text="Add"
-      android:background="@drawable/myshape"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"

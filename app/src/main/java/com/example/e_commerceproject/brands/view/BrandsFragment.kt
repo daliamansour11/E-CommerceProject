@@ -10,7 +10,7 @@ import com.example.e_commerceproject.R
 import com.example.e_commerceproject.brands.model.BrandModel
 
 
-class BrandsFragment : Fragment(),onBrandClicked {
+class BrandsFragment : Fragment(),OnBrandClicked {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null

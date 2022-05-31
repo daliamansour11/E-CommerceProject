@@ -14,7 +14,6 @@
         android:layout_column="0"
         android:layout_gravity="fill"
         android:padding="10dp"
-        android:background="@drawable/myshape"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">

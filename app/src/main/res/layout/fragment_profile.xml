@@ -33,7 +33,7 @@
         <Button
             android:layout_width="48dp"
             android:layout_height="wrap_content"
-            android:drawableLeft="@drawable/ic_baseline_arrow_back_ios_24"
+            android:drawableLeft="@drawable/arrow_back"
             tools:ignore="SpeakableTextPresentCheck"
             tools:layout_editor_absoluteX="16dp"
             tools:layout_editor_absoluteY="6dp" />
@@ -101,7 +101,6 @@
         android:layout_height="48dp"
         android:layout_marginTop="16dp"
         android:layout_marginBottom="17dp"
-        android:background="@drawable/myshape"
         android:text="see more"
         android:textColor="@color/black"
         app:layout_constraintBottom_toTopOf="@+id/recyclerView2"
@@ -147,7 +146,6 @@
             android:layout_marginTop="30dp"
             android:layout_marginRight="15dp"
             android:layout_weight="1"
-            android:background="@drawable/myshape"
 
             android:text="Login" />
 
@@ -158,7 +156,6 @@
             android:layout_marginTop="30dp"
             android:layout_marginRight="15dp"
             android:layout_weight="1"
-            android:background="@drawable/myshape"
             android:text="Register" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
