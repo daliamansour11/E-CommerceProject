@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.e_commerceproject.R
@@ -46,7 +47,7 @@ class HomeFragment : Fragment() {
         recyclerView.layoutManager=brandsLinearLayoutManager
         recyclerView.adapter=brandsAdapter
 
-        profileScreen=homeFragmentView.findViewById(R.id.profileIconScreen)
+        profileScreen=view.findViewById(R.id.profileIconScreen)
 
         profileScreen.setOnClickListener(View.OnClickListener {
             val fragmentManager=parentFragmentManager
@@ -56,14 +57,16 @@ class HomeFragment : Fragment() {
             fragmentTransaction.commit()
         })
 
-        brandLogo.setOnClickListener(View.OnClickListener {
-            val fragmentManager=parentFragmentManager
-            val fragmentTransaction=fragmentManager.beginTransaction()
-
-//            fragmentTransaction.replace(R.id.,fragment)
-            fragmentTransaction.commit()
-
-        })
+//        brandLogo =homeFragmentView.findViewById(R.id.brandlogo)
+//        brandLogo.setOnClickListener(View.OnClickListener {
+//            Toast.makeText(requireContext() , "jjk" , Toast.LENGTH_SHORT).show()
+//            val fragmentManager=parentFragmentManager
+//            val fragmentTransaction=fragmentManager.beginTransaction()
+//
+////            fragmentTransaction.replace(R.id.,fragment)
+//            fragmentTransaction.commit()
+//
+//        })
 
     }
 

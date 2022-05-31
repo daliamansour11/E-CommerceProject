@@ -10,6 +10,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.e_commerceproject.R
 import com.example.e_commerceproject.home.model.ProductModel
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 
 class CartAdapter (private  var context: Context): RecyclerView.Adapter<CartAdapter.ViewHolder>() {
@@ -54,8 +55,8 @@ class CartAdapter (private  var context: Context): RecyclerView.Adapter<CartAdap
         var productImage: ImageView = itemView.findViewById(R.id.productImage)
         var productPrice: TextView = itemView.findViewById(R.id.productPrice)
         var productCount : TextView =itemView.findViewById(R.id.productsCount)
-        var incrementBtn : Button =itemView.findViewById(R.id.incrementedfabBtn)
-        var decrementBtn : Button =itemView.findViewById(R.id.decrementedfabBtn)
+        var incrementBtn : FloatingActionButton =itemView.findViewById(R.id.incrementedfabBtn)
+        var decrementBtn : FloatingActionButton =itemView.findViewById(R.id.decrementedfabBtn)
 
     }
 

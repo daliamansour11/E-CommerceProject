@@ -15,7 +15,7 @@ class CartFragment : Fragment() {
 
     lateinit var recyclerView: RecyclerView
     lateinit var cartAdapter: CartAdapter
-    lateinit var cartFragmentView: View
+    //lateinit var cartFragmentView: View
     lateinit var addressArrow: ImageView
 
 
@@ -43,7 +43,7 @@ class CartFragment : Fragment() {
         recyclerView.layoutManager=cartLinearLayoutManager
         recyclerView.adapter=cartAdapter
 
-        addressArrow= cartFragmentView.findViewById(R.id.shoppingCartArrowBack)
+        addressArrow= view.findViewById(R.id.shoppingCartArrowBack)
         addressArrow.setOnClickListener(View.OnClickListener {
             val fragmentManager=parentFragmentManager
             val fragmentTransaction=fragmentManager.beginTransaction()
