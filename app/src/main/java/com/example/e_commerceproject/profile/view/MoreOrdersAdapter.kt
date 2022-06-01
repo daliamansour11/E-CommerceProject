@@ -11,9 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.e_commerceproject.R
 
 
-class MoreOrders( var context: Context?, var onMoreOrderClick: OnOrderClickListener): RecyclerView.Adapter<MoreOrders.ViewHolder>() {
-    private var productprice = arrayOf("123","550","456")
-    private  var productimg = arrayOf(R.drawable.online, R.drawable.online,    R.drawable.online)
+class MoreOrdersAdapter( var context: Context?, var onMoreWishesClick: OnOrderClickListener): RecyclerView.Adapter<MoreOrdersAdapter.ViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
         val v = layoutInflater.inflate(R.layout.product_row, parent, false)
@@ -24,13 +22,15 @@ class MoreOrders( var context: Context?, var onMoreOrderClick: OnOrderClickListe
         return viewHolder     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.order_price.text= productprice[position]
-        holder.orderdate.text= productprice[position]
-        val  customOrder :  OnOrderClickListener
+
+        holder.itemView.setOnClickListener {
+            onMoreWishesClick.onMoreOrderClicked()
+
+        }
     }
 
     override fun getItemCount(): Int {
-        return productimg.size
+        return 5
     }
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -43,13 +43,12 @@ class MoreOrders( var context: Context?, var onMoreOrderClick: OnOrderClickListe
             orderdate = itemView.findViewById(R.id.order_date)
             order_price = itemView.findViewById(R.id.order_price)
 
-            itemView.setOnClickListener {
-                val position: Int = adapterPosition
-                Toast.makeText(
-                    itemView.context, "you clicked item on $(productimg[position])",
-                    Toast.LENGTH_LONG
-                ).show()
-            }
+//            itemView.setOnClickListener {
+//                val position: Int = adapterPosition
+//                Toast.makeText(
+//                    itemView.context, "you clicked item on $(productimg[position])",
+//                    Toast.LENGTH_LONG
+//                ).show()
+//            }
         }
     }}
-
