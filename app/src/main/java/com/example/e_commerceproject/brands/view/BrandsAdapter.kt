@@ -10,13 +10,12 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.example.e_commerceproject.R
-import com.example.e_commerceproject.brands.model.BrandModel
 import com.example.e_commerceproject.profile.view.OnOrderClickListener
 
 
 class BrandsAdapter (var context: Context , val onbrandclicked: OnBrandClicked) : RecyclerView.Adapter<BrandsAdapter.ViewHolder>() {
 
-    var dataList = emptyList<BrandModel>()
+    var dataList = emptyList<BrandsModel>()
 
     internal fun setDataList(dataList: MutableList<com.example.e_commerceproject.home.model.BrandModel>) {
 

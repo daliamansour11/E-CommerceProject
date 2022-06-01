@@ -10,7 +10,6 @@ import android.widget.Toast
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.e_commerceproject.R
-import com.example.e_commerceproject.brands.model.BrandModel
 import com.example.e_commerceproject.details.view.DetailsFragment
 import com.example.e_commerceproject.home.view.HomeFragment
 
@@ -18,7 +17,7 @@ import com.example.e_commerceproject.home.view.HomeFragment
 class BrandsFragment : Fragment(),OnBrandClicked {
     lateinit var brand_back : Button
     private lateinit var  brandadapter: BrandsAdapter
-    private var dataList = mutableListOf<com.example.e_commerceproject.home.model.BrandModel>()
+    private var dataList = mutableListOf<BrandsModel>()
     lateinit var recyclerView : RecyclerView;
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -51,15 +50,15 @@ class BrandsFragment : Fragment(),OnBrandClicked {
 
 
         //add data
-        dataList.add(com.example.e_commerceproject.home.model.BrandModel("1234", R.drawable.online))
-        dataList.add(com.example.e_commerceproject.home.model.BrandModel("1234", R.drawable.online))
-        dataList.add(com.example.e_commerceproject.home.model.BrandModel("1234", R.drawable.online))
-        dataList.add(com.example.e_commerceproject.home.model.BrandModel("1234", R.drawable.online))
-        dataList.add(com.example.e_commerceproject.home.model.BrandModel("1234", R.drawable.online))
-        dataList.add(com.example.e_commerceproject.home.model.BrandModel("1234", R.drawable.online))
-        dataList.add(com.example.e_commerceproject.home.model.BrandModel("1234", R.drawable.online))
-
-        brandadapter.setDataList(dataList)
+//        dataList.add(BrandsModel("1234", R.drawable.online))
+//        dataList.add(BrandsModel("1234", R.drawable.online))
+//        dataList.add(BrandsModel("1234", R.drawable.online))
+//        dataList.add(BrandsModel("1234", R.drawable.online))
+//        dataList.add(BrandsModel("1234", R.drawable.online))
+//        dataList.add(BrandsModel("1234", R.drawable.online))
+//        dataList.add(BrandsModel("1234", R.drawable.online))
+//
+//        brandadapter.setDataList(dataList)
 
         brand_back.setOnClickListener(object : View.OnClickListener {
             override fun onClick(view: View?) {
