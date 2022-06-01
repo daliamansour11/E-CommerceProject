@@ -5,10 +5,13 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.ImageView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.e_commerceproject.PaymentFragment
 import com.example.e_commerceproject.R
+import com.example.e_commerceproject.athentication.register.view.RegisterFragment
 import com.example.e_commerceproject.home.model.DummyData
 
 class CartFragment : Fragment() {
@@ -17,7 +20,7 @@ class CartFragment : Fragment() {
     lateinit var cartAdapter: CartAdapter
     //lateinit var cartFragmentView: View
     lateinit var addressArrow: ImageView
-
+    lateinit var payButtonCart: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,6 +38,7 @@ class CartFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        payButtonCart = view.findViewById(R.id.payButtonCart)
         recyclerView=view.findViewById(R.id.cartRecyclerView)
         val cartLinearLayoutManager: LinearLayoutManager = LinearLayoutManager(context)
         cartLinearLayoutManager.orientation= RecyclerView.VERTICAL
@@ -52,6 +56,11 @@ class CartFragment : Fragment() {
             fragmentTransaction.commit()
         })
 
+        payButtonCart.setOnClickListener {
+            val paymentFragment = PaymentFragment()
+            fragmentManager?.beginTransaction()?.replace(R.id.fragmentContainerView, paymentFragment)?.commit()
+
+        }
 
     }
 }

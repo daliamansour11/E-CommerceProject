@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.Toast
 import com.example.e_commerceproject.details.view.DetailsFragment
+import com.example.e_commerceproject.payment.view.CashFragment
 
 class PaymentFragment : Fragment() {
 
@@ -35,15 +36,15 @@ class PaymentFragment : Fragment() {
         onlinebtn = view.findViewById(R.id.onlinebtn)
         cashbtn.setOnClickListener {
             Toast.makeText(requireContext() , "cash" , Toast.LENGTH_SHORT).show()
-//            val cashPayment = CashPaymentFragment()
-//            fragmentManager?.beginTransaction()?.replace(R.id.fragmentContainerView, cashPayment)?.commit()
+            val cashFragment = CashFragment()
+            fragmentManager?.beginTransaction()?.replace(R.id.fragmentContainerView, cashFragment)?.commit()
 
         }
 
         onlinebtn.setOnClickListener {
             Toast.makeText(requireContext() , "online" , Toast.LENGTH_SHORT).show()
-//            val cashPayment = OnlinePaymentFragment()
-//            fragmentManager?.beginTransaction()?.replace(R.id.fragmentContainerView, cashPayment)?.commit()
+            val onlinePaymentFragment = OnlinePaymentFragment()
+            fragmentManager?.beginTransaction()?.replace(R.id.fragmentContainerView, onlinePaymentFragment)?.commit()
 
         }
 

@@ -14,8 +14,6 @@ class RegisterFragment : Fragment() {
 
     lateinit var registernowbtn : Button
 
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 

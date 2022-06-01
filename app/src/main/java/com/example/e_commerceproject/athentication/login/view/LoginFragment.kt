@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.Toast
 import com.example.e_commerceproject.R
+import com.example.e_commerceproject.athentication.register.view.RegisterFragment
 import com.example.e_commerceproject.details.view.DetailsFragment
 
 
@@ -43,8 +44,8 @@ class LoginFragment : Fragment() {
         registerbtn.setOnClickListener {
 
             Toast.makeText(requireContext() , "register" , Toast.LENGTH_SHORT).show()
-            val detailsfragment = DetailsFragment()
-            fragmentManager?.beginTransaction()?.replace(R.id.fragmentContainerView, detailsfragment)?.commit()
+            val registerFragment = RegisterFragment()
+            fragmentManager?.beginTransaction()?.replace(R.id.fragmentContainerView, registerFragment)?.commit()
 
         }
 

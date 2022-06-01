@@ -10,7 +10,10 @@ import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.e_commerceproject.R
+import com.example.e_commerceproject.brands.view.BrandsFragment
+import com.example.e_commerceproject.details.view.DetailsFragment
 import com.example.e_commerceproject.home.model.DummyData
+import com.example.e_commerceproject.profile.view.ProfileFragment
 
 
 class HomeFragment : Fragment() , OnBrandClickListener{
@@ -53,8 +56,12 @@ class HomeFragment : Fragment() , OnBrandClickListener{
             val fragmentManager=parentFragmentManager
             val fragmentTransaction=fragmentManager.beginTransaction()
 
-//            fragmentTransaction.replace(R.id.,fragment)
-            fragmentTransaction.commit()
+            val profileFragment = ProfileFragment()
+            fragmentManager?.beginTransaction()?.replace(R.id.fragmentContainerView, profileFragment)?.commit()
+            Toast.makeText(requireContext() ,"uyuyhfuyu" , Toast.LENGTH_SHORT ).show()
+
+//          fragmentTransaction.replace(R.id.fragment)
+//            fragmentTransaction.commit()
         })
 
 //        brandLogo =homeFragmentView.findViewById(R.id.brandlogo)
@@ -71,6 +78,8 @@ class HomeFragment : Fragment() , OnBrandClickListener{
     }
 
     override fun OnBrandClick() {
+        val brandsFragment = BrandsFragment()
+        fragmentManager?.beginTransaction()?.replace(R.id.fragmentContainerView, brandsFragment)?.commit()
         Toast.makeText(requireContext() ,"uyuyhfuyu" , Toast.LENGTH_SHORT ).show()
     }
 

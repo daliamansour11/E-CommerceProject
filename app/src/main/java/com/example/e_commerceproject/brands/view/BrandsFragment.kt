@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import com.example.e_commerceproject.R
 import com.example.e_commerceproject.brands.model.BrandModel
+import com.example.e_commerceproject.details.view.DetailsFragment
 
 
 class BrandsFragment : Fragment(),OnBrandClicked {
@@ -42,6 +43,8 @@ class BrandsFragment : Fragment(),OnBrandClicked {
             }
     }
 
+
+
 //    override fun onbrandClicked(model:BrandModel) {
 //
 ////
@@ -53,7 +56,10 @@ class BrandsFragment : Fragment(),OnBrandClicked {
 //        model.id?.let { bundle.putInt("120", it) }
 //        Toast.makeText(requireContext(),"bhlknlask",Toast.LENGTH_LONG).show()
 
+        val detailsFragment = DetailsFragment()
+        fragmentManager?.beginTransaction()?.replace(R.id.fragmentContainerView, detailsFragment)?.commit()
         Toast.makeText(requireContext(),"bhlknlask",Toast.LENGTH_LONG).show()
+
 
         //     val df = ()
 //        df.arguments = bundle

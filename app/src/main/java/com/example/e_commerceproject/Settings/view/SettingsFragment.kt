@@ -6,12 +6,20 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.Toast
 import com.example.e_commerceproject.R
+import com.example.e_commerceproject.address.view.AddressFragment
+import com.example.e_commerceproject.profile.view.ProfileFragment
+
 class SettingsFragment : Fragment() {
 
     lateinit var backArrow: ImageView
     lateinit var settingsFragmentView: View
     lateinit var addressArrow: ImageView
+    lateinit var navigateToAddressScreenBtn: ImageView
+    lateinit var navigateToCurrencyScreenBtn: ImageView
+    lateinit var navigateToContactusScreenBtn: ImageView
+    lateinit var navigateToaboutScreenBtn: ImageView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,6 +55,42 @@ class SettingsFragment : Fragment() {
             //  fragmentTransaction.replace(R.id.,fragment)
             fragmentTransaction.commit()
         })
+
+        navigateToAddressScreenBtn = settingsFragmentView.findViewById(R.id.navigateToAddressScreenBtn)
+        navigateToAddressScreenBtn.setOnClickListener {
+
+            val addressFragment = AddressFragment()
+            fragmentManager?.beginTransaction()?.replace(R.id.fragmentContainerView, addressFragment)?.commit()
+            Toast.makeText(requireContext() ,"uyuyhfuyu" , Toast.LENGTH_SHORT ).show()
+
+        }
+
+        navigateToCurrencyScreenBtn = settingsFragmentView.findViewById(R.id.navigateToCurrencyScreenBtn)
+        navigateToCurrencyScreenBtn.setOnClickListener {
+
+//            val profileFragment = ProfileFragment()
+//            fragmentManager?.beginTransaction()?.replace(R.id.fragmentContainerView, profileFragment)?.commit()
+//            Toast.makeText(requireContext() ,"uyuyhfuyu" , Toast.LENGTH_SHORT ).show()
+
+        }
+
+        navigateToContactusScreenBtn = settingsFragmentView.findViewById(R.id.navigateToContactusScreenBtn)
+        navigateToContactusScreenBtn.setOnClickListener {
+
+//            val profileFragment = ProfileFragment()
+//            fragmentManager?.beginTransaction()?.replace(R.id.fragmentContainerView, profileFragment)?.commit()
+             Toast.makeText(requireContext() ,"uyuyhfuyu" , Toast.LENGTH_SHORT ).show()
+
+        }
+
+        navigateToaboutScreenBtn = settingsFragmentView.findViewById(R.id.navigateToaboutScreenBtn)
+        navigateToaboutScreenBtn.setOnClickListener {
+
+//            val profileFragment = ProfileFragment()
+//            fragmentManager?.beginTransaction()?.replace(R.id.fragmentContainerView, profileFragment)?.commit()
+              Toast.makeText(requireContext() ,"uyuyhfuyu" , Toast.LENGTH_SHORT ).show()
+
+        }
 
     }
 
