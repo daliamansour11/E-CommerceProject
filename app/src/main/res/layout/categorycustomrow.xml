@@ -32,25 +32,27 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <ImageButton
+
+            <Button
                 android:id="@+id/categoryfavorieimageButton"
+                style="@style/Widget.App.Button.OutlinedButton.IconOnly"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
+                android:layout_marginTop="16dp"
                 android:background="@color/white"
+                app:icon="@drawable/favorite_24"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.882"
+                app:layout_constraintHorizontal_bias="0.904"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:src="@drawable/favorite_24" />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView
                 android:id="@+id/categoriesimageView"
-                android:layout_width="68dp"
-                android:layout_height="67dp"
-                android:layout_marginTop="28dp"
-                android:src="@drawable/person"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:src="@drawable/online"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.498"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/categoryfavorieimageButton" />
 
@@ -58,7 +60,7 @@
                 android:id="@+id/categoriestextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="28dp"
+                android:layout_marginTop="20dp"
                 android:text="yyttyty"
                 android:paddingBottom="30dp"
                 app:layout_constraintEnd_toEndOf="parent"

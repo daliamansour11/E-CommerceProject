@@ -4,6 +4,7 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -25,7 +26,7 @@ class CategoryAdapter (var context: Context , val onProductClickInterface: OnPro
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var image: ImageView
         var title: TextView
-        var categoryfavorieimageButton : ImageView
+        var categoryfavorieimageButton : Button
         var productitemview : ConstraintLayout
 
 
