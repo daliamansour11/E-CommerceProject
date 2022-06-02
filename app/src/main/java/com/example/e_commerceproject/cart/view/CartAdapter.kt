@@ -55,8 +55,8 @@ class CartAdapter (private  var context: Context): RecyclerView.Adapter<CartAdap
         var productImage: ImageView = itemView.findViewById(R.id.productImage)
         var productPrice: TextView = itemView.findViewById(R.id.productPrice)
         var productCount : TextView =itemView.findViewById(R.id.productsCount)
-        var incrementBtn : FloatingActionButton =itemView.findViewById(R.id.incrementedfabBtn)
-        var decrementBtn : FloatingActionButton =itemView.findViewById(R.id.decrementedfabBtn)
+        var incrementBtn : Button =itemView.findViewById(R.id.incrementedBtn)
+        var decrementBtn : Button =itemView.findViewById(R.id.decrementedBtn)
 
     }
 
