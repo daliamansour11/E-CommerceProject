@@ -1,7 +1,6 @@
 package com.example.e_commerceproject.brands.view
 
 import android.content.Context
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,6 +9,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.example.e_commerceproject.R
+import com.example.e_commerceproject.home.model.DummyBrandModel
 import com.example.e_commerceproject.profile.view.OnOrderClickListener
 
 
@@ -17,7 +17,7 @@ class BrandsAdapter (var context: Context , val onbrandclicked: OnBrandClicked) 
 
     var dataList = emptyList<BrandsModel>()
 
-    internal fun setDataList(dataList: MutableList<com.example.e_commerceproject.home.model.BrandModel>) {
+    internal fun setDataList(dataList: MutableList<DummyBrandModel>) {
 
     }
 

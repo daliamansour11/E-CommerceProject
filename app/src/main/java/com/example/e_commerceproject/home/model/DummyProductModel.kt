@@ -1,6 +1,6 @@
 package com.example.e_commerceproject.home.model
 
-data class ProductModel(
+data class DummyProductModel(
     var productName:String,
     var productImage: Int,
     var productPrice: String,

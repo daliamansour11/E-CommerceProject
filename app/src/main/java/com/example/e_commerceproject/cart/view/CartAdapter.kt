@@ -9,15 +9,14 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.e_commerceproject.R
-import com.example.e_commerceproject.home.model.ProductModel
-import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.example.e_commerceproject.home.model.DummyProductModel
 
 
 class CartAdapter (private  var context: Context): RecyclerView.Adapter<CartAdapter.ViewHolder>() {
     // define array
-    private var data:List<ProductModel> = ArrayList()
+    private var data:List<DummyProductModel> = ArrayList()
 
-    fun setDataList(data:List<ProductModel>){
+    fun setDataList(data:List<DummyProductModel>){
         this.data=data
     }
 

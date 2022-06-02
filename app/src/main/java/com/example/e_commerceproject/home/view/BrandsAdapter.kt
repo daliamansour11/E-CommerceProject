@@ -8,14 +8,13 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.e_commerceproject.R
 import com.example.e_commerceproject.home.model.BrandModel
 
 
 class BrandsAdapter(private  var context: Context,var onBrandClickListener: OnBrandClickListener): RecyclerView.Adapter<BrandsAdapter.ViewHolder>() {
 
-    //    private var brandname = arrayListOf<String>("Zara","Addidas","polo","Poma")
-//    private var brandImage = arrayOf(R.drawable.dummyproductimage)
     private var data:List<BrandModel> = ArrayList()
 
     fun setDataList(data:List<BrandModel>){
@@ -32,8 +31,9 @@ class BrandsAdapter(private  var context: Context,var onBrandClickListener: OnBr
 
     override fun onBindViewHolder(holder: BrandsAdapter.ViewHolder, position: Int) {
 
-        holder.brandLogo.setImageResource(data[position].brandImage)
-        holder.brandName.text= data[position].brandname
+        var imageSrc = data[position].image.src
+        Glide.with(context).load(imageSrc).into(holder.brandLogo)
+        holder.brandName.text= data[position].title
         holder.brandCard.setOnClickListener{
             onBrandClickListener.OnBrandClick()
         }
