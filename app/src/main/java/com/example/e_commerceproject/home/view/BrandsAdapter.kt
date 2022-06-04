@@ -33,7 +33,7 @@ class BrandsAdapter(private  var context: Context,var onBrandClickListener: OnBr
 
         var imageSrc = data[position].image.src
         Glide.with(context).load(imageSrc).into(holder.brandLogo)
-        holder.brandName.text= data[position].title
+//        holder.brandName.text= data[position].title
         holder.brandCard.setOnClickListener{
             onBrandClickListener.OnBrandClick()
         }

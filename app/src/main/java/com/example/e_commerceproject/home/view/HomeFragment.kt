@@ -7,11 +7,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.Toast
+import androidx.appcompat.widget.SearchView
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.e_commerceproject.R
 import com.example.e_commerceproject.brands.view.BrandsFragment
+import com.example.e_commerceproject.category.view.CategoryFragment
 import com.example.e_commerceproject.common.network.NetworkUtils
 import com.example.e_commerceproject.home.client.HomeClient
 import com.example.e_commerceproject.home.model.HomeRepository
@@ -29,6 +31,7 @@ class HomeFragment : Fragment() , OnBrandClickListener{
     lateinit var homeFragmentView: View
     lateinit var brandLogo: ImageView
     lateinit var profileScreen: ImageView
+    lateinit var searchScreenIcon: ImageView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -74,8 +77,8 @@ class HomeFragment : Fragment() , OnBrandClickListener{
         brandsAdapter= BrandsAdapter(requireContext(), this)
         recyclerView.layoutManager=brandsLinearLayoutManager
         recyclerView.adapter=brandsAdapter
-
         profileScreen=view.findViewById(R.id.profileIconScreen)
+        searchScreenIcon=view.findViewById(R.id.searchIconScreen)
 
         profileScreen.setOnClickListener(View.OnClickListener {
             val fragmentManager=parentFragmentManager
@@ -85,12 +88,20 @@ class HomeFragment : Fragment() , OnBrandClickListener{
             fragmentManager?.beginTransaction()?.replace(R.id.fragmentContainerView, profileFragment)?.commit()
 
         })
+
+        searchScreenIcon.setOnClickListener(View.OnClickListener {
+            val fragmentManager=parentFragmentManager
+            val fragmentTransaction=fragmentManager.beginTransaction()
+
+            val searchFragment = HomeSearchFragment()
+            fragmentManager?.beginTransaction()?.replace(R.id.fragmentContainerView, searchFragment)?.commit()
+        })
     }
 
     override fun OnBrandClick() {
-        val brandsFragment = BrandsFragment()
-        fragmentManager?.beginTransaction()?.replace(R.id.fragmentContainerView, brandsFragment)?.commit()
-        Toast.makeText(requireContext() ,"uyuyhfuyu" , Toast.LENGTH_SHORT ).show()
+        val categoryFragment = CategoryFragment()
+        fragmentManager?.beginTransaction()?.replace(R.id.fragmentContainerView, categoryFragment)?.commit()
+
     }
 
 

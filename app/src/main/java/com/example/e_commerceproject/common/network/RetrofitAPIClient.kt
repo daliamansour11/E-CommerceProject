@@ -20,7 +20,7 @@ class RetrofitAPIClient {
                 logging.setLevel(HttpLoggingInterceptor.Level.BODY)
 
                 var okHttpClient: OkHttpClient = OkHttpClient.Builder()
-                    .addInterceptor(logging)
+//                    .addInterceptor(logging)
                     .addInterceptor(BasicAuthInterceptor(USERNAME, PASSWORD))
                     .readTimeout(60, TimeUnit.SECONDS)
                     .writeTimeout(60, TimeUnit.SECONDS)

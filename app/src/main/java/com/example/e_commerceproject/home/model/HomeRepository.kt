@@ -19,4 +19,8 @@ class HomeRepository private constructor(
     override suspend fun getAllBrands(): List<BrandModel> {
         return remoteSource.getAllBrandResponse()
     }
+
+    override suspend fun getAllProducts(): List<ProductModel> {
+        return remoteSource.getAllProductResponse()
+    }
 }
