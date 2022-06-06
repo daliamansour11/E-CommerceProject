@@ -4,16 +4,16 @@ import com.example.e_commerceproject.R
 
 class DummyData {
     companion object {
-        var BRAND_DATA: ArrayList<BrandModel> = arrayListOf<BrandModel>(
-            BrandModel("Zara", R.drawable.dummyproductimage),
-            BrandModel("Adidas", R.drawable.dummyproductimage),
-            BrandModel("Polo", R.drawable.dummyproductimage),
-            BrandModel("Puma", R.drawable.dummyproductimage)
+        var BRAND_DATA: ArrayList<DummyBrandModel> = arrayListOf<DummyBrandModel>(
+            DummyBrandModel("Zara", R.drawable.dummyproductimage),
+            DummyBrandModel("Adidas", R.drawable.dummyproductimage),
+            DummyBrandModel("Polo", R.drawable.dummyproductimage),
+            DummyBrandModel("Puma", R.drawable.dummyproductimage)
         )
-        var PRODUCT_DATA:ArrayList<ProductModel> =arrayListOf<ProductModel>(
-            ProductModel("",R.drawable.dummyproductimage,"",""),
-            ProductModel("",R.drawable.dummyproductimage,"",""),
-            ProductModel("",R.drawable.dummyproductimage,"","")
+        var PRODUCT_DATA:ArrayList<DummyProductModel> =arrayListOf<DummyProductModel>(
+            DummyProductModel("",R.drawable.dummyproductimage,"",""),
+            DummyProductModel("",R.drawable.dummyproductimage,"",""),
+            DummyProductModel("",R.drawable.dummyproductimage,"","")
         )
     }
 }
