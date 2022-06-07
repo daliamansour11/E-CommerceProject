@@ -8,6 +8,8 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.Toast
 import com.example.e_commerceproject.R
+import com.example.e_commerceproject.profile.model.OrderModel
+import com.google.gson.Gson
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -21,10 +23,12 @@ private const val ARG_PARAM2 = "param2"
  */
 class moreOrdersFragment : Fragment() {
     lateinit var moreorder_back: Button
+    lateinit var orderList:ArrayList<OrderModel>
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.let {
-
+        arguments?.let {bundle->
+            orderList = Gson().fromJson(bundle.getString("orders"), ArrayList::class.java)
+                    as ArrayList<OrderModel>
         }
     }
 

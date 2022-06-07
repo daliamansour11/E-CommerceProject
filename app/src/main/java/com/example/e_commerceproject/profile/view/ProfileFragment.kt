@@ -8,11 +8,19 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.Toast
+import androidx.lifecycle.ViewModelProvider
 import com.example.e_commerceproject.R
 import com.example.e_commerceproject.Settings.view.SettingsFragment
 import com.example.e_commerceproject.athentication.login.view.LoginFragment
 import com.example.e_commerceproject.athentication.register.view.RegisterFragment
+import com.example.e_commerceproject.common.network.NetworkUtils
 import com.example.e_commerceproject.home.view.HomeFragment
+import com.example.e_commerceproject.profile.client.ProfileClient
+import com.example.e_commerceproject.profile.model.OrderModel
+import com.example.e_commerceproject.profile.model.ProfileRepository
+import com.example.e_commerceproject.profile.viewmodel.ProfileViewModel
+import com.example.e_commerceproject.profile.viewmodel.ProfileViewModelFactory
+import com.google.gson.Gson
 
 
 class ProfileFragment : Fragment() {
@@ -22,9 +30,26 @@ class ProfileFragment : Fragment() {
     lateinit var register_btn : Button
     lateinit var profile_back : Button
     lateinit var profile_settings : ImageView
+    lateinit var viewModel: ProfileViewModel
+    lateinit var vmFactory: ProfileViewModelFactory
+    private var orderList:ArrayList<OrderModel> = ArrayList()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
+        }
+        //Getting ViewModel Ready
+        vmFactory = ProfileViewModelFactory(
+            ProfileRepository.getInstance(
+                ProfileClient.getInstance(),
+                requireContext()
+            ))
+        viewModel = ViewModelProvider(this, vmFactory).get(ProfileViewModel::class.java)
+
+        if(NetworkUtils.isOnline(requireContext())){
+            viewModel.getAllOrders()
+        } else {
+            Toast.makeText(requireContext(), "Please Check your network connection", Toast.LENGTH_LONG).show()
         }
     }
 
@@ -44,6 +69,11 @@ class ProfileFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        moreorder_btn.setEnabled(false)
+        viewModel.orderList.observe(viewLifecycleOwner){orders ->
+            orderList = orders as ArrayList<OrderModel>
+            moreorder_btn.setEnabled(true)
+        }
 
         profile_settings.setOnClickListener {
 
@@ -57,6 +87,10 @@ class ProfileFragment : Fragment() {
             override fun onClick(view: View?) {
 
                 val moreOrdersFragment = moreOrdersFragment()
+                val bundle = Bundle()
+
+                bundle.putString("orders", Gson().toJson(orderList))
+                moreOrdersFragment.setArguments(bundle)
                 fragmentManager?.beginTransaction()?.replace(R.id.fragmentContainerView, moreOrdersFragment)?.commit()
                 Toast.makeText(context, "go to moreOrders ", Toast.LENGTH_LONG).show()
 
