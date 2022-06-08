@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".currencyConverter.view.CurrencyDialogFragment">
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="290dp"
+        android:padding="16dp"
+        android:layout_marginTop="200dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardView"
+            android:layout_width="391dp"
+            android:layout_height="260dp"
+            android:layout_margin="10dp"
+            android:layout_marginTop="260dp"
+            app:cardBackgroundColor="#DFDCDC"
+            app:cardCornerRadius="24dp"
+            app:cardElevation="3dp"
+            app:cardMaxElevation="12dp"
+            app:cardUseCompatPadding="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="289dp"
+                android:layout_height="38dp"
+                android:gravity="center"
+                android:layout_margin="20dp"
+                android:layout_marginTop="10dp"
+                android:src="@drawable/ic_baseline_settings_24"
+                android:text="Choose Currency"
+                android:textStyle="bold"
+                android:textSize="20sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+            <LinearLayout
+                android:layout_width="317dp"
+                android:layout_height="180dp"
+                android:layout_margin="20dp"
+                android:orientation="horizontal"
+                android:weightSum="2">
+
+                <Button
+                    android:id="@+id/Usd_currency"
+                    android:layout_width="130dp"
+                    android:layout_height="49dp"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginTop="65dp"
+                    android:layout_marginRight="20dp"
+                    android:gravity="center"
+                    android:text="USD"
+                    android:textSize="20sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+                <Button
+                    android:id="@+id/Egp_currency"
+                    android:layout_width="117dp"
+                    android:layout_height="49dp"
+                    android:layout_marginLeft="40dp"
+                    android:layout_marginTop="65dp"
+                    android:layout_marginEnd="156dp"
+                    android:gravity="center"
+                    android:src="@drawable/ic_baseline_settings_24"
+                    android:text="EGP"
+                    android:textSize="20sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/btn_ok"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="150dp"
+                android:layout_marginTop="150dp"
+                android:text="ok"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.223"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/initalnitifiacte" />
+
+
+
+        </androidx.cardview.widget.CardView>
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

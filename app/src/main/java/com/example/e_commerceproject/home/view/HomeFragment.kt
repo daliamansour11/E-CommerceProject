@@ -1,5 +1,7 @@
 package com.example.e_commerceproject.home.view
 
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -11,12 +13,16 @@ import androidx.appcompat.widget.SearchView
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.viewpager.widget.ViewPager
 import com.example.e_commerceproject.R
 import com.example.e_commerceproject.brands.view.BrandsFragment
 import com.example.e_commerceproject.category.view.CategoryFragment
 import com.example.e_commerceproject.common.network.NetworkUtils
+import com.example.e_commerceproject.currencyConverter.view.CURRUNEY_TYPE
+import com.example.e_commerceproject.currencyConverter.view.SHARD_NAME
 import com.example.e_commerceproject.home.client.HomeClient
 import com.example.e_commerceproject.home.model.HomeRepository
+import com.example.e_commerceproject.home.model.ViewPagerAdapter
 import com.example.e_commerceproject.home.viewmodel.HomeViewModel
 import com.example.e_commerceproject.home.viewmodel.HomeViewModelFactory
 import com.example.e_commerceproject.profile.view.ProfileFragment
@@ -32,15 +38,28 @@ class HomeFragment : Fragment() , OnBrandClickListener{
     lateinit var brandLogo: ImageView
     lateinit var profileScreen: ImageView
     lateinit var searchScreenIcon: ImageView
+    var viewPager: ViewPager? =null
+    lateinit var viewPagerAdapter: ViewPagerAdapter
+    lateinit var imageList: List<Int>
+    lateinit var sharedPref: SharedPreferences
+    lateinit var editor: SharedPreferences.Editor
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        sharedPref = requireActivity().getSharedPreferences(SHARD_NAME, Context.MODE_PRIVATE)
+        editor = sharedPref.edit()
+        val sharedPref =requireActivity() .getSharedPreferences(SHARD_NAME, Context.MODE_PRIVATE) ?: return
+        val str_name = sharedPref.getString(CURRUNEY_TYPE, "")
+
+        System.out.println("name = "+str_name)
+        //Toast.makeText(this, "$str_name $int_number", Toast.LENGTH_LONG).show()
         //Getting ViewModel Ready
         vmFactory = HomeViewModelFactory(
             HomeRepository.getInstance(
                 HomeClient.getInstance(),
                 requireContext()
-        ))
+            ))
         viewModel = ViewModelProvider(this, vmFactory).get(HomeViewModel::class.java)
 
         if(NetworkUtils.isOnline(requireContext())){
@@ -54,7 +73,14 @@ class HomeFragment : Fragment() , OnBrandClickListener{
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle? ): View? {
 
         // Inflate the layout for this fragment
+//        val name= sharedPref.getString("CURRUNEY_TYPE","")
+//        System.out.println("name="+name)
+//        Log.i("\n\n viewModel","---------------------------"+name+"\n\n")
+//
+
         homeFragmentView = inflater.inflate(R.layout.fragment_home, container, false)
+
+        viewPager = homeFragmentView.findViewById(R.id.idViewPager) as ViewPager
         return homeFragmentView
 
     }
@@ -67,6 +93,27 @@ class HomeFragment : Fragment() , OnBrandClickListener{
             brandsAdapter.notifyDataSetChanged()
         }
 
+        imageList = ArrayList<Int>()
+        imageList = imageList + R.drawable.ads1
+        imageList = imageList + R.drawable.ads2
+        imageList = imageList + R.drawable.ads3
+        imageList = imageList + R.drawable.ads4
+        imageList = imageList + R.drawable.ads5
+        imageList = imageList + R.drawable.ads6
+        imageList = imageList + R.drawable.ads7
+        imageList = imageList + R.drawable.ads8
+        imageList = imageList + R.drawable.ads9
+
+        viewPagerAdapter = ViewPagerAdapter(requireContext(), imageList)
+        viewPager!!.adapter = viewPagerAdapter
+
+        // on below line we are initializing our view
+        // pager adapter and adding image list to it.
+        //  viewPagerAdapter = ViewPagerAdapter(this, imageList)
+
+        // on below line we are setting
+        // adapter to our view pager.
+        //  viewPager.adapter = viewPagerAdapter
 
     }
 

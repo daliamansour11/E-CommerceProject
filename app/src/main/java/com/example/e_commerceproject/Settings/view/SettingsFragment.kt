@@ -7,8 +7,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.Toast
+import com.example.e_commerceproject.AboutFragment
 import com.example.e_commerceproject.R
 import com.example.e_commerceproject.address.view.AddressFragment
+import com.example.e_commerceproject.currencyConverter.view.CurrencydiologFragment
 import com.example.e_commerceproject.profile.view.ProfileFragment
 
 class SettingsFragment : Fragment() {
@@ -65,12 +67,13 @@ class SettingsFragment : Fragment() {
 
         }
 
+
         navigateToCurrencyScreenBtn = settingsFragmentView.findViewById(R.id.navigateToCurrencyScreenBtn)
         navigateToCurrencyScreenBtn.setOnClickListener {
 
-//            val profileFragment = ProfileFragment()
-//            fragmentManager?.beginTransaction()?.replace(R.id.fragmentContainerView, profileFragment)?.commit()
-//            Toast.makeText(requireContext() ,"uyuyhfuyu" , Toast.LENGTH_SHORT ).show()
+            val currency_fragment =CurrencydiologFragment()
+            fragmentManager?.beginTransaction()?.replace(R.id.fragmentContainerView, currency_fragment)?.commit()
+            Toast.makeText(requireContext() ,"currency dialog" , Toast.LENGTH_SHORT ).show()
 
         }
 
@@ -79,16 +82,16 @@ class SettingsFragment : Fragment() {
 
 //            val profileFragment = ProfileFragment()
 //            fragmentManager?.beginTransaction()?.replace(R.id.fragmentContainerView, profileFragment)?.commit()
-             Toast.makeText(requireContext() ,"uyuyhfuyu" , Toast.LENGTH_SHORT ).show()
+            Toast.makeText(requireContext() ,"uyuyhfuyu" , Toast.LENGTH_SHORT ).show()
 
         }
 
         navigateToaboutScreenBtn = settingsFragmentView.findViewById(R.id.navigateToaboutScreenBtn)
         navigateToaboutScreenBtn.setOnClickListener {
 
-//            val profileFragment = ProfileFragment()
-//            fragmentManager?.beginTransaction()?.replace(R.id.fragmentContainerView, profileFragment)?.commit()
-              Toast.makeText(requireContext() ,"uyuyhfuyu" , Toast.LENGTH_SHORT ).show()
+            val about_fragment = AboutFragment()
+            fragmentManager?.beginTransaction()?.replace(R.id.fragmentContainerView,about_fragment )?.commit()
+            Toast.makeText(requireContext() ,"uyuyhfuyu" , Toast.LENGTH_SHORT ).show()
 
         }
 
