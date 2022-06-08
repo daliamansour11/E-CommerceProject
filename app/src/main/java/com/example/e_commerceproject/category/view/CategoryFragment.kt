@@ -7,9 +7,11 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import android.widget.Toolbar
 import androidx.appcompat.widget.SearchView
+import androidx.core.view.get
 import androidx.viewpager.widget.ViewPager
 import com.example.e_commerceproject.R
 import com.example.e_commerceproject.category.model.CategoriesModel
+import com.example.e_commerceproject.category.view.adapters.ViewPagerAdapter
 import com.example.e_commerceproject.category.view.adapters.MyAdapter
 import com.google.android.material.tabs.TabLayout
 
@@ -41,23 +43,34 @@ class CategoryFragment : Fragment()  {
 
         tabLayout = view.findViewById(R.id.tabLayout)
         viewPager = view.findViewById(R.id.viewPager)
-        tabLayout.addTab(tabLayout.newTab().setText("Football"))
-        tabLayout.addTab(tabLayout.newTab().setText("Cricket"))
-        tabLayout.addTab(tabLayout.newTab().setText("NBA"))
+
+
+
+        tabLayout.addTab(tabLayout.newTab().setText("Women"))
+        tabLayout.addTab(tabLayout.newTab().setText("Kids"))
+        tabLayout.addTab(tabLayout.newTab().setText("Men"))
+
         tabLayout.tabGravity = TabLayout.GRAVITY_FILL
-        val adapter = getFragmentManager()?.let {
-            MyAdapter(requireContext(), it,
-                tabLayout.tabCount)
-        }
+        // val adapter = getFragmentManager()?.let { MyAdapter(requireContext(), it, tabLayout.tabCount) }
+        val adapter = fragmentManager?.let { MyAdapter(requireContext(), it, tabLayout.tabCount) }
+        //val adapter = MyAdapter(requireContext(), childFragmentManager, tabLayout.tabCount)
         viewPager.adapter = adapter
         viewPager.addOnPageChangeListener(TabLayout.TabLayoutOnPageChangeListener(tabLayout))
         tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab) {
                 viewPager.currentItem = tab.position
             }
-            override fun onTabUnselected(tab: TabLayout.Tab) {}
-            override fun onTabReselected(tab: TabLayout.Tab) {}
+            override fun onTabUnselected(tab: TabLayout.Tab) {
+
+            }
+            override fun onTabReselected(tab: TabLayout.Tab) {
+                viewPager.currentItem = tab.position
+            }
+
         })
+
+
+
     }
 
 
@@ -82,6 +95,7 @@ class CategoryFragment : Fragment()  {
                 return true
             }
         })
+
         return super.onCreateOptionsMenu(menu , inflater)
 
     }
