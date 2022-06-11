@@ -15,4 +15,7 @@
     <string name="totalprice">Total price</string>
     <string name="pay">Pay</string>
     <string name="homeToolBarTitle">Shopify</string>
+    <string name="orders">Orders</string>
+    <string name="more">More</string>
+    <string name="order">My Orders</string>
 </resources>

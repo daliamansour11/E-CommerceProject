@@ -9,7 +9,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.e_commerceproject.R
-import com.example.e_commerceproject.home.model.DummyProductModel
+import com.example.e_commerceproject.common.model.DummyProductModel
 
 
 class CartAdapter (private  var context: Context): RecyclerView.Adapter<CartAdapter.ViewHolder>() {

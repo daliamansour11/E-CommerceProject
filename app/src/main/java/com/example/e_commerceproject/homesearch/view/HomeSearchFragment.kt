@@ -1,4 +1,4 @@
-package com.example.e_commerceproject.home.view
+package com.example.e_commerceproject.homesearch.view
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -11,15 +11,14 @@ import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.e_commerceproject.home.viewmodel.HomeSearchViewModel
+import com.example.e_commerceproject.homesearch.viewmodel.HomeSearchViewModel
 import com.example.e_commerceproject.R
 import com.example.e_commerceproject.common.network.NetworkUtils
-import com.example.e_commerceproject.home.client.HomeClient
-import com.example.e_commerceproject.home.model.HomeRepository
-import com.example.e_commerceproject.home.model.ProductModel
-import com.example.e_commerceproject.home.viewmodel.HomeSearchViewModelFactory
-import com.example.e_commerceproject.home.viewmodel.HomeViewModelFactory
-import java.util.function.Predicate
+import com.example.e_commerceproject.homesearch.client.HomeSearchClient
+import com.example.e_commerceproject.homesearch.model.HomeSearchRepository
+import com.example.e_commerceproject.homesearch.model.ProductModel
+import com.example.e_commerceproject.home.view.HomeFragment
+import com.example.e_commerceproject.homesearch.viewmodel.HomeSearchViewModelFactory
 import kotlin.streams.toList
 
 class HomeSearchFragment : Fragment(){
@@ -31,6 +30,7 @@ class HomeSearchFragment : Fragment(){
     lateinit var homeSearchFragmentView: View
     lateinit var productImage: ImageView
     lateinit var searchView: SearchView
+    lateinit var homeSearchArrowBack:ImageView
     private var productList:List<ProductModel> = ArrayList()
 
 
@@ -38,8 +38,8 @@ class HomeSearchFragment : Fragment(){
         super.onCreate(savedInstanceState)
         //Getting ViewModel Ready
         vmFactory = HomeSearchViewModelFactory(
-            HomeRepository.getInstance(
-                HomeClient.getInstance(),
+            HomeSearchRepository.getInstance(
+                HomeSearchClient.getInstance(),
                 requireContext()
             ))
         viewModel = ViewModelProvider(this, vmFactory).get(HomeSearchViewModel::class.java)
@@ -56,6 +56,7 @@ class HomeSearchFragment : Fragment(){
 
         // Inflate the layout for this fragment
         homeSearchFragmentView = inflater.inflate(R.layout.fragment_home_search, container, false)
+        homeSearchArrowBack = homeSearchFragmentView.findViewById(R.id.homeSearchArrowBack)
         return homeSearchFragmentView
 
     }
@@ -65,8 +66,8 @@ class HomeSearchFragment : Fragment(){
         initUI(view)
         viewModel.productList.observe(viewLifecycleOwner){products ->
             productList = products
-            homeSearchAdapter.setDataList(products)
-            homeSearchAdapter.notifyDataSetChanged()
+//            homeSearchAdapter.setDataList(products)
+//            homeSearchAdapter.notifyDataSetChanged()
         }
 
 
@@ -82,6 +83,18 @@ class HomeSearchFragment : Fragment(){
 
         searchView= view.findViewById(R.id.homeSearchView)
 
+        homeSearchArrowBack.setOnClickListener(object : View.OnClickListener {
+            override fun onClick(view: View?) {
+
+                var bundle = Bundle()
+                val df = HomeFragment()
+                df.arguments = bundle
+                fragmentManager?.beginTransaction()?.replace(R.id.fragmentContainerView, df)
+                    ?.commit()
+            }
+
+
+        })
 
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
@@ -99,7 +112,12 @@ class HomeSearchFragment : Fragment(){
                 return false
             }
             override fun onQueryTextChange(newText: String?): Boolean {
-
+                if (newText != null && newText.length==0) {
+                    homeSearchAdapter.setDataList(emptyList<ProductModel>())
+                    homeSearchAdapter.notifyDataSetChanged()
+                    searchView.clearFocus()
+                    return true
+                }
                 return false
             }
         })

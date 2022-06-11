@@ -9,7 +9,7 @@
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="4dp"
+        android:layout_marginTop="10dp"
         app:cardCornerRadius="8dp"
         app:cardElevation="8dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -28,11 +28,11 @@
                 style="@style/Widget.App.Button.OutlinedButton.IconOnly"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="10dp"
                 android:background="@color/white"
                 app:icon="@drawable/favorite_24"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.842"
+                app:layout_constraintHorizontal_bias="0.95"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:ignore="SpeakableTextPresentCheck" />
@@ -40,7 +40,7 @@
             <ImageView
                 android:id="@+id/homeProductimageView"
                 android:layout_width="100dp"
-                android:layout_height="match_parent"
+                android:layout_height="150dp"
                 android:src="@drawable/online"
                 android:layout_marginLeft="8dp"
                 android:layout_marginTop="5dp"
@@ -53,11 +53,10 @@
                 android:id="@+id/homeProductName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="70dp"
+                android:layout_marginTop="50dp"
                 android:text="ProductName"
-                android:textSize="20dp"
+                android:textSize="17sp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.208"
                 app:layout_constraintStart_toEndOf="@+id/homeProductimageView"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -66,12 +65,12 @@
 
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="70dp"
+                android:layout_marginTop="10dp"
                 android:text="product price"
-                android:textSize="20dp"
+                android:textSize="17sp"
+                app:layout_constraintTop_toBottomOf="@+id/homeProductName"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.208"
                 app:layout_constraintStart_toEndOf="@+id/homeProductimageView" />
 
 

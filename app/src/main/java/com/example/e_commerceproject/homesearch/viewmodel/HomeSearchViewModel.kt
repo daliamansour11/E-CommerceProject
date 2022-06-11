@@ -1,17 +1,17 @@
-package com.example.e_commerceproject.home.viewmodel
+package com.example.e_commerceproject.homesearch.viewmodel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.e_commerceproject.home.model.ProductModel
-import com.example.e_commerceproject.home.model.HomeRepositoryInterface
+import com.example.e_commerceproject.homesearch.model.ProductModel
+import com.example.e_commerceproject.homesearch.model.HomeSearchRepositoryInterface
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class HomeSearchViewModel (iRepo: HomeRepositoryInterface) : ViewModel() {
+class HomeSearchViewModel (iRepo: HomeSearchRepositoryInterface) : ViewModel() {
 
-    private val homeRepo: HomeRepositoryInterface = iRepo
+    private val homeRepo: HomeSearchRepositoryInterface = iRepo
     val productList = MutableLiveData<List<ProductModel>>()
 
     fun getAllProducts(){
