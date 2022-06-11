@@ -64,7 +64,7 @@ class CategoryAdapter (var context: Context , val onProductClickInterface: OnPro
              .into(holder.image)
 
          holder.productitemview.setOnClickListener {
-            onProductClickInterface.onProductClick()
+            onProductClickInterface.onProductClick(data.id)
 
         }
 

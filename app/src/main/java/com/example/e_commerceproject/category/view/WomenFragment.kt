@@ -1,5 +1,6 @@
 package com.example.e_commerceproject.category.view
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -19,6 +20,7 @@ import com.example.e_commerceproject.category.viewmodel.CategoryViewModel
 import com.example.e_commerceproject.category.viewmodel.CategoryViewModelFactory
 import com.example.e_commerceproject.data.CategoryRepository
 import com.example.e_commerceproject.data.remotesource.RetrofitService
+import com.example.e_commerceproject.details.view.DetailsActivity
 import com.example.e_commerceproject.details.view.DetailsFragment
 import com.example.e_commerceproject.home.client.HomeClient
 import com.example.e_commerceproject.home.model.HomeRepository
@@ -70,7 +72,7 @@ class WomenFragment : Fragment(), OnProductClickInterface {
         ).get(CategoryViewModel::class.java)
         viewModel.getCategoryProduct("273053712523", "", "")
         viewModel.categoryList.observe(viewLifecycleOwner, {
-            Log.i("TAG", "onViewCreated:rrrrrrrrrrrr ${it}")
+            //Log.i("TAG", "onViewCreated:rrrrrrrrrrrr ${it}")
             categoryAdapter.setlist(it.products)
             categoryAdapter.notifyDataSetChanged()
 
@@ -101,11 +103,19 @@ class WomenFragment : Fragment(), OnProductClickInterface {
         }
     }
 
-    override fun onProductClick() {
+    override fun onProductClick(id :Long) {
         Toast.makeText(requireContext(), "iui", Toast.LENGTH_SHORT).show()
+        var bundle = Bundle()
+        bundle.putLong("productid" , id)
+
         val detailsfragment = DetailsFragment()
-        fragmentManager?.beginTransaction()?.replace(R.id.fragmentContainerView, detailsfragment)
-            ?.commit()
+        detailsfragment.arguments = bundle
+        fragmentManager?.beginTransaction()?.replace(R.id.fragmentContainerView, detailsfragment)?.commit()
+
+
+//        val intent = Intent(getActivity(), DetailsActivity::class.java)
+//        intent.putExtra("id" , 1)
+//        getActivity()?.startActivity(intent)
 
     }
 

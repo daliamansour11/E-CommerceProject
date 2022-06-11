@@ -1,6 +1,7 @@
 package com.example.e_commerceproject.data.remotesource
 
 import com.example.e_commerceproject.category.model.CategoryModel
+import com.example.e_commerceproject.details.model.DetailsProductModel
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -10,6 +11,13 @@ import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface RetrofitService {
+
+    @Headers(
+        "Accept: application/json",
+        "X-Shopify-Access-Token: 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",
+    )
+    @GET("products/{product_id}.json")
+    suspend fun getProductInfo(@Path("product_id") product_id: String) : Response<DetailsProductModel>
 
     @GET("collections/{{collection_id}}/products.json")
     suspend fun getProductOfCategory(@Path("{collection_id}") categoryId: Long) : Response<CategoryModel>
