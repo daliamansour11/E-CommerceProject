@@ -66,7 +66,7 @@ class MenFragment : Fragment(), OnProductClickInterface {
         ).get(CategoryViewModel::class.java)
         viewModel.getCategoryProduct("273053679755", "", "")
         viewModel.categoryList.observe(viewLifecycleOwner, {
-            Log.i("TAG", "onViewCreated:rrrrrrrrrrrr ${it}")
+            //Log.i("TAG", "onViewCreated:rrrrrrrrrrrr ${it}")
             categoryAdapter.setlist(it.products)
             categoryAdapter.notifyDataSetChanged()
 
@@ -98,11 +98,12 @@ class MenFragment : Fragment(), OnProductClickInterface {
 
     }
 
-    override fun onProductClick() {
+    override fun onProductClick(id : Long) {
+        var bundle = Bundle()
+        bundle.putLong("productid" , id)
         val detailsfragment = DetailsFragment()
-        fragmentManager?.beginTransaction()?.replace(R.id.fragmentContainerView, detailsfragment)
-            ?.commit()
-        Toast.makeText(requireContext(), "iui", Toast.LENGTH_SHORT).show()
-    }
+        detailsfragment.arguments = bundle
+        fragmentManager?.beginTransaction()?.replace(R.id.fragmentContainerView, detailsfragment)?.commit()
+        }
 
 }

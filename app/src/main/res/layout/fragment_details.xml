@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".details.view.DetailsFragment"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    tools:context=".details.view.DetailsFragment">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/detailscardview"
@@ -15,12 +15,21 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
+            <androidx.viewpager2.widget.ViewPager2
+                android:id="@+id/images_viewpager2"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"/>
+
+            <!--
             <ImageView
+                android:id="@+id/details_images"
                 android:layout_width="242dp"
                 android:layout_height="164dp"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -29,9 +38,23 @@
                 app:layout_constraintTop_toTopOf="parent"
                 android:src="@drawable/online"/>
 
+            -->
 
+            <!--
+                                    <ImageSwitcher
+                                        android:id="@+id/details_image_switcher"
+                                        android:layout_width="242dp"
+                                        android:layout_height="164dp"
+                                        android:inAnimation="@android:anim/slide_in_left"
+                                        android:outAnimation="@android:anim/slide_out_right"
+                                        app:layout_constraintBottom_toBottomOf="parent"
+                                        app:layout_constraintEnd_toStartOf="@+id/details_image_next_obtn"
+                                        app:layout_constraintStart_toEndOf="@+id/details_image_prev_obtn"
+                                        app:layout_constraintTop_toTopOf="parent"
+                                        android:src="@drawable/online" />
+                        -->
             <Button
-                android:id="@+id/navigatephotobtn"
+                android:id="@+id/details_image_prev_obtn"
                 style="@style/Widget.App.Button.OutlinedButton.IconOnly"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -44,7 +67,7 @@
 
 
             <Button
-                android:id="@+id/navigatephotobtn2"
+                android:id="@+id/details_image_next_obtn"
                 style="@style/Widget.App.Button.OutlinedButton.IconOnly"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -77,35 +100,37 @@
             android:layout_height="wrap_content">
 
             <TextView
-                android:id="@+id/textView42"
+                android:id="@+id/producct_name_details"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
                 android:text="Name"
-                app:layout_constraintBottom_toTopOf="@+id/textView69"
+                app:layout_constraintBottom_toTopOf="@+id/product_price_details"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.155"
                 app:layout_constraintStart_toStartOf="parent" />
 
             <TextView
-                android:id="@+id/textView69"
+                android:id="@+id/product_price_details"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
                 android:layout_marginStart="35dp"
                 android:text="price"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@id/ratingbar"
+                app:layout_constraintEnd_toStartOf="@id/product_ratingbar_details"
                 app:layout_constraintStart_toStartOf="parent" />
 
             <RatingBar
-                android:id="@+id/ratingbar"
-                android:layout_width="170dp"
-                android:layout_height="45dp"
+                android:id="@+id/product_ratingbar_details"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
+                android:numStars="4"
+                android:stepSize=".25"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.898"
-                app:layout_constraintStart_toEndOf="@+id/textView69"
+                app:layout_constraintStart_toEndOf="@+id/product_price_details"
                 app:layout_constraintTop_toTopOf="parent" />
 
 
@@ -117,8 +142,8 @@
         android:id="@+id/scrollview"
         android:layout_width="match_parent"
         android:layout_height="300dp"
-        android:padding="10dp"
         android:layout_margin="20dp"
+        android:padding="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/detailscardviewl">
@@ -145,7 +170,7 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
-                    android:id="@+id/textView9"
+                    android:id="@+id/product_description_for_details"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="20dp"
