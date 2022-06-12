@@ -9,13 +9,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.Toast
-import androidx.appcompat.widget.SearchView
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager.widget.ViewPager
 import com.example.e_commerceproject.R
-import com.example.e_commerceproject.brands.view.BrandsFragment
 import com.example.e_commerceproject.category.view.CategoryFragment
 import com.example.e_commerceproject.common.network.NetworkUtils
 import com.example.e_commerceproject.currencyConverter.view.CURRUNEY_TYPE
@@ -25,6 +23,7 @@ import com.example.e_commerceproject.home.model.HomeRepository
 import com.example.e_commerceproject.home.model.ViewPagerAdapter
 import com.example.e_commerceproject.home.viewmodel.HomeViewModel
 import com.example.e_commerceproject.home.viewmodel.HomeViewModelFactory
+import com.example.e_commerceproject.homesearch.view.HomeSearchFragment
 import com.example.e_commerceproject.profile.view.ProfileFragment
 
 

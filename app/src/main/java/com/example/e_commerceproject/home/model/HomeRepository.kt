@@ -20,7 +20,4 @@ class HomeRepository private constructor(
         return remoteSource.getAllBrandResponse()
     }
 
-    override suspend fun getAllProducts(): List<ProductModel> {
-        return remoteSource.getAllProductResponse()
-    }
 }
