@@ -11,7 +11,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.e_commerceproject.PaymentFragment
 import com.example.e_commerceproject.R
-import com.example.e_commerceproject.athentication.register.view.RegisterFragment
 import com.example.e_commerceproject.home.model.DummyData
 
 class CartFragment : Fragment() {
