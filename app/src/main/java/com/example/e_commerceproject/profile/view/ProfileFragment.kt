@@ -79,8 +79,8 @@ class ProfileFragment : Fragment() {
         welcome_text = profile_frg.findViewById(R.id.welcome_text)
         //register_btn = profile_frg.findViewById(R.id.register_btn)
         //register_btn = profile_frg.findViewById(R.id.registerBtn)
-        priceTextView = profile_frg.findViewById(R.id.priceTextView)
-        dateOfOrderTxtView = profile_frg.findViewById(R.id.dateOfOrderTxtView)
+        priceTextView = profile_frg.findViewById(R.id.order_price1)
+        dateOfOrderTxtView = profile_frg.findViewById(R.id.order_date)
 
         return profile_frg  }
 

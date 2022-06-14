@@ -11,14 +11,21 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.e_commerceproject.R
+import com.example.e_commerceproject.category.model.CategoriesModel
+import com.example.e_commerceproject.category.model.CategoryModel
+import com.example.e_commerceproject.category.model.Product
 import com.example.e_commerceproject.category.view.adapters.CategoryAdapter
 import com.example.e_commerceproject.category.viewmodel.CategoryViewModel
 import com.example.e_commerceproject.category.viewmodel.CategoryViewModelFactory
 import com.example.e_commerceproject.network.CategoryRepository
 import com.example.e_commerceproject.network.remotesource.RetrofitService
 import com.example.e_commerceproject.details.view.DetailsFragment
+import com.example.e_commerceproject.home.client.HomeClient
+import com.example.e_commerceproject.home.model.HomeRepository
+import com.example.e_commerceproject.home.viewmodel.HomeViewModelFactory
+import kotlin.streams.toList
 
-class WomenFragment : Fragment(), OnProductClickInterface {
+class WomenFragment : Fragment(), OnProductClickInterface, OnSearchClickListener {
 
     private lateinit var categoryAdapter: CategoryAdapter
     lateinit var recyclerView: RecyclerView;
@@ -27,6 +34,7 @@ class WomenFragment : Fragment(), OnProductClickInterface {
     lateinit var shosebtn: Button;
     lateinit var accessoriesbtn: Button;
     lateinit var t_shirtbtn: Button;
+    var productList: List<Product> = ArrayList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -65,6 +73,7 @@ class WomenFragment : Fragment(), OnProductClickInterface {
         viewModel.getCategoryProduct("273053712523", "", "")
         viewModel.categoryList.observe(viewLifecycleOwner, {
             //Log.i("TAG", "onViewCreated:rrrrrrrrrrrr ${it}")
+            productList = it.products
             categoryAdapter.setlist(it.products)
             categoryAdapter.notifyDataSetChanged()
 
@@ -73,6 +82,7 @@ class WomenFragment : Fragment(), OnProductClickInterface {
         shosebtn.setOnClickListener {
             viewModel.getCategoryProduct("273053712523", "SHOES", "")
             viewModel.subCategoryList.observe(viewLifecycleOwner, {
+                productList = it.products
                 categoryAdapter.setlist(it.products)
                 categoryAdapter.notifyDataSetChanged()
             })
@@ -81,6 +91,7 @@ class WomenFragment : Fragment(), OnProductClickInterface {
         accessoriesbtn.setOnClickListener {
             viewModel.getCategoryProduct("273053712523", "ACCESSORIES", "")
             viewModel.subCategoryList.observe(viewLifecycleOwner, {
+                productList = it.products
                 categoryAdapter.setlist(it.products)
                 categoryAdapter.notifyDataSetChanged()
             })
@@ -89,6 +100,7 @@ class WomenFragment : Fragment(), OnProductClickInterface {
         t_shirtbtn.setOnClickListener {
             viewModel.getCategoryProduct("273053712523", "T-SHIRTS", "")
             viewModel.subCategoryList.observe(viewLifecycleOwner, {
+                productList = it.products
                 categoryAdapter.setlist(it.products)
                 categoryAdapter.notifyDataSetChanged()
             })
@@ -109,6 +121,29 @@ class WomenFragment : Fragment(), OnProductClickInterface {
 //        intent.putExtra("id" , 1)
 //        getActivity()?.startActivity(intent)
 
+    }
+
+    override fun onQueryTextSubmit(query: String?): Boolean {
+        if (query != null) {
+            var filteredProductList = productList.stream().filter { product ->
+
+                product.title.lowercase().contains(query.lowercase())
+
+            }.toList()
+            categoryAdapter.setlist(filteredProductList)
+            categoryAdapter.notifyDataSetChanged()
+            return true
+        }
+        return false
+    }
+
+    override fun onQueryTextChange(newText: String?): Boolean {
+        if (newText != null && newText.length==0) {
+            categoryAdapter.setlist(emptyList<Product>())
+            categoryAdapter.notifyDataSetChanged()
+            return true
+        }
+        return false
     }
 
 }

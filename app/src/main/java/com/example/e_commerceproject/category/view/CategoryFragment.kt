@@ -20,6 +20,8 @@ class CategoryFragment : Fragment()  {
     lateinit var toolbar: Toolbar
     lateinit var tabLayout: TabLayout
     lateinit var viewPager: ViewPager
+    lateinit var searchClickListener: OnSearchClickListener
+    var tabs: ArrayList<Fragment> = ArrayList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,6 +39,10 @@ class CategoryFragment : Fragment()  {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        tabs.add(WomenFragment())
+        tabs.add(MenFragment())
+        tabs.add(KidsFragment())
+        searchClickListener = tabs.get(0) as OnSearchClickListener
         //  toolbar =
 
         val title = "KotlinApp"
@@ -52,19 +58,21 @@ class CategoryFragment : Fragment()  {
 
         tabLayout.tabGravity = TabLayout.GRAVITY_FILL
         // val adapter = getFragmentManager()?.let { MyAdapter(requireContext(), it, tabLayout.tabCount) }
-        val adapter = fragmentManager?.let { MyAdapter(requireContext(), it, tabLayout.tabCount) }
+        val adapter = fragmentManager?.let { MyAdapter(requireContext(), it, tabLayout.tabCount,tabs) }
         //val adapter = MyAdapter(requireContext(), childFragmentManager, tabLayout.tabCount)
         viewPager.adapter = adapter
         viewPager.addOnPageChangeListener(TabLayout.TabLayoutOnPageChangeListener(tabLayout))
         tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab) {
                 viewPager.currentItem = tab.position
+                searchClickListener = tabs.get(tab.position) as OnSearchClickListener
             }
             override fun onTabUnselected(tab: TabLayout.Tab) {
 
             }
             override fun onTabReselected(tab: TabLayout.Tab) {
                 viewPager.currentItem = tab.position
+                searchClickListener = tabs.get(tab.position) as OnSearchClickListener
             }
 
         })
@@ -88,11 +96,10 @@ class CategoryFragment : Fragment()  {
         searchView.queryHint = "Search"
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
-                return false
+                return searchClickListener.onQueryTextSubmit(query)
             }
             override fun onQueryTextChange(newText: String?): Boolean {
-
-                return true
+                return searchClickListener.onQueryTextChange(newText)
             }
         })
 
