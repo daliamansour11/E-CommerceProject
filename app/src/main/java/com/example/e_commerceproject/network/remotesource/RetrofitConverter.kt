@@ -1,4 +1,4 @@
-package com.example.e_commerceproject.data.remotesource
+package com.example.e_commerceproject.network.remotesource
 
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory

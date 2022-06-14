@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.e_commerceproject.currencyConverter.model.ConverterModel
-import com.example.e_commerceproject.data.ConverterRepoInterface
+import com.example.e_commerceproject.network.ConverterRepoInterface
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext

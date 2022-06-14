@@ -2,7 +2,7 @@ package com.example.e_commerceproject.currencyConverter.viewModel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.example.e_commerceproject.data.ConverterRepoInterface
+import com.example.e_commerceproject.network.ConverterRepoInterface
 import java.lang.IllegalArgumentException
 
 class ConverterViewModelFactory (private val _iRepo: ConverterRepoInterface) :

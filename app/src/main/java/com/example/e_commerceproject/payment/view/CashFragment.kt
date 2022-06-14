@@ -1,18 +1,37 @@
 package com.example.e_commerceproject.payment.view
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.Toast
+import android.widget.*
+import androidx.lifecycle.ViewModelProvider
 import com.example.e_commerceproject.R
+import com.example.e_commerceproject.details.viewmodel.DetailsViewModel
+import com.example.e_commerceproject.details.viewmodel.DetailsViewModelFactory
+import com.example.e_commerceproject.network.remotesource.CouponsRepository
+import com.example.e_commerceproject.network.remotesource.DetailsRepository
+import com.example.e_commerceproject.network.remotesource.RetrofitService
+import com.example.e_commerceproject.payment.viewModel.CashViewModel
+import com.example.e_commerceproject.payment.viewModel.CashViewModelFactory
+import com.example.e_commerceproject.profile.view.ProfileFragment
 
 
 class CashFragment : Fragment() {
 
     lateinit var placeorderbtn : Button
+    lateinit var validate_btn : TextView
+    lateinit var back_arrow : ImageView
+ lateinit var   coupons: EditText
+ lateinit var   subTotal: TextView
+ lateinit var   shippingfees: TextView
+ lateinit var   discount: TextView
+ lateinit var   totalprice: TextView
+  lateinit var viewModel :CashViewModel
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -27,16 +46,36 @@ class CashFragment : Fragment() {
         // Inflate the layout for this fragment
         var cashFrag=  inflater.inflate(R.layout.fragment_cash, container, false)
         placeorderbtn = cashFrag.findViewById(R.id.placeorder_btn)
+        back_arrow = cashFrag.findViewById(R.id.cash_backarrow)
+        subTotal= cashFrag.findViewById(R.id.subtotal)
+        shippingfees= cashFrag.findViewById(R.id.shippingfee)
+        discount= cashFrag.findViewById(R.id.discount_cost)
+        totalprice= cashFrag.findViewById(R.id.totalprice)
+
+        validate_btn= cashFrag.findViewById(R.id.validate)
         return cashFrag
+        coupons= cashFrag.findViewById(R.id.Coupon)
+
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        val retrofitService = RetrofitService.getInstance()
+        val mRepository = CouponsRepository(retrofitService)
+
+        viewModel = ViewModelProvider(this, CashViewModelFactory(mRepository)).get(CashViewModel::class.java)
+        viewModel.getMyCoupons()
         placeorderbtn.setOnClickListener(object : View.OnClickListener {
             override fun onClick(view: View?) {
 
                 Toast.makeText(context, "place your Order ", Toast.LENGTH_LONG).show()
+                viewModel.myCoupons.observe(viewLifecycleOwner,  {
+                    Log.d("TAG", "inside observe")
+                    Log.i("TAG", "onViewCreated:rrrrrrrrrrrr ${it}")
+
+
+                })
 
             }
 //                val intent = Intent(this,HomeFragment ::class.java)
@@ -45,6 +84,19 @@ class CashFragment : Fragment() {
 //            }
 
         })
+        back_arrow.setOnClickListener(object : View.OnClickListener {
+            override fun onClick(view: View?) {
 
-    }
-}
+                Toast.makeText(context, "place your Order ", Toast.LENGTH_LONG).show()
+                val payment= PaymentFragment()
+                var bundle = Bundle()
+
+                payment.arguments = bundle
+                fragmentManager?.beginTransaction()?.replace(R.id.fragmentContainerView, payment)
+                    ?.commit()
+
+            }
+
+        })
+
+}}
