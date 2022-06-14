@@ -1,4 +1,4 @@
-package com.example.e_commerceproject.home.model
+package com.example.e_commerceproject.common.model
 
 data class DummyProductModel(
     var productName:String,

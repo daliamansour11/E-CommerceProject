@@ -19,6 +19,7 @@ import com.example.e_commerceproject.authentication.login.view.LoginFragment
 import com.example.e_commerceproject.authentication.register.view.RegisterFragment
 import com.example.e_commerceproject.common.network.NetworkUtils
 import com.example.e_commerceproject.home.view.HomeFragment
+import com.example.e_commerceproject.moreorders.view.MoreOrdersFragment
 import com.example.e_commerceproject.profile.client.ProfileClient
 import com.example.e_commerceproject.profile.model.OrderModel
 import com.example.e_commerceproject.profile.model.ProfileRepository
@@ -28,13 +29,15 @@ import com.google.gson.Gson
 
 
 class ProfileFragment : Fragment() {
-    lateinit var moreorder_btn : Button
+    lateinit var moreorder_btn : TextView
     lateinit var moreWishes_btn : Button
     lateinit var login_btn : Button
     lateinit var welcome_text : TextView
     //lateinit var register_btn : Button
     lateinit var profile_back : Button
     lateinit var profile_settings : ImageView
+    lateinit var priceTextView: TextView
+    lateinit var dateOfOrderTxtView: TextView
     lateinit var viewModel: ProfileViewModel
     lateinit var vmFactory: ProfileViewModelFactory
     private var orderList:ArrayList<OrderModel> = ArrayList()
@@ -67,13 +70,18 @@ class ProfileFragment : Fragment() {
 
         // Inflate the layout for this fragment
         var profile_frg  = inflater.inflate(R.layout.fragment_profile, container, false)
-        moreWishes_btn = profile_frg.findViewById(R.id.morewish_btn)
-        moreorder_btn = profile_frg.findViewById(R.id.moreOrder_btn)
+//        moreWishes_btn = profile_frg.findViewById(R.id.morewish_btn)
+        moreorder_btn = profile_frg.findViewById(R.id.moreOrdersTxtView)
         profile_back = profile_frg.findViewById(R.id.profile_back)
         profile_settings = profile_frg.findViewById(R.id.profile_settings)
+
         login_btn = profile_frg.findViewById(R.id.login_btn)
         welcome_text = profile_frg.findViewById(R.id.welcome_text)
         //register_btn = profile_frg.findViewById(R.id.register_btn)
+        //register_btn = profile_frg.findViewById(R.id.registerBtn)
+        priceTextView = profile_frg.findViewById(R.id.priceTextView)
+        dateOfOrderTxtView = profile_frg.findViewById(R.id.dateOfOrderTxtView)
+
         return profile_frg  }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -104,7 +112,12 @@ class ProfileFragment : Fragment() {
         moreorder_btn.setEnabled(false)
         viewModel.orderList.observe(viewLifecycleOwner){orders ->
             orderList = orders as ArrayList<OrderModel>
-            moreorder_btn.setEnabled(true)
+            if(orderList!=null && orderList.size>0){
+                moreorder_btn.setEnabled(true)
+                priceTextView.text = orderList[0].total_price
+                var createdAt = orderList[0].created_at.split("T")[0]
+                dateOfOrderTxtView.text = createdAt
+            }
         }
 
         profile_settings.setOnClickListener {
@@ -117,7 +130,7 @@ class ProfileFragment : Fragment() {
         moreorder_btn.setOnClickListener(object : View.OnClickListener {
             override fun onClick(view: View?) {
 
-                val moreOrdersFragment = moreOrdersFragment()
+                val moreOrdersFragment = MoreOrdersFragment()
                 val bundle = Bundle()
 
                 bundle.putString("orders", Gson().toJson(orderList))
@@ -133,20 +146,20 @@ class ProfileFragment : Fragment() {
 
         })
 
-        moreWishes_btn.setOnClickListener(object : View.OnClickListener {
-            override fun onClick(view: View?) {
-
-                val moreWishesFragment = MoreWishesFragment()
-                fragmentManager?.beginTransaction()?.replace(R.id.fragmentContainerView, moreWishesFragment)?.commit()
-                Toast.makeText(context, "go to morewishes ", Toast.LENGTH_LONG).show()
-
-            }
-//                val intent = Intent(this,HomeFragment ::class.java)
-//                intent.putExtra("key", "Kotlin")
-//                startActivity(intent)
+//        moreWishes_btn.setOnClickListener(object : View.OnClickListener {
+//            override fun onClick(view: View?) {
+//
+//                val moreWishesFragment = MoreWishesFragment()
+//                fragmentManager?.beginTransaction()?.replace(R.id.fragmentContainerView, moreWishesFragment)?.commit()
+//                Toast.makeText(context, "go to morewishes ", Toast.LENGTH_LONG).show()
+//
 //            }
-
-        })
+////                val intent = Intent(this,HomeFragment ::class.java)
+////                intent.putExtra("key", "Kotlin")
+////                startActivity(intent)
+////            }
+//
+//        })
         login_btn.setOnClickListener(object : View.OnClickListener {
             override fun onClick(view: View?) {
 
@@ -198,6 +211,7 @@ class ProfileFragment : Fragment() {
 
 
 
+
     }
 fun ChangeButtonText( text : String){
     login_btn.setText(text)
@@ -208,3 +222,8 @@ fun ChangeButtonText( text : String){
 /*override fun onMoreOrderClicked() {
 Toast.makeText(requireContext(),"gfdj",Toast.LENGTH_LONG).show()    }
 }*/
+
+    
+
+
+
