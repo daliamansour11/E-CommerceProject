@@ -1,6 +1,5 @@
 package com.example.e_commerceproject.details.view
 
-import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -11,11 +10,12 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager2.widget.ViewPager2
 import com.example.e_commerceproject.R
-import com.example.e_commerceproject.data.remotesource.DetailsRepository
-import com.example.e_commerceproject.data.remotesource.RetrofitService
+import com.example.e_commerceproject.cart.model.*
+import com.example.e_commerceproject.cart.view.CartFragment
+import com.example.e_commerceproject.network.remotesource.DetailsRepository
+import com.example.e_commerceproject.network.remotesource.RetrofitService
 import com.example.e_commerceproject.details.viewmodel.DetailsViewModel
 import com.example.e_commerceproject.details.viewmodel.DetailsViewModelFactory
-import java.net.URL
 
 
 class DetailsFragment : Fragment() {
@@ -86,7 +86,6 @@ class DetailsFragment : Fragment() {
             Log.d("TAG", "inside observe")
             Log.i("TAG", "onViewCreated:rrrrrrrrrrrr ${it}")
               imagearraysize = it.product.images.size
-
             adapter.setListd(it.product.images)
             adapter.notifyDataSetChanged()
 
@@ -106,6 +105,24 @@ class DetailsFragment : Fragment() {
 //            }
             Log.i("TAG", "onViewCreated: $imagearraysize")
         })
+        var item_Image = listOf<NoteAttribute>(NoteAttribute("image",
+            "https://cdn.shopify.com/s/files/1/0589/7509/2875/products/85cc58608bf138a50036bcfe86a3a362.jpg?v=1653403067"))
+
+        var lineItem = LineItem(
+            variant_id = 40335555395723 ,
+            quantity = 1
+        )
+        val myorder = DraftOrder(
+            email = "reham33@gmail.com",
+            note = "card",
+          note_attributes = item_Image ,
+            line_items = listOf(lineItem)
+        )
+        val mylist = CartModel(
+           myorder
+        )
+        viewModel.pushPost(mylist)
+
 
         viewPager.adapter = adapter
 
@@ -116,8 +133,27 @@ class DetailsFragment : Fragment() {
 
         addtocartbtn = view.findViewById(R.id.addtocartbtn)
         addtocartbtn.setOnClickListener {
-            Toast.makeText(requireContext() , "po" , Toast.LENGTH_SHORT).show()
+
+            val cart_fragment = CartFragment()
+            fragmentManager?.beginTransaction()?.replace(R.id.fragmentContainerView, cart_fragment)
+                ?.commit()
+            Toast.makeText(requireContext(), "po", Toast.LENGTH_SHORT).show()
+//            var lineItemList = listOf<LineItem>(LineItem(0, "","","",2,40335550546059))
+
+
+            viewModel.mRCartResonse.observe(viewLifecycleOwner, {
+                System.out.println("We are in productInfoobjectobserver")
+                if (it == null) {
+                    Toast.makeText(requireContext(), "failed to post", Toast.LENGTH_LONG)
+                        .show()
+                } else {
+                    Toast.makeText(requireContext(), "sucessfull post", Toast.LENGTH_LONG)
+                        .show()
+                }
+            })
         }
     }
 
 }
+
+
