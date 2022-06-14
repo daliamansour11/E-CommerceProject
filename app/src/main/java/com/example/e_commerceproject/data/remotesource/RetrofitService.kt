@@ -1,14 +1,14 @@
 package com.example.e_commerceproject.data.remotesource
 
+import com.example.e_commerceproject.authentication.login.model.Customerr
+import com.example.e_commerceproject.authentication.login.model.Customers
+import com.example.e_commerceproject.authentication.register.model.CustomerModel
 import com.example.e_commerceproject.category.model.CategoryModel
 import com.example.e_commerceproject.details.model.DetailsProductModel
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import retrofit2.http.GET
-import retrofit2.http.Headers
-import retrofit2.http.Path
-import retrofit2.http.Query
+import retrofit2.http.*
 
 interface RetrofitService {
 
@@ -38,6 +38,32 @@ interface RetrofitService {
     @GET("products.json?")
     suspend fun getSubCategory(@Query("product_type") product_type:String, @Query("collection_id") collection_id : Long ) : Response<CategoryModel>
 
+    @Headers(
+        "Accept: application/json",
+        "X-Shopify-Access-Token: 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",
+    )
+
+    @POST("customers.json")
+    suspend fun postCustomer(@Body customerModel: CustomerModel):Response<CustomerModel>
+
+
+    @Headers(
+        "Accept: application/json",
+        "X-Shopify-Access-Token: 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",
+    )
+
+    @GET("customers.json")
+    suspend fun getCustomers():Response<Customers>
+
+    @Headers(
+        "Accept: application/json",
+        "X-Shopify-Access-Token: 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",
+    )
+
+    @GET("customers.json?")
+    suspend fun getCustomerById(@Query("email") email:String):Response<Customers>
+
+
 
     companion object {
         var retrofitService: RetrofitService? = null
@@ -53,4 +79,28 @@ interface RetrofitService {
         }
 
     }
+}
+
+interface  Retrofit2{
+
+//    @POST("posts")
+//    suspend fun postCustomer(@Body post: Post):Response<Post>
+//
+//
+//
+//    companion object {
+//        var retrofitService: Retrofit2? = null
+//        fun getInstance() : Retrofit2 {
+//            if (retrofitService == null) {
+//                val retrofit = Retrofit.Builder()
+//                    .baseUrl("https://jsonplaceholder.typicode.com/")
+//                    .addConverterFactory(GsonConverterFactory.create())
+//                    .build()
+//                retrofitService = retrofit.create(Retrofit2::class.java)
+//            }
+//            return retrofitService!!
+//        }
+//
+//    }
+
 }
