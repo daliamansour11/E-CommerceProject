@@ -19,7 +19,6 @@ import com.example.e_commerceproject.authentication.login.view.LoginFragment
 import com.example.e_commerceproject.authentication.register.view.RegisterFragment
 import com.example.e_commerceproject.common.network.NetworkUtils
 import com.example.e_commerceproject.home.view.HomeFragment
-import com.example.e_commerceproject.moreorders.view.MoreOrdersFragment
 import com.example.e_commerceproject.profile.client.ProfileClient
 import com.example.e_commerceproject.profile.model.OrderModel
 import com.example.e_commerceproject.profile.model.ProfileRepository
@@ -79,8 +78,8 @@ class ProfileFragment : Fragment() {
         welcome_text = profile_frg.findViewById(R.id.welcome_text)
         //register_btn = profile_frg.findViewById(R.id.register_btn)
         //register_btn = profile_frg.findViewById(R.id.registerBtn)
-        priceTextView = profile_frg.findViewById(R.id.priceTextView)
-        dateOfOrderTxtView = profile_frg.findViewById(R.id.dateOfOrderTxtView)
+        priceTextView = profile_frg.findViewById(R.id.order_price1)
+        dateOfOrderTxtView = profile_frg.findViewById(R.id.order_date)
 
         return profile_frg  }
 
