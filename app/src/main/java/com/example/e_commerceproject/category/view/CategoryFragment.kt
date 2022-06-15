@@ -3,10 +3,10 @@ package com.example.e_commerceproject.category.view
 import android.os.Bundle
 import android.view.*
 import android.widget.EditText
+import android.widget.SearchView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import android.widget.Toolbar
-import androidx.appcompat.widget.SearchView
 import androidx.core.view.get
 import androidx.viewpager.widget.ViewPager
 import com.example.e_commerceproject.R
@@ -22,10 +22,16 @@ class CategoryFragment : Fragment()  {
     lateinit var viewPager: ViewPager
     lateinit var searchClickListener: OnSearchClickListener
     var tabs: ArrayList<Fragment> = ArrayList()
+    lateinit var searchView: SearchView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+    }
+
+    override fun onResume() {
+        super.onResume()
+        setHasOptionsMenu(true)
     }
 
     override fun onCreateView(
@@ -77,26 +83,7 @@ class CategoryFragment : Fragment()  {
 
         })
 
-
-
-    }
-
-
-
-
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        val inflater = inflater
-        inflater.inflate(R.menu.categorytoolbarmenue , menu)
-
-        Toast.makeText(context, "serach Cayegory ", Toast.LENGTH_LONG).show()
-
-
-
-
-        val search = menu.findItem(R.id.searh)
-        val searchView = search.actionView as SearchView
-        val editText = searchView.findViewById<EditText>(R.id.searh)
-        searchView.queryHint = "Search"
+        searchView = view.findViewById(R.id.categorySearch)
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 return searchClickListener.onQueryTextSubmit(query)
@@ -106,11 +93,7 @@ class CategoryFragment : Fragment()  {
             }
         })
 
-        return super.onCreateOptionsMenu(menu , inflater)
-
     }
-
-
 
 
 }

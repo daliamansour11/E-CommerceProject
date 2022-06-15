@@ -19,7 +19,6 @@ import com.example.e_commerceproject.authentication.login.view.LoginFragment
 import com.example.e_commerceproject.authentication.register.view.RegisterFragment
 import com.example.e_commerceproject.common.network.NetworkUtils
 import com.example.e_commerceproject.home.view.HomeFragment
-import com.example.e_commerceproject.moreorders.view.MoreOrdersFragment
 import com.example.e_commerceproject.profile.client.ProfileClient
 import com.example.e_commerceproject.profile.model.OrderModel
 import com.example.e_commerceproject.profile.model.ProfileRepository
