@@ -97,6 +97,7 @@ class RegisterFragment : Fragment() {
             email = "${e}"
         )
 
+
         var  customerdata = CustomerModel(vb)
 
         registernowbtn.setOnClickListener {
