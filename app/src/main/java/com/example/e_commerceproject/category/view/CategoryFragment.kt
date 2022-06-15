@@ -88,6 +88,9 @@ class CategoryFragment : Fragment()  {
         val inflater = inflater
         inflater.inflate(R.menu.categorytoolbarmenue , menu)
 
+        Toast.makeText(context, "serach Cayegory ", Toast.LENGTH_LONG).show()
+
+
 
 
         val search = menu.findItem(R.id.searh)

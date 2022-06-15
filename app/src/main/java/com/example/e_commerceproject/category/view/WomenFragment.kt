@@ -72,7 +72,7 @@ class WomenFragment : Fragment(), OnProductClickInterface, OnSearchClickListener
         ).get(CategoryViewModel::class.java)
         viewModel.getCategoryProduct("273053712523", "", "")
         viewModel.categoryList.observe(viewLifecycleOwner, {
-            //Log.i("TAG", "onViewCreated:rrrrrrrrrrrr ${it}")
+
             productList = it.products
             categoryAdapter.setlist(it.products)
             categoryAdapter.notifyDataSetChanged()
