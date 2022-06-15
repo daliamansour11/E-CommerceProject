@@ -1,4 +1,4 @@
-package com.example.e_commerceproject.data
+package com.example.e_commerceproject.network
 
 import com.example.e_commerceproject.currencyConverter.model.ConverterModel
 import retrofit2.Response

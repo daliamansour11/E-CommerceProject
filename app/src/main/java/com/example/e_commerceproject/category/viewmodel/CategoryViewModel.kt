@@ -1,12 +1,10 @@
 package com.example.e_commerceproject.category.viewmodel
 
 import android.util.Log
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.e_commerceproject.category.model.CategoryModel
-import com.example.e_commerceproject.category.model.Product
-import com.example.e_commerceproject.data.CategoryRepository
+import com.example.e_commerceproject.network.CategoryRepository
 import kotlinx.coroutines.*
 
 class CategoryViewModel constructor( private val repository: CategoryRepository) : ViewModel() {

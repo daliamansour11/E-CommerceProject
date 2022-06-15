@@ -16,8 +16,8 @@ import com.example.e_commerceproject.R
 import com.example.e_commerceproject.Settings.view.SettingsFragment
 import com.example.e_commerceproject.currencyConverter.viewModel.ConverterViewModel
 import com.example.e_commerceproject.currencyConverter.viewModel.ConverterViewModelFactory
-import com.example.e_commerceproject.data.ConverterRepository
-import com.example.e_commerceproject.data.remotesource.RemoteSourceClass
+import com.example.e_commerceproject.network.ConverterRepository
+import com.example.e_commerceproject.network.remotesource.RemoteSourceClass
 
 
 const val SHARD_NAME = "shard"

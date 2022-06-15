@@ -2,7 +2,7 @@ package com.example.e_commerceproject.category.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.example.e_commerceproject.data.CategoryRepository
+import com.example.e_commerceproject.network.CategoryRepository
 
 class CategoryViewModelFactory constructor(private val repository: CategoryRepository) : ViewModelProvider.Factory {
 

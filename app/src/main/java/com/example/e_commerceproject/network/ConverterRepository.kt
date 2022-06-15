@@ -1,9 +1,9 @@
-package com.example.e_commerceproject.data
+package com.example.e_commerceproject.network
 
 import android.content.Context
 import android.util.Log
 import com.example.e_commerceproject.currencyConverter.model.ConverterModel
-import com.example.e_commerceproject.data.remotesource.RemoteSourceinterface
+import com.example.e_commerceproject.network.remotesource.RemoteSourceinterface
 import retrofit2.Response
 
 class ConverterRepository(

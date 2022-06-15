@@ -1,6 +1,6 @@
-package com.example.e_commerceproject.data
+package com.example.e_commerceproject.network
 
-import com.example.e_commerceproject.data.remotesource.RetrofitService
+import com.example.e_commerceproject.network.remotesource.RetrofitService
 
 class CategoryRepository constructor( private  val retrofitService: RetrofitService) {
 
