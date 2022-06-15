@@ -85,7 +85,11 @@ class DetailsFragment : Fragment() {
         viewModel.productInfo.observe(viewLifecycleOwner,  {
             Log.d("TAG", "inside observe")
             Log.i("TAG", "onViewCreated:rrrrrrrrrrrr ${it}")
-              imagearraysize = it.product.images.size
+            imagearraysize = it.product.images.size
+            productName.text = it.product.title
+            productPrice.text = "${it.product.variants[0].price} $"
+            productDescription.text = it.product.body_html
+
             adapter.setListd(it.product.images)
             adapter.notifyDataSetChanged()
 

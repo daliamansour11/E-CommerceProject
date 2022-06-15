@@ -75,29 +75,29 @@ class RegisterFragment : Fragment() {
 
 
         var bv = Customer2(
-            first_name = "fxewqopokmm" ,
-            last_name = "opujhhgcgfdze" ,
-            phone = "01247765097",
-            tags = "bvbvcxzzbnmmyhg",
-            email = "mkloouhwqawerqqe@gmail.com"
+            first_name = "fxewqopokmmswqa" ,
+            last_name = "opujhhgcgfdzebvcx" ,
+            phone = "01247765421",
+            tags = "bvbvcxznhkkhg",
+            email = "mklooolplmrqqe@gmail.com"
         )
 
         var f: String = firstNameEdittxt.text.toString()
-        var l: String = firstNameEdittxt.text.toString()
-        var p: String = firstNameEdittxt.text.toString()
-        var e: String = firstNameEdittxt.text.toString()
-        var t: String = firstNameEdittxt.text.toString()
+        var l: String = lastNameEdittxt.text.toString()
+        var p: String = phoneEditText.text.toString()
+        var e: String = emailEditText.text.toString()
+        var t: String = passwordEditText.text.toString()
 
 
         var vb = Customer2(
             first_name = "${f}" ,
             last_name = "${l}"  ,
             phone = "${p}",
-            tags = "${p}",
+            tags = "${t}",
             email = "${e}"
         )
 
-        var  customerdata = CustomerModel(bv)
+        var  customerdata = CustomerModel(vb)
 
         registernowbtn.setOnClickListener {
 

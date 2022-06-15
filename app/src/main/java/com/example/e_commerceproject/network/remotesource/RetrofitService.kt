@@ -68,7 +68,10 @@ interface RetrofitService {
 
     ///Coupons///
 
-
+    @Headers(
+        "Accept: application/json",
+        "X-Shopify-Access-Token: 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",
+    )
     @POST("customers.json")
     suspend fun postCustomer(@Body customerModel: CustomerModel):Response<CustomerModel>
 
