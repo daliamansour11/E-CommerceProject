@@ -29,7 +29,7 @@ import com.google.gson.Gson
 
 
 class ProfileFragment : Fragment() {
-    lateinit var moreorder_btn : TextView
+    lateinit var moreorder_btn : Button
     lateinit var moreWishes_btn : Button
     lateinit var login_btn : Button
     lateinit var welcome_text : TextView
@@ -71,7 +71,7 @@ class ProfileFragment : Fragment() {
         // Inflate the layout for this fragment
         var profile_frg  = inflater.inflate(R.layout.fragment_profile, container, false)
 //        moreWishes_btn = profile_frg.findViewById(R.id.morewish_btn)
-        moreorder_btn = profile_frg.findViewById(R.id.moreOrdersTxtView)
+        moreorder_btn = profile_frg.findViewById(R.id.moreOrder_btn)
         profile_back = profile_frg.findViewById(R.id.profile_back)
         profile_settings = profile_frg.findViewById(R.id.profile_settings)
 

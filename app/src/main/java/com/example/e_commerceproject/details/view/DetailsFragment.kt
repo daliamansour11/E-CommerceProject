@@ -143,6 +143,7 @@ class DetailsFragment : Fragment() {
 
             viewModel.mRCartResonse.observe(viewLifecycleOwner, {
                 System.out.println("We are in productInfoobjectobserver")
+
                 if (it == null) {
                     Toast.makeText(requireContext(), "failed to post", Toast.LENGTH_LONG)
                         .show()

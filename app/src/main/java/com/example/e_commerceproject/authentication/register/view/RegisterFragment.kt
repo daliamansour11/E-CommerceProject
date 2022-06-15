@@ -19,7 +19,8 @@ import com.example.e_commerceproject.authentication.register.model.*
 import com.example.e_commerceproject.authentication.register.viewmodel.AuthenticationViewModel
 import com.example.e_commerceproject.authentication.register.viewmodel.AuthenticationViewModelFactory
 import com.example.e_commerceproject.data.AuthenticationRepository
-import com.example.e_commerceproject.data.remotesource.RetrofitService
+//import com.example.e_commerceproject.network.
+import com.example.e_commerceproject.network.remotesource.RetrofitService
 
 
 class RegisterFragment : Fragment() {
