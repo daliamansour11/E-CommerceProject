@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.example.e_commerceproject">
 
     <uses-permission android:name="android.permission.INTERNET" />
@@ -13,11 +14,15 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ECommerceProject">
         <activity
+            android:name=".MainActivity"
+            android:exported="false" />
+        <activity
             android:name=".details.view.DetailsActivity"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
-            android:exported="true">
+            android:name=".SplashActivity"
+            android:exported="true"
+            tools:ignore="DuplicateActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

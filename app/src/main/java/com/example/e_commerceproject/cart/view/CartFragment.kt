@@ -1,7 +1,6 @@
 package com.example.e_commerceproject.cart.view
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -58,15 +57,15 @@ class CartFragment : Fragment() {
         recyclerView.layoutManager = cartLinearLayoutManager
         recyclerView.adapter = cartAdapter
         viewModel.getCart()
-        viewModel.cart_Response.observe(viewLifecycleOwner, {
-            Log.d("TAG", "inside cartfragment")
-            Log.i("TAG", "onViewCreated:rrrrrrTTTTTTTTTrrrrrr ${it}")
-            cartList = it
-            it.draft_order.line_items?.let { it1 ->
-                cartAdapter.setlist(it.draft_order)
-            }
-            cartAdapter.notifyDataSetChanged()
-        })
+//        viewModel.cart_Response.observe(viewLifecycleOwner, {
+//            Log.d("TAG", "inside cartfragment")
+//            Log.i("TAG", "onViewCreated:rrrrrrTTTTTTTTTrrrrrr ${it}")
+//            cartList = it
+//            it.draft_order.line_items?.let { it1 ->
+//                cartAdapter.setlist(it.draft_order)
+//            }
+//            cartAdapter.notifyDataSetChanged()
+//        })
 
 
         addressArrow = view.findViewById(R.id.shoppingCartArrowBack)
@@ -85,7 +84,7 @@ class CartFragment : Fragment() {
 
     }
 
-    fun upgateCart(data: DraftOrder) {
+    fun updateCart(data: DraftOrder) {
             viewModel.updateCart(data)
     }
 

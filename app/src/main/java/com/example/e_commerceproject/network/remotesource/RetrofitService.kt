@@ -6,6 +6,7 @@ import com.example.e_commerceproject.cart.model.DraftOrder
 import com.example.e_commerceproject.category.model.CategoryModel
 import com.example.e_commerceproject.details.model.DetailsProductModel
 import com.example.e_commerceproject.payment.model.CouponsX
+import com.example.e_commerceproject.payment.model.DiscountCode
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -49,6 +50,7 @@ interface RetrofitService {
         "Accept: application/json",
         "X-Shopify-Access-Token: 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",
     )
+    ///873007775883
     @GET("draft_orders/873007775883.json")
     suspend fun getpostedOrder():Response<CartModel>
 
@@ -57,23 +59,20 @@ interface RetrofitService {
         "X-Shopify-Access-Token: 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",
     )
     @PUT("draft_orders/873007775883.json")
-    suspend fun  upDateCart(@Body updateitem : DraftOrder):Response<CartModel>
+    suspend   fun  updateCartOrder(@Body cartItem: DraftOrder): Response<CartModel>
 
 
-    ///Coupons///
+//Coupons///
 
     @Headers(
         "Accept: application/json",
         "X-Shopify-Access-Token: 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",
     )
-   @GET("price_rules/1089622311051/discount_codes.json")
+    @GET("price_rules/1089622311051/discount_codes.json")
     suspend fun getAvailableCoupons(): Response<CouponsX>
 
 
-//    @GET("price_rules/507328175/discount_codes.json")
-//    suspend fun getAllCoupons(@Query("count") dicount :Long
-//    ): Response<Coupons>
-    //Get all Coupons
+
 
     companion object {
         var retrofitService: RetrofitService? = null

@@ -14,8 +14,8 @@ class CartRepository(private val retrofitService: RetrofitService) {
         println("--------------------getttt-------------------")
         return cart
     }
-    suspend fun updatedcartItem(draftOrder: DraftOrder): Response<CartModel> {
-        val cartupdated = retrofitService.upDateCart(draftOrder)
+    suspend fun updatedcartItem(cartitem: DraftOrder): Response<CartModel> {
+        val cartupdated = retrofitService.updateCartOrder(cartitem)
         println("--------------------ghggggg-------------------")
 
         Log.i("TAG", "updatepostitem: ${cartupdated.body()}  ${cartupdated.code()}")

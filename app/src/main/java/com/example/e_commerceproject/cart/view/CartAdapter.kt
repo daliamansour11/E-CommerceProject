@@ -67,7 +67,7 @@ class CartAdapter(private var context: Context, var cartFragment: CartFragment) 
 
                 data.line_items?.get(position)!!.quantity = count
                 holder.productCount.text = data.line_items?.get(0)!!.quantity.toString()
-                cartFragment.upgateCart(data)
+                cartFragment.updateCart(data)
             }
 
 
@@ -78,7 +78,7 @@ class CartAdapter(private var context: Context, var cartFragment: CartFragment) 
                 count--
                 data.line_items?.get(position)!!.quantity = count
                 holder.productCount.text = data.line_items?.get(0)!!.quantity.toString()
-                cartFragment.upgateCart(data)
+                cartFragment.updateCart(data)
             }
         })
     }
