@@ -1,6 +1,9 @@
 package com.example.e_commerceproject.profile.view
 
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -12,8 +15,8 @@ import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import com.example.e_commerceproject.R
 import com.example.e_commerceproject.Settings.view.SettingsFragment
-import com.example.e_commerceproject.athentication.login.view.LoginFragment
-import com.example.e_commerceproject.athentication.register.view.RegisterFragment
+import com.example.e_commerceproject.authentication.login.view.LoginFragment
+import com.example.e_commerceproject.authentication.register.view.RegisterFragment
 import com.example.e_commerceproject.common.network.NetworkUtils
 import com.example.e_commerceproject.home.view.HomeFragment
 import com.example.e_commerceproject.moreorders.view.MoreOrdersFragment
@@ -29,7 +32,8 @@ class ProfileFragment : Fragment() {
     lateinit var moreorder_btn : TextView
     lateinit var moreWishes_btn : Button
     lateinit var login_btn : Button
-    lateinit var register_btn : Button
+    lateinit var welcome_text : TextView
+    //lateinit var register_btn : Button
     lateinit var profile_back : Button
     lateinit var profile_settings : ImageView
     lateinit var priceTextView: TextView
@@ -61,20 +65,50 @@ class ProfileFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
+
+
         // Inflate the layout for this fragment
         var profile_frg  = inflater.inflate(R.layout.fragment_profile, container, false)
 //        moreWishes_btn = profile_frg.findViewById(R.id.morewish_btn)
         moreorder_btn = profile_frg.findViewById(R.id.moreOrdersTxtView)
         profile_back = profile_frg.findViewById(R.id.profile_back)
         profile_settings = profile_frg.findViewById(R.id.profile_settings)
-        login_btn = profile_frg.findViewById(R.id.loginBtn)
-        register_btn = profile_frg.findViewById(R.id.registerBtn)
+
+        login_btn = profile_frg.findViewById(R.id.login_btn)
+        welcome_text = profile_frg.findViewById(R.id.welcome_text)
+        //register_btn = profile_frg.findViewById(R.id.register_btn)
+        //register_btn = profile_frg.findViewById(R.id.registerBtn)
         priceTextView = profile_frg.findViewById(R.id.priceTextView)
         dateOfOrderTxtView = profile_frg.findViewById(R.id.dateOfOrderTxtView)
+
         return profile_frg  }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        val sharedPreferences : SharedPreferences = requireContext().getSharedPreferences("loginsharedprefs" , Context.MODE_PRIVATE)
+        var userEmail : String  = sharedPreferences.getString("EMAIL_LOGIN" , "").toString()
+        var userName : String  = sharedPreferences.getString("Name_LOGIN" , "").toString()
+
+        Log.i("TAG", "sharedPreferences: ${userEmail} ")
+
+        if(userEmail != ""){ // data -> logout
+
+            ChangeButtonText("logout")
+            welcome_text.text = "Welcome ${userName}"
+            // log out btn visible
+            // log in  btn unvisible
+
+        }else{ //  no data   -> login
+            // log out invisible
+            // log in btn visible
+            ChangeButtonText("login")
+            welcome_text.text = "Welcome "
+
+        }
+
+
         moreorder_btn.setEnabled(false)
         viewModel.orderList.observe(viewLifecycleOwner){orders ->
             orderList = orders as ArrayList<OrderModel>
@@ -91,7 +125,6 @@ class ProfileFragment : Fragment() {
             val settingsFragment = SettingsFragment()
             fragmentManager?.beginTransaction()?.replace(R.id.fragmentContainerView, settingsFragment)?.commit()
             Toast.makeText(context, "go to settings ", Toast.LENGTH_LONG).show()
-
         }
 
         moreorder_btn.setOnClickListener(object : View.OnClickListener {
@@ -130,32 +163,36 @@ class ProfileFragment : Fragment() {
         login_btn.setOnClickListener(object : View.OnClickListener {
             override fun onClick(view: View?) {
 
-                val loginFragment = LoginFragment()
-                fragmentManager?.beginTransaction()?.replace(R.id.fragmentContainerView, loginFragment)?.commit()
+                if(userEmail != ""){ // data -> logout
+                    val sharedPreferences : SharedPreferences = requireContext().getSharedPreferences("loginsharedprefs" ,
+                        Context.MODE_PRIVATE)
+                    val editor = sharedPreferences.edit()
+                    editor.apply(){
+                        putString("EMAIL_LOGIN" ,  "")
+                        putString("PASSWORD_LOGIN" ,  "")
+                        putString("Name_LOGIN" ,  "")
+                    }.apply()
 
-                Toast.makeText(context, "login", Toast.LENGTH_LONG).show()
+                    Toast.makeText(requireContext() ,"logout" , Toast.LENGTH_SHORT ).show()
 
-            }
+                }else { //  no data   -> login
+
+                    val loginFragment = LoginFragment()
+                    fragmentManager?.beginTransaction()?.replace(R.id.fragmentContainerView, loginFragment)?.commit()
+
+                    Toast.makeText(context, "login", Toast.LENGTH_LONG).show()
+
+
+                }
+
+                    }
 //                val intent = Intent(this,HomeFragment ::class.java)
 //                intent.putExtra("key", "Kotlin")
 //                startActivity(intent)
 //            }
 
         })
-        register_btn.setOnClickListener(object : View.OnClickListener {
-            override fun onClick(view: View?) {
-                val registerFragment = RegisterFragment()
-                fragmentManager?.beginTransaction()?.replace(R.id.fragmentContainerView, registerFragment)?.commit()
 
-                Toast.makeText(context, "register", Toast.LENGTH_LONG).show()
-
-            }
-//                val intent = Intent(this,HomeFragment ::class.java)
-//                intent.putExtra("key", "Kotlin")
-//                startActivity(intent)
-//            }
-
-        })
         profile_back.setOnClickListener(object : View.OnClickListener {
             override fun onClick(view: View?) {
 
@@ -172,4 +209,21 @@ class ProfileFragment : Fragment() {
 
         })
 
-    }}
+
+
+
+    }
+fun ChangeButtonText( text : String){
+    login_btn.setText(text)
+
+}
+
+}
+/*override fun onMoreOrderClicked() {
+Toast.makeText(requireContext(),"gfdj",Toast.LENGTH_LONG).show()    }
+}*/
+
+    
+
+
+

@@ -1,10 +1,13 @@
 package com.example.e_commerceproject.Settings.view
 
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.Toast
 import com.example.e_commerceproject.AboutFragment
@@ -22,6 +25,7 @@ class SettingsFragment : Fragment() {
     lateinit var navigateToCurrencyScreenBtn: ImageView
     lateinit var navigateToContactusScreenBtn: ImageView
     lateinit var navigateToaboutScreenBtn: ImageView
+    lateinit var logoutButton : Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -94,6 +98,22 @@ class SettingsFragment : Fragment() {
             Toast.makeText(requireContext() ,"uyuyhfuyu" , Toast.LENGTH_SHORT ).show()
 
         }
+
+        logoutButton = view.findViewById(R.id.logoutButton)
+        logoutButton.setOnClickListener {
+
+            val sharedPreferences : SharedPreferences = requireContext().getSharedPreferences("loginsharedprefs" ,
+                Context.MODE_PRIVATE)
+            val editor = sharedPreferences.edit()
+            editor.apply(){
+                putString("EMAIL_LOGIN" ,  "")
+                putString("PASSWORD_LOGIN" ,  "")
+            }.apply()
+
+            Toast.makeText(requireContext() ,"logout" , Toast.LENGTH_SHORT ).show()
+
+        }
+
 
     }
 
