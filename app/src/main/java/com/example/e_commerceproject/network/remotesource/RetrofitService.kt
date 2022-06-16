@@ -68,7 +68,7 @@ interface RetrofitService {
         "Accept: application/json",
         "X-Shopify-Access-Token: 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",
     )
-    @GET("price_rules/1089622311051/discount_codes.json")
+    @GET("2022-01/price_rules/1089622311051/discount_codes.json")
     suspend fun getAvailableCoupons(): Response<CouponsX>
 
 
@@ -79,7 +79,7 @@ interface RetrofitService {
         fun getInstance() : RetrofitService {
             if (retrofitService == null) {
                 val retrofit = Retrofit.Builder()
-                    .baseUrl("https://madalex20220.myshopify.com/admin/api/2022-01/")
+                    .baseUrl("https://9d169ad72dd7620e70f56b28ae6146d9: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@madalex20220.myshopify.com/admin/api/")
                     .addConverterFactory(GsonConverterFactory.create())
                     .build()
                 retrofitService = retrofit.create(RetrofitService::class.java)
