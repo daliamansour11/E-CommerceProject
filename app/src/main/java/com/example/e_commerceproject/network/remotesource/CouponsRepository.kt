@@ -11,12 +11,12 @@ class CouponsRepository(private val retrofitService: RetrofitService) {
 
     //  suspend fun getCoupons() = retrofitService.getAvailableCoupons()
 
-    suspend fun getCoupons() {
+    suspend fun getCoupons():Response<CouponsX> {
         val coupons = retrofitService.getAvailableCoupons()
         println("--------------------ghggggg-------------------")
         Log.i("TAG", "couponnnnnnnnnnnnnnnnnnnnnn: ${coupons.body()}  ${coupons.code()}")
         println("----------------------bghhghghghj-----------------")
 
-
+return coupons
     }
 }

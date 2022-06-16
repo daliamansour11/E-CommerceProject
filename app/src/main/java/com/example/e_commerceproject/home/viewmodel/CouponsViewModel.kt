@@ -1,6 +1,7 @@
 package com.example.e_commerceproject.home.viewmodel
 
 import android.util.Log
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -13,6 +14,8 @@ import kotlinx.coroutines.*
 class CouponsViewModel (private val repo: CouponsRepository): ViewModel() {
 
     var coupons_Response = MutableLiveData<CouponsX>()
+    var _coupons: LiveData<CouponsX> = coupons_Response
+
     var job: Job? = null
     val loading = MutableLiveData<Boolean>()
     val exceptionHandler = CoroutineExceptionHandler { _, throwable ->
@@ -20,22 +23,23 @@ class CouponsViewModel (private val repo: CouponsRepository): ViewModel() {
     }
     fun getCoupon() {
 
-
-        Log.i("TAG", "getCoupon: -----------------------------------------------")
-        job = CoroutineScope(Dispatchers.IO + exceptionHandler).launch {
+        viewModelScope.launch( ) {
             val response = repo.getCoupons()
-            Log.i("TAG", "getCoupon: -----------------------------------------------")
+            coupons_Response.postValue(response.body())
+                         Log.i("TAG", "onViewCreated:couponssssssssssssssssssssssssssssssssssssssssssssssss")
 
-            withContext(Dispatchers.Main) {
-            //    if (response.isSucessful) {
-                    Log.i("TAG", "onViewCreated:couponssssssssssssssssssssssssssssssssssssssssssssssss")
-                coupons_Response.value
-                    loading.value = false
-              //  } else {
-                    Log.i("TAG", "Errorrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr: ")
+        }
+//        job = CoroutineScope(Dispatchers.IO + exceptionHandler).launch {
+
+//            val response = repo.getCoupons()
+//            Log.i("TAG", "${response}")
+//
+//            withContext(Dispatchers.Main) {
+//             //   if (response.isSucessful) {
+//                coupons_Response.postValue(response)
+//                    loading.value = false
+//              //  } else {
                            //  onError("Error : ${response.message()} iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii ")
 //
                 }
             }
-        }
-    }

@@ -3,8 +3,8 @@ package com.example.e_commerceproject.payment.model
 data class DiscountCode(
     val code: String?=null,
     val created_at: String?=null,
-    val id: Int?=null,
-    val price_rule_id: Int?=null,
+    val id: Long?=null,
+    val price_rule_id: Long?=null,
     val updated_at: String?=null,
     val usage_count: Int?=null
 )

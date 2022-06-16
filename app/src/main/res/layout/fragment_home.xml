@@ -127,9 +127,7 @@
                 android:layout_centerHorizontal="true"
                 android:layout_centerVertical="true"
                 android:layout_gravity="center"
-                android:layout_marginStart="10dp"
                 android:layout_marginTop="10dp"
-                android:layout_marginEnd="10dp"
                 android:layout_marginBottom="10dp" />
 
 
@@ -150,6 +148,8 @@
                 android:id="@+id/coupons_recyclerview"
                 android:layout_width="match_parent"
                 android:layout_height="111dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
                 android:background="@drawable/edittext_shape"
                 android:scrollbars="horizontal"
                 tools:layout_editor_absoluteX="6dp"
