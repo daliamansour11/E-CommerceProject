@@ -64,12 +64,12 @@ class CartAdapter(private var context: Context, var cartFragment: CartFragment) 
             Log.i("TESTTEST", "INCREMENT: " + data.line_items?.size)
             if (count <6) {
                 count++
-
+//                var v: Int? = data.line_items?.get(position)!!.quantity
+//                var t : Int? = v?.plus(count)
                 data.line_items?.get(position)!!.quantity = count
                 holder.productCount.text = data.line_items?.get(0)!!.quantity.toString()
                 cartFragment.updateCart(data)
             }
-
 
         })
 

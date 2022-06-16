@@ -76,6 +76,7 @@
                 android:layout_width="40dp"
                 android:layout_height="38dp"
                 android:src="@drawable/ic_baseline_search_24"
+                android:src="@drawable/person"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.898"
@@ -108,13 +109,30 @@
         app:layout_constraintVertical_bias="1.0">
         <!--        android:background="@drawable/rounder_corner_background"-->
 
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/adsEndGuidelineId"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.34" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/brandsEndGuidelineId"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.54" />
 
         <androidx.cardview.widget.CardView
             android:id="@+id/adsCardView"
             android:layout_width="match_parent"
             android:layout_height="200dp"
+
                 android:layout_marginLeft="15dp"
                 android:layout_marginRight="15dp"
+
+            app:layout_constraintBottom_toTopOf="@+id/adsEndGuidelineId"
+
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.46"
             app:layout_constraintStart_toStartOf="parent"
@@ -132,6 +150,7 @@
 
 
         </androidx.cardview.widget.CardView>
+
 
 
         <androidx.cardview.widget.CardView
@@ -157,6 +176,24 @@
                 tools:listitem="@layout/coupons_item" />
         </androidx.cardview.widget.CardView>
 
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="222dp"
+            android:layout_height="46dp"
+            android:text="@string/brands"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:textSize="30sp"
+            app:layout_constraintBottom_toTopOf="@+id/brandsEndGuidelineId"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.497"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/adsEndGuidelineId" />
+
+     
+      <androidx.recyclerview.widget.RecyclerView
+
+
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="398dp"
             android:layout_height="330dp"
@@ -164,12 +201,13 @@
             android:layout_marginBottom="8dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/cardView2">
 
 
             <androidx.recyclerview.widget.RecyclerView
-
+                                                       
                 android:id="@+id/brandsRecycleView"
                 android:layout_width="401dp"
                 android:layout_height="264dp"
@@ -185,6 +223,10 @@
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
+            app:layout_constraintHorizontal_bias="0.157"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/brandsEndGuidelineId" />
+
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.e_commerceproject.category.viewmodel.CategoryViewModel
 import com.example.e_commerceproject.data.AuthenticationRepository
-import com.example.e_commerceproject.data.CategoryRepository
+import com.example.e_commerceproject.network.CategoryRepository
 
 class AuthenticationViewModelFactory constructor(private val repository: AuthenticationRepository) : ViewModelProvider.Factory {
 

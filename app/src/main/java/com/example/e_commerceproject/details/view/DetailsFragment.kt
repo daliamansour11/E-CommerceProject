@@ -85,7 +85,11 @@ class DetailsFragment : Fragment() {
         viewModel.productInfo.observe(viewLifecycleOwner,  {
             Log.d("TAG", "inside observe")
             Log.i("TAG", "onViewCreated:rrrrrrrrrrrr ${it}")
-              imagearraysize = it.product.images.size
+            imagearraysize = it.product.images.size
+            productName.text = it.product.title
+            productPrice.text = "${it.product.variants[0].price} $"
+            productDescription.text = it.product.body_html
+
             adapter.setListd(it.product.images)
             adapter.notifyDataSetChanged()
 
@@ -143,6 +147,7 @@ class DetailsFragment : Fragment() {
 
             viewModel.mRCartResonse.observe(viewLifecycleOwner, {
                 System.out.println("We are in productInfoobjectobserver")
+
                 if (it == null) {
                     Toast.makeText(requireContext(), "failed to post", Toast.LENGTH_LONG)
                         .show()

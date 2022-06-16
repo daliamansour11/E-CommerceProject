@@ -4,8 +4,8 @@ import android.os.Build
 import android.util.Log
 import androidx.annotation.RequiresApi
 import com.example.e_commerceproject.authentication.register.model.CustomerModel
-import com.example.e_commerceproject.data.remotesource.Retrofit2
-import com.example.e_commerceproject.data.remotesource.RetrofitService
+import com.example.e_commerceproject.network.remotesource.Retrofit2
+import com.example.e_commerceproject.network.remotesource.RetrofitService
 import retrofit2.Response
 
 class AuthenticationRepository(private val retrofitService: RetrofitService) {

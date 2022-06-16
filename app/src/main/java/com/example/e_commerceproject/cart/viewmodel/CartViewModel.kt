@@ -25,7 +25,7 @@ class CartViewModel(private val repo: CartRepository): ViewModel()  {
                         cart_Response.postValue(response.body())
                         loading.value = false
                     } else {
-                        Log.i("TAG", "Error: ")
+                        Log.i("TAG", "Error: ${response.code()} ")
 //                             onError("Error : ${response.message()} iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii ")
 //
                     }

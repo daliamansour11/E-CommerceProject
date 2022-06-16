@@ -15,24 +15,27 @@ class ViewPagerAdapter
 internal class MyAdapter(
     var context: Context,
     fm: FragmentManager,
-    var totalTabs: Int
+    var totalTabs: Int,
+    var tabs: ArrayList<Fragment>
 ) :
     FragmentPagerAdapter(fm)
 
 {
     override fun getItem(position: Int): Fragment {
-        return when (position) {
-            0 -> {
-                WomenFragment()
-            }
-            1 -> {
-                MenFragment()
-            }
-            2 -> {
-                KidsFragment()
-            }
-            else -> getItem(position)
-        }
+        return tabs.get(position)
+
+//        return when (position) {
+//            0 -> {
+//                WomenFragment()
+//            }
+//            1 -> {
+//                MenFragment()
+//            }
+//            2 -> {
+//                KidsFragment()
+//            }
+//            else -> getItem(position)
+//        }
     }
     override fun getCount(): Int {
         return totalTabs
