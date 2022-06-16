@@ -2,7 +2,10 @@ package com.example.e_commerceproject.common.network
 
 import com.example.e_commerceproject.homesearch.model.ProductListModel
 import com.example.e_commerceproject.home.model.CollectionModel
+import com.example.e_commerceproject.payment.model.CouponsX
+import com.example.e_commerceproject.payment.model.DiscountCode
 import com.example.e_commerceproject.profile.model.OrderListModel
+import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Headers
 import retrofit2.http.Path

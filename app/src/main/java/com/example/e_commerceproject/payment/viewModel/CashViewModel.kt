@@ -16,23 +16,23 @@ class CashViewModel(private val discount_repo:CouponsRepository):ViewModel() {
     val exceptionHandler = CoroutineExceptionHandler { _, throwable ->
         // onError("Exception handled: ${throwable.localizedMessage}")
     }
-    fun getMyCoupons() {
-        job = CoroutineScope(Dispatchers.IO + exceptionHandler).launch {
-            val response = discount_repo.getCoupons( )
-            withContext(Dispatchers.Main) {
-                if (response.isSuccessful) {
-                    Log.i("TAG", "cashhhhhhhhhhhhhhh:rrrrrrrrrrrrkkjkj")
-                    myCoupons.postValue(response.body())
-
-                    loading.value = false
-                } else {
-                    Log.i("TAG", "Errorrrrrrrrrrrrrrrr coupons: ${response.body()} ")
-                    // onError("Errorrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr : ${response.message()} iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii ")
-
-                }
-            }
-        }
-    }
+//    fun getMyCoupons() {
+//        job = CoroutineScope(Dispatchers.IO + exceptionHandler).launch {
+//            val response = discount_repo.getCoupons( )
+//            withContext(Dispatchers.Main) {
+//                if (response.isSuccessful) {
+//                    Log.i("TAG", "cashhhhhhhhhhhhhhh:rrrrrrrrrrrrkkjkj")
+//                    myCoupons.postValue(response.body())
+//
+//                    loading.value = false
+//                } else {
+//                    Log.i("TAG", "Errorrrrrrrrrrrrrrrr coupons: ${response.body()} ")
+//                    // onError("Errorrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr : ${response.message()} iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii ")
+//
+//                }
+//            }
+//        }
+//    }
 
 
 }

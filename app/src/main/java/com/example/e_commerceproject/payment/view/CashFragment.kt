@@ -65,7 +65,7 @@ class CashFragment : Fragment() {
         val mRepository = CouponsRepository(retrofitService)
 
         viewModel = ViewModelProvider(this, CashViewModelFactory(mRepository)).get(CashViewModel::class.java)
-        viewModel.getMyCoupons()
+//        viewModel.getMyCoupons()
         placeorderbtn.setOnClickListener(object : View.OnClickListener {
             override fun onClick(view: View?) {
 

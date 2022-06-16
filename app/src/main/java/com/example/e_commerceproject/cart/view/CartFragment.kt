@@ -92,7 +92,7 @@ class CartFragment : Fragment() {
 
     }
 
-    fun upgateCart(data: DraftOrder) {
+    fun updateCart(data: DraftOrder) {
             viewModel.updateCart(data)
     }
 
