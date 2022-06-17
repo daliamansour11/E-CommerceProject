@@ -5,15 +5,14 @@ import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Query
 
-const val api = "PonwHXimsWL7N3LyigLfHj3E1Rrj0V9R"
+const val api = ""
 interface ConverterApiService {
 
-    @GET("convert")
+    @GET("convert?apikey=PonwHXimsWL7N3LyigLfHj3E1Rrj0V9R&amount=1&from=EGP")
     suspend fun getconvertedCurrencyvalue(
-        @Query("apikey") apikey: String,
+
         @Query("to") to: String,
-        @Query("amount") amount : Long,
-        @Query("from") from: String
+
 
     ): Response<ConverterModel>
 }

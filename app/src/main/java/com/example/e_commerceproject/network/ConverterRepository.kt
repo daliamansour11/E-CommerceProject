@@ -22,9 +22,9 @@ class ConverterRepository(
             )
         }
     }
-    override suspend fun getConvertedCurrency(): Response<ConverterModel> {
+    override suspend fun getConvertedCurrency(to:String): Response<ConverterModel> {
         var response =
-            remote.getconvertedCurrency()
+            remote.getconvertedCurrency(to)
         if (response.isSuccessful) {
             System.out.println("We are here")
             Log.e("TAG", "response" + response.body())

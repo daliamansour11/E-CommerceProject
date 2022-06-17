@@ -13,7 +13,6 @@ import com.example.e_commerceproject.payment.model.CouponsX
 import com.example.e_commerceproject.payment.model.DiscountCode
 
 class CouponsAdapter (private  var context: Context, var onDicountcodeClickListener: OnBrandClickListener): RecyclerView.Adapter<CouponsAdapter.ViewHolder>() {
-
     private var data:List<DiscountCode> = ArrayList()
 
     fun setDataList(data: List<DiscountCode>){
@@ -29,10 +28,9 @@ class CouponsAdapter (private  var context: Context, var onDicountcodeClickListe
 
     override fun onBindViewHolder(holder: CouponsAdapter.ViewHolder, position: Int) {
         holder.discoubt_code.text= data[position].code
-        holder.usage.text= data[position].usage_count.toString()
         Log.i("TAG", "onBindViewHolder: couponnnnnnnnnnnnnn")
         holder.discountCard.setOnClickListener{
-            onDicountcodeClickListener.onDiscountCartClick()
+            data[position].code?.let { it1 -> onDicountcodeClickListener.onDiscountCartClick(it1) }
         }
     }
     override fun getItemCount(): Int {
@@ -40,7 +38,6 @@ class CouponsAdapter (private  var context: Context, var onDicountcodeClickListe
     }
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var discoubt_code: TextView = itemView.findViewById(R.id.dicountcode)
-        var usage: TextView = itemView.findViewById(R.id.usage)
         var discountCard: ConstraintLayout = itemView.findViewById(R.id.diccountCodeConstraint)
 
 

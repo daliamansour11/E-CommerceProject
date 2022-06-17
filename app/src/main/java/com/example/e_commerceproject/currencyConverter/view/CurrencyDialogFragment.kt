@@ -22,22 +22,18 @@ import com.example.e_commerceproject.network.remotesource.RemoteSourceClass
 
 const val SHARD_NAME = "shard"
 const val CURRUNEY_TYPE = "currency"
-
-
 class CurrencydiologFragment : Fragment() {
-
     lateinit var CviewModel: ConverterViewModel
     lateinit var VFactory: ConverterViewModelFactory
     lateinit var Egp_currency: Button
     lateinit var USD_currency: Button
-
+   var v :String="EGP"
     lateinit var ok_btn: Button
     lateinit var sharedPref: SharedPreferences
     lateinit var editor: SharedPreferences.Editor
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-
 
         }
     }
@@ -59,55 +55,51 @@ class CurrencydiologFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
 
-        val sharedPref =
-            requireActivity().getSharedPreferences(SHARD_NAME, Context.MODE_PRIVATE) ?: return
-        with(sharedPref.edit()) {
-            putString(CURRUNEY_TYPE, "EGP")
-            commit()
-        }
+        VFactory = ConverterViewModelFactory(
+            ConverterRepository.getInstance(
 
-        when (CURRUNEY_TYPE) {
-            "EGP" -> {
-                Egp_currency!!.isClickable = true
+                RemoteSourceClass.getInstance(),
+                requireContext()
+            )
+        )
+        CviewModel = ViewModelProvider(this@CurrencydiologFragment, VFactory).get(
+            ConverterViewModel::class.java
+        )
+        CviewModel._Convert_Response.observe(viewLifecycleOwner) { respo ->
+            Log.i(ContentValues.TAG, "onChanged: ${respo.result}")
+            System.out.println("Re" + respo.result)
+            val sharedPref =
+                requireActivity().getSharedPreferences(SHARD_NAME, Context.MODE_PRIVATE)
+                    ?: return@observe
+            with(sharedPref.edit()) {
+                putString(CURRUNEY_TYPE, "" + respo.result)
+                commit()
+            }
+            val shared =
+                requireActivity().getSharedPreferences(SHARD_NAME, Context.MODE_PRIVATE)
+                    ?: return@observe
+            with(shared.edit()) {
+                putString(CURRUNEY_TYPE, "" + v)
+
+                commit()
             }
 
-            "USD" -> {
-                USD_currency!!.isClickable = true
-            }
-        }
-        Egp_currency?.setOnClickListener(object : View.OnClickListener {
-            override fun onClick(view: View?) {
-                //     changeCurrency("EGP")
-            }
-        })
+       }
+            Egp_currency?.setOnClickListener(object : View.OnClickListener {
+                override fun onClick(view: View?) {
+                    v = "EGP"
+                }
+            })
 
-        USD_currency.setOnClickListener(object : View.OnClickListener { override fun onClick(view: View?) {
-//
-            //                changeCurrency("USD")
-        }
-        })
+            USD_currency.setOnClickListener(object : View.OnClickListener {
+                override fun onClick(view: View?) {
+                    v = "USD"
+                }
+            })
 
-        ok_btn.setOnClickListener(object : View.OnClickListener {
-            override fun onClick(view: View?) {
-
-
-                VFactory = ConverterViewModelFactory(
-                    ConverterRepository.getInstance(
-
-                        RemoteSourceClass.getInstance(),
-                        requireContext()
-
-                    )
-                )
-
-                CviewModel = ViewModelProvider(this@CurrencydiologFragment, VFactory).get(
-                    ConverterViewModel::class.java
-                )
-
-                CviewModel.getcontvertedResponse()
-                CviewModel._Convert_Response.observe(viewLifecycleOwner) { respo ->
-                    Log.i(ContentValues.TAG, "onChanged: ${respo.result}")
-                    System.out.println("Re"+respo.result)
+            ok_btn.setOnClickListener(object : View.OnClickListener {
+                override fun onClick(view: View?) {
+                    CviewModel.getcontvertedResponse(v)
 
                     val settingsFragment = SettingsFragment()
                     fragmentManager?.beginTransaction()
@@ -120,5 +112,8 @@ class CurrencydiologFragment : Fragment() {
                     ).show()
 
                 }
-            }})
-    }}
+            })
+        }
+
+
+    }
