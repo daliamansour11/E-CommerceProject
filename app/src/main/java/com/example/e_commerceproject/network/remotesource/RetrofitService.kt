@@ -86,10 +86,6 @@ interface RetrofitService {
     @GET("2022-01/price_rules/1089622311051/discount_codes.json")
     suspend fun getAvailableCoupons(): Response<CouponsX>
 
-
-
-
-
     @GET("customers.json")
     suspend fun getCustomers():Response<Customers>
 
