@@ -52,8 +52,8 @@
                                         app:layout_constraintStart_toEndOf="@+id/details_image_prev_obtn"
                                         app:layout_constraintTop_toTopOf="parent"
                                         android:src="@drawable/online" />
-                        -->
-            <Button
+
+                        <Button
                 android:id="@+id/details_image_prev_obtn"
                 style="@style/Widget.App.Button.OutlinedButton.IconOnly"
                 android:layout_width="wrap_content"
@@ -78,6 +78,10 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.502" />
+
+
+
+                        -->
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
