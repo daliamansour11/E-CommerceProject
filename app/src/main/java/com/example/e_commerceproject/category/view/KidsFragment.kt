@@ -127,8 +127,8 @@ class KidsFragment : Fragment(), OnProductClickInterface, OnSearchClickListener 
 
     override fun onQueryTextChange(newText: String?): Boolean {
         if (newText != null && newText.length==0) {
-            categoryAdapter.setlist(emptyList<Product>())
-            categoryAdapter.notifyDataSetChanged()
+        //    categoryAdapter.setlist(emptyList<Product>())
+        //    categoryAdapter.notifyDataSetChanged()
             return true
         }
         return false
