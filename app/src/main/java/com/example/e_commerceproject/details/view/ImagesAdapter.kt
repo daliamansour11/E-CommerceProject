@@ -34,8 +34,8 @@ class ImagesAdapter(val context: Context) : RecyclerView.Adapter<ImagesAdapter.M
 
     override fun onBindViewHolder(holder: MyViewModel, position: Int) {
         Glide.with(context).load(list[position].src)
-            .placeholder(R.drawable.ic_launcher_background)
-            .error(R.drawable.ic_launcher_foreground)
+            .placeholder(R.drawable.ic_baseline)
+            .error(R.drawable.ic_baseline)
             .into(holder.image)
     }
 

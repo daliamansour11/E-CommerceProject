@@ -144,8 +144,11 @@ class HomeFragment : Fragment() , OnBrandClickListener{
         })
     }
 
-    override fun OnBrandClick() {
+    override fun OnBrandClick(id:String) {
+        var bundle = Bundle()
+        bundle.putString("BRAND_ID" , id)
         val categoryFragment = CategoryFragment()
+        categoryFragment.arguments = bundle
         fragmentManager?.beginTransaction()?.replace(R.id.fragmentContainerView, categoryFragment)?.commit()
 
     }
