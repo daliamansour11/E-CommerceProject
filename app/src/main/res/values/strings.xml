@@ -21,4 +21,6 @@
     <string name="orders">Orders</string>
     <string name="more">More</string>
     <string name="order">My Orders</string>
+    <string name="profileToolBarTitle">Profile</string>
+    <string name="myWishes">Wishes</string>
 </resources>

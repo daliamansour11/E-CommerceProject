@@ -16,8 +16,8 @@ class ProfileRepository private constructor(
         }
     }
 
-    override suspend fun getAllOrders(): List<OrderModel> {
-        return remoteSource.getAllOrders()
+    override suspend fun getAllOrders(customerId: String): List<OrderModel> {
+        return remoteSource.getAllOrders(customerId)
     }
 
 
