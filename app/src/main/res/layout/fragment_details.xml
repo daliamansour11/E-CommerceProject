@@ -11,6 +11,7 @@
         android:id="@+id/detailscardview"
         android:layout_width="match_parent"
         android:layout_height="200dp"
+        android:elevation="2dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -53,7 +54,9 @@
                                         app:layout_constraintTop_toTopOf="parent"
                                         android:src="@drawable/online" />
 
-                        <Button
+                        -->
+
+            <Button
                 android:id="@+id/details_image_prev_obtn"
                 style="@style/Widget.App.Button.OutlinedButton.IconOnly"
                 android:layout_width="wrap_content"
@@ -79,10 +82,6 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.502" />
 
-
-
-                        -->
-
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.cardview.widget.CardView>
@@ -94,6 +93,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
         android:padding="10dp"
+        app:cardElevation="2dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/detailscardview">
@@ -107,33 +107,36 @@
                 android:id="@+id/producct_name_details"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
                 android:text="Name"
-                app:layout_constraintBottom_toTopOf="@+id/product_price_details"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.155"
-                app:layout_constraintStart_toStartOf="parent" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/product_price_details"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
-                android:layout_marginStart="35dp"
+                android:layout_marginTop="8dp"
                 android:text="price"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@id/product_ratingbar_details"
-                app:layout_constraintStart_toStartOf="parent" />
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.047"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/producct_name_details" />
 
             <RatingBar
                 android:id="@+id/product_ratingbar_details"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="52dp"
+                android:layout_marginEnd="4dp"
                 android:numStars="4"
                 android:stepSize=".25"
+                android:isIndicator="true"
+                android:progressTint="#FF9800"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.898"
+                app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toEndOf="@+id/product_price_details"
                 app:layout_constraintTop_toTopOf="parent" />
 
