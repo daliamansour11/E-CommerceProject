@@ -26,7 +26,7 @@ class CouponsViewModel (private val repo: CouponsRepository): ViewModel() {
         viewModelScope.launch( ) {
             val response = repo.getCoupons()
             coupons_Response.postValue(response.body())
-                         Log.i("TAG", "onViewCreated:couponsssssssssssssssssssssssssssssssssss")
+                         Log.i("TAG", "onViewCreated:couponsssssssssssssssssssssssssssssssssssss")
 
         }
 //        job = CoroutineScope(Dispatchers.IO + exceptionHandler).launch {

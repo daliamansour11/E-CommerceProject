@@ -11,7 +11,7 @@ class CouponsViewModelFactory(private val repo:CouponsRepository)
         return if (modelClass.isAssignableFrom(CouponsViewModel::class.java)) {
             CouponsViewModel(repo) as T
         } else {
-            throw IllegalArgumentException("ViewModel Class nott found")
+            throw IllegalArgumentException("ViewModel Class not found")
         }
     }
 }

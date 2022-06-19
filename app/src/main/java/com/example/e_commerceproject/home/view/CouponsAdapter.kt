@@ -28,7 +28,7 @@ class CouponsAdapter (private  var context: Context, var onDicountcodeClickListe
 
     override fun onBindViewHolder(holder: CouponsAdapter.ViewHolder, position: Int) {
         holder.discoubt_code.text= data[position].code
-        Log.i("TAG", "onBindViewHolder: couponnnnnnnnnnnnnn")
+        Log.i("TAG", "onBindViewHolder: couponnnnnnnnnnn")
         holder.discountCard.setOnClickListener{
             data[position].code?.let { it1 -> onDicountcodeClickListener.onDiscountCartClick(it1) }
         }

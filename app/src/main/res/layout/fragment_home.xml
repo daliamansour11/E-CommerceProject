@@ -143,7 +143,7 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/coupons_recyclerview"
                 android:layout_width="370dp"
-                android:layout_height="119dp"
+                android:layout_height="118dp"
                 android:layout_marginLeft="17dp"
                 android:layout_marginRight="17dp"
                 android:scrollbars="horizontal"
