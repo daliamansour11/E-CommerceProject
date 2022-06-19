@@ -30,9 +30,7 @@ class LoginFragment : Fragment() {
     lateinit var registerbtn : Button
     lateinit var email:EditText
     lateinit var password :EditText
-
     lateinit var viewModel: LoginViewModel
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -68,12 +66,6 @@ class LoginFragment : Fragment() {
         loginbtn.setOnClickListener {
             Toast.makeText(requireContext() , "login" , Toast.LENGTH_SHORT).show()
 
-//            viewModel.getCustomers()
-//            viewModel.customer.observe(viewLifecycleOwner, {
-//
-//                //Log.i("TAG", "onViewCreated:rrrrrrrrrrrr ${it}")
-//                Log.i("TAG", "onViewCreated: ${it}")
-//            })
 
             //viewModel.getCustomerById("jkjkjk@gmail.com")
             // mnmnmnmnmn
@@ -93,8 +85,6 @@ class LoginFragment : Fragment() {
                     Toast.makeText(requireContext() , "invalid password" , Toast.LENGTH_SHORT).show()
                 }
 
-
-                //Log.i("TAG", "onViewCreated:rrrrrrrrrrrr ${it}")
                 Log.i("TAG", "onViewCreatedjjjjjjjjjjjjjjj: ${it.customers}")
             })
         }
