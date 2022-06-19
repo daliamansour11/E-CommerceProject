@@ -112,7 +112,7 @@ class HomeFragment : Fragment() , OnBrandClickListener{
         initCoupon(view)
         coupon_viewModel.getCoupon()
         coupon_viewModel._coupons .observe(viewLifecycleOwner){coupons ->
-            Log.i("TAG", "onViewCreated: ${coupons}")
+            Log.i("TAG", "onViewCreatedd: ${coupons}")
             couponsAdapter.setDataList(coupons.discount_codes)
             couponsAdapter.notifyDataSetChanged()
         }
