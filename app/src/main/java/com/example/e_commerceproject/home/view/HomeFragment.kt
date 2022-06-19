@@ -40,12 +40,12 @@ import com.example.e_commerceproject.profile.view.ProfileFragment
 class HomeFragment : Fragment() , OnBrandClickListener{
     lateinit var coupon_viewModel: CouponsViewModel
     lateinit var coupon__vmFactory: CouponsViewModelFactory
+    lateinit var couponsAdapter: CouponsAdapter
    lateinit var   coupon_recycler:RecyclerView
     lateinit var viewModel: HomeViewModel
     lateinit var vmFactory: HomeViewModelFactory
     lateinit var recyclerView: RecyclerView
     lateinit var brandsAdapter: BrandsAdapter
-    lateinit var couponsAdapter: CouponsAdapter
     lateinit var homeFragmentView: View
     lateinit var brandLogo: ImageView
     lateinit var profileScreen: ImageView
@@ -119,6 +119,8 @@ class HomeFragment : Fragment() , OnBrandClickListener{
 
 
         imageList = ArrayList<Int>()
+        imageList = imageList + R.drawable.ads8
+        imageList = imageList + R.drawable.ads9
         imageList = imageList + R.drawable.ads1
         imageList = imageList + R.drawable.ads2
         imageList = imageList + R.drawable.ads3
@@ -126,8 +128,7 @@ class HomeFragment : Fragment() , OnBrandClickListener{
         imageList = imageList + R.drawable.ads5
         imageList = imageList + R.drawable.ads6
         imageList = imageList + R.drawable.ads7
-        imageList = imageList + R.drawable.ads8
-        imageList = imageList + R.drawable.ads9
+
 
         viewPagerAdapter = ViewPagerAdapter(requireContext(), imageList)
         viewPager!!.adapter = viewPagerAdapter
