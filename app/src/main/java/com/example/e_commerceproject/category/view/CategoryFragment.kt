@@ -22,6 +22,7 @@ import com.example.e_commerceproject.details.view.DetailsFragment
 import com.example.e_commerceproject.network.CategoryRepository
 import com.example.e_commerceproject.network.remotesource.RetrofitService
 import com.google.android.material.tabs.TabLayout
+import kotlin.streams.toList
 
 class CategoryFragment : Fragment(), OnProductClickInterface  {
 
@@ -208,12 +209,25 @@ class CategoryFragment : Fragment(), OnProductClickInterface  {
         searchView = view.findViewById(R.id.categorySearch)
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
-            //    return searchClickListener.onQueryTextSubmit(query)
-                return true
+                if (query != null) {
+                    var filteredProductList = productList.stream().filter { product ->
+
+                        product.title.lowercase().contains(query.lowercase())
+
+                    }.toList()
+                    categoryAdapter.setlist(filteredProductList)
+                    categoryAdapter.notifyDataSetChanged()
+                    return true
+                }
+                return false
             }
             override fun onQueryTextChange(newText: String?): Boolean {
-            //    return searchClickListener.onQueryTextChange(newText)
-                return true
+                if (newText != null && newText.length==0) {
+                    categoryAdapter.setlist(productList)
+                    categoryAdapter.notifyDataSetChanged()
+                    return true
+                }
+                return false
             }
         })
 

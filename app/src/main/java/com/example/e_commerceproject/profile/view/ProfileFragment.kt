@@ -28,17 +28,19 @@ import com.google.gson.Gson
 
 
 class ProfileFragment : Fragment() {
-    lateinit var moreorder_btn : Button
-    lateinit var moreWishes_btn : Button
+    lateinit var moreorder_btn : TextView
+    lateinit var moreWishes_btn : TextView
+
     lateinit var login_btn : Button
     lateinit var welcome_text : TextView
     //lateinit var register_btn : Button
-    lateinit var profile_back : Button
+    lateinit var profile_back : ImageView
     lateinit var profile_settings : ImageView
     lateinit var priceTextView: TextView
     lateinit var dateOfOrderTxtView: TextView
     lateinit var viewModel: ProfileViewModel
     lateinit var vmFactory: ProfileViewModelFactory
+   // lateinit var userNameTxt:TextView
     private var orderList:ArrayList<OrderModel> = ArrayList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -53,11 +55,7 @@ class ProfileFragment : Fragment() {
             ))
         viewModel = ViewModelProvider(this, vmFactory).get(ProfileViewModel::class.java)
 
-        if(NetworkUtils.isOnline(requireContext())){
-            viewModel.getAllOrders()
-        } else {
-            Toast.makeText(requireContext(), "Please Check your network connection", Toast.LENGTH_LONG).show()
-        }
+
     }
 
     override fun onCreateView(
@@ -70,16 +68,18 @@ class ProfileFragment : Fragment() {
         // Inflate the layout for this fragment
         var profile_frg  = inflater.inflate(R.layout.fragment_profile, container, false)
 //        moreWishes_btn = profile_frg.findViewById(R.id.morewish_btn)
-        moreorder_btn = profile_frg.findViewById(R.id.moreOrder_btn)
-        profile_back = profile_frg.findViewById(R.id.profile_back)
+        moreorder_btn = profile_frg.findViewById(R.id.moreOrdersTxtView)
+        profile_back = profile_frg.findViewById(R.id.profileArrowBack)
         profile_settings = profile_frg.findViewById(R.id.profile_settings)
+//        userNameTxt=profile_frg.findViewById(R.id.userNameTxt)
 
         login_btn = profile_frg.findViewById(R.id.login_btn)
         welcome_text = profile_frg.findViewById(R.id.welcome_text)
         //register_btn = profile_frg.findViewById(R.id.register_btn)
         //register_btn = profile_frg.findViewById(R.id.registerBtn)
-        priceTextView = profile_frg.findViewById(R.id.order_price1)
-        dateOfOrderTxtView = profile_frg.findViewById(R.id.order_date)
+        priceTextView = profile_frg.findViewById(R.id.priceTextView)
+        dateOfOrderTxtView = profile_frg.findViewById(R.id.dateOfOrderTxtView)
+
 
         return profile_frg  }
 
@@ -89,13 +89,14 @@ class ProfileFragment : Fragment() {
         val sharedPreferences : SharedPreferences = requireContext().getSharedPreferences("loginsharedprefs" , Context.MODE_PRIVATE)
         var userEmail : String  = sharedPreferences.getString("EMAIL_LOGIN" , "").toString()
         var userName : String  = sharedPreferences.getString("Name_LOGIN" , "").toString()
-
+        var customerId : String  = sharedPreferences.getString("CUSTOMER_ID" , "").toString()
         Log.i("TAG", "sharedPreferences: ${userEmail} ")
 
         if(userEmail != ""){ // data -> logout
 
             ChangeButtonText("logout")
             welcome_text.text = "Welcome ${userName}"
+            //userNameTxt.text = userName
             // log out btn visible
             // log in  btn unvisible
 
@@ -107,8 +108,20 @@ class ProfileFragment : Fragment() {
 
         }
 
-
         moreorder_btn.setEnabled(false)
+
+        if(NetworkUtils.isOnline(requireContext())){
+
+            if(customerId.length>0){
+                viewModel.getAllOrders(customerId)
+            } else {
+                Toast.makeText(requireContext(), "Please Login In ", Toast.LENGTH_LONG).show()
+            }
+        } else {
+            Toast.makeText(requireContext(), "Please Check your network connection", Toast.LENGTH_LONG).show()
+        }
+
+
         viewModel.orderList.observe(viewLifecycleOwner){orders ->
             orderList = orders as ArrayList<OrderModel>
             if(orderList!=null && orderList.size>0){

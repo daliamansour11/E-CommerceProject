@@ -14,9 +14,9 @@ class ProfileViewModel (iRepo: ProfileRepositoryInterface) : ViewModel() {
     private val profileRepo: ProfileRepositoryInterface = iRepo
     val orderList = MutableLiveData<List<OrderModel>>()
 
-    fun getAllOrders(){
+    fun getAllOrders(customerId: String){
         viewModelScope.launch{
-            val brands = profileRepo.getAllOrders()
+            val brands = profileRepo.getAllOrders(customerId)
             withContext(Dispatchers.Main){
                 orderList.postValue(brands)
             }

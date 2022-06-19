@@ -15,6 +15,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.e_commerceproject.R
 import com.example.e_commerceproject.authentication.login.model.Address
 import com.example.e_commerceproject.authentication.login.model.MarketingConsent
+import com.example.e_commerceproject.authentication.login.view.LoginFragment
 import com.example.e_commerceproject.authentication.register.model.*
 import com.example.e_commerceproject.authentication.register.viewmodel.AuthenticationViewModel
 import com.example.e_commerceproject.authentication.register.viewmodel.AuthenticationViewModelFactory
@@ -32,6 +33,7 @@ class RegisterFragment : Fragment() {
     lateinit var passwordEditText: EditText
     lateinit var confirmPasswordEditText: EditText
     lateinit var phoneEditText: EditText
+    lateinit var backArrow: Button
 
 
     lateinit var viewModel: AuthenticationViewModel
@@ -92,6 +94,16 @@ class RegisterFragment : Fragment() {
             Toast.makeText(requireContext() , "registernow" , Toast.LENGTH_SHORT).show()
 
         }
+
+
+        backArrow = view.findViewById(R.id.backbtn)
+        backArrow.setOnClickListener(View.OnClickListener {
+            val fragmentManager = parentFragmentManager
+            val loginFragment = LoginFragment()
+            val fragmentTransaction = fragmentManager.beginTransaction()
+            fragmentTransaction.replace(R.id.fragmentContainerView,loginFragment)
+            fragmentTransaction.commit()
+        })
 
     }
 
