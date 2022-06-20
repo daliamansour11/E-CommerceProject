@@ -22,6 +22,7 @@ import com.example.e_commerceproject.authentication.register.viewmodel.Authentic
 import com.example.e_commerceproject.authentication.register.viewmodel.AuthenticationViewModelFactory
 import com.example.e_commerceproject.data.AuthenticationRepository
 import com.example.e_commerceproject.network.remotesource.RetrofitService
+import com.example.e_commerceproject.profile.view.ProfileFragment
 
 
 class LoginFragment : Fragment() {
@@ -30,9 +31,8 @@ class LoginFragment : Fragment() {
     lateinit var registerbtn : Button
     lateinit var email:EditText
     lateinit var password :EditText
-
     lateinit var viewModel: LoginViewModel
-
+    lateinit var backArrow: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -68,12 +68,6 @@ class LoginFragment : Fragment() {
         loginbtn.setOnClickListener {
             Toast.makeText(requireContext() , "login" , Toast.LENGTH_SHORT).show()
 
-//            viewModel.getCustomers()
-//            viewModel.customer.observe(viewLifecycleOwner, {
-//
-//                //Log.i("TAG", "onViewCreated:rrrrrrrrrrrr ${it}")
-//                Log.i("TAG", "onViewCreated: ${it}")
-//            })
 
             //viewModel.getCustomerById("jkjkjk@gmail.com")
             // mnmnmnmnmn
@@ -86,6 +80,7 @@ class LoginFragment : Fragment() {
                         putString("EMAIL_LOGIN" ,  "${email.text}")
                         putString("PASSWORD_LOGIN" ,  "${password.text}")
                         putString("Name_LOGIN" ,  "${it.customers[0].first_name}")
+                        putString("CUSTOMER_ID" ,  "${it.customers[0].id}")
                     }.apply()
 
                    // saveDataInSharedPrefrence()
@@ -93,8 +88,6 @@ class LoginFragment : Fragment() {
                     Toast.makeText(requireContext() , "invalid password" , Toast.LENGTH_SHORT).show()
                 }
 
-
-                //Log.i("TAG", "onViewCreated:rrrrrrrrrrrr ${it}")
                 Log.i("TAG", "onViewCreatedjjjjjjjjjjjjjjj: ${it.customers}")
             })
         }
@@ -106,6 +99,15 @@ class LoginFragment : Fragment() {
             fragmentManager?.beginTransaction()?.replace(R.id.fragmentContainerView, registerFragment)?.commit()
 
         }
+
+        backArrow = view.findViewById(R.id.backbtn)
+        backArrow.setOnClickListener(View.OnClickListener {
+            val fragmentManager = parentFragmentManager
+            val profileFragment = ProfileFragment()
+            val fragmentTransaction = fragmentManager.beginTransaction()
+            fragmentTransaction.replace(R.id.fragmentContainerView,profileFragment)
+            fragmentTransaction.commit()
+        })
     }
 
     private fun saveDataInSharedPrefrence() {

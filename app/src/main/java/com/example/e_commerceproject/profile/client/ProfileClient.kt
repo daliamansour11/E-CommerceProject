@@ -12,9 +12,9 @@ class ProfileClient private constructor():ProfileRemoteSource{
         }
     }
 
-    override suspend fun getAllOrders(): List<OrderModel> {
+    override suspend fun getAllOrders(customerId: String): List<OrderModel> {
         var apiClient = RetrofitAPIClient.getAPIClientInstance()
-        var customerId = "5754051854475"
+//        var customerId = "5754051854475"
         var response = apiClient.getAllOrderResponse(customerId,"id,total_price,created_at,customer,line_items")
         return response.orders
     }

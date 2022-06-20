@@ -77,6 +77,10 @@ class DetailsFragment : Fragment() {
         productDescription = view.findViewById(R.id.product_description_for_details)
         ratingBar = view.findViewById(R.id.product_ratingbar_details)
 
+        ratingBar.isClickable = false
+
+
+
         val retrofitService = RetrofitService.getInstance()
         val mainRepository = DetailsRepository(retrofitService)
 
@@ -89,6 +93,7 @@ class DetailsFragment : Fragment() {
             productName.text = it.product.title
             productPrice.text = "${it.product.variants[0].price} $"
             productDescription.text = it.product.body_html
+            ratingBar.rating = (it.product.variants[0].inventory_quantity.toFloat())/2
 
             adapter.setListd(it.product.images)
             adapter.notifyDataSetChanged()

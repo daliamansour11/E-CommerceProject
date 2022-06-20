@@ -15,6 +15,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.e_commerceproject.R
 import com.example.e_commerceproject.authentication.login.model.Address
 import com.example.e_commerceproject.authentication.login.model.MarketingConsent
+import com.example.e_commerceproject.authentication.login.view.LoginFragment
 import com.example.e_commerceproject.authentication.register.model.*
 import com.example.e_commerceproject.authentication.register.viewmodel.AuthenticationViewModel
 import com.example.e_commerceproject.authentication.register.viewmodel.AuthenticationViewModelFactory
@@ -32,6 +33,7 @@ class RegisterFragment : Fragment() {
     lateinit var passwordEditText: EditText
     lateinit var confirmPasswordEditText: EditText
     lateinit var phoneEditText: EditText
+    lateinit var backArrow: Button
 
 
     lateinit var viewModel: AuthenticationViewModel
@@ -66,54 +68,42 @@ class RegisterFragment : Fragment() {
         phoneEditText = view.findViewById(R.id.register_phone_edittext)
 
 
-
-       // Log.i("TAG", "onViewCreatedttttttttttttttttttttttttttttttt: ${nameEdittxt.text}")
-
         val retrofitService = RetrofitService.getInstance()
         val mainRepository = AuthenticationRepository(retrofitService)
         viewModel = ViewModelProvider(this, AuthenticationViewModelFactory(mainRepository)).get(AuthenticationViewModel::class.java)
 
 
-        var bv = Customer2(
-            first_name = "fxewqopokmmswqa" ,
-            last_name = "opujhhgcgfdzebvcx" ,
-            phone = "01247765421",
-            tags = "bvbvcxznhkkhg",
-            email = "mklooolplmrqqe@gmail.com"
-        )
-
-        var f: String = firstNameEdittxt.text.toString()
-        var l: String = lastNameEdittxt.text.toString()
-        var p: String = phoneEditText.text.toString()
-        var e: String = emailEditText.text.toString()
-        var t: String = passwordEditText.text.toString()
-
-
-        var vb = Customer2(
-            first_name = "${f}" ,
-            last_name = "${l}"  ,
-            phone = "${p}",
-            tags = "${t}",
-            email = "${e}"
-        )
-
-
-        var  customerdata = CustomerModel(vb)
-
         registernowbtn.setOnClickListener {
 
-            //Log.i("TAG", "onViewCreatedttttttttttttttttttttttttttttttt: ${nameEdittxt.text}")
+            var customer = Customer2(
+                first_name = "${firstNameEdittxt.text}" ,
+                last_name = "${lastNameEdittxt.text}"  ,
+                phone = "${phoneEditText.text}",
+                tags = "${passwordEditText.text}",
+                email = "${emailEditText.text}"
+            )
 
-            viewModel.postRegisterCustomer(customerdata) // postRegisterCustomer
+            var  customerdata = CustomerModel(customer)
+
+            viewModel.postRegisterCustomer(customerdata)
             viewModel.customerdata.observe(viewLifecycleOwner, {
 
-                //Log.i("TAG", "onViewCreated:rrrrrrrrrrrr ${it}")
                 Log.i("TAG", "onViewCreated: ${it.customer.phone}")
             })
 
             Toast.makeText(requireContext() , "registernow" , Toast.LENGTH_SHORT).show()
 
         }
+
+
+        backArrow = view.findViewById(R.id.backbtn)
+        backArrow.setOnClickListener(View.OnClickListener {
+            val fragmentManager = parentFragmentManager
+            val loginFragment = LoginFragment()
+            val fragmentTransaction = fragmentManager.beginTransaction()
+            fragmentTransaction.replace(R.id.fragmentContainerView,loginFragment)
+            fragmentTransaction.commit()
+        })
 
     }
 
