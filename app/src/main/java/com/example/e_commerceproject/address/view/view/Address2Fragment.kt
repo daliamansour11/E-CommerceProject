@@ -1,4 +1,4 @@
-package com.example.e_commerceproject.address.view
+package com.example.e_commerceproject.address.view.view
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

@@ -114,23 +114,6 @@ class DetailsFragment : Fragment() {
 //            }
             Log.i("TAG", "onViewCreated: $imagearraysize")
         })
-        var item_Image = listOf<NoteAttribute>(NoteAttribute("image",
-            "https://cdn.shopify.com/s/files/1/0589/7509/2875/products/85cc58608bf138a50036bcfe86a3a362.jpg?v=1653403067"))
-
-        var lineItem = LineItem(
-            variant_id = 40335555395723 ,
-            quantity = 1
-        )
-        val myorder = DraftOrder(
-            email = "reham33@gmail.com",
-            note = "card",
-          note_attributes = item_Image ,
-            line_items = listOf(lineItem)
-        )
-        val mylist = CartModel(
-           myorder
-        )
-        viewModel.pushPost(mylist)
 
 
         viewPager.adapter = adapter
@@ -149,10 +132,25 @@ class DetailsFragment : Fragment() {
             Toast.makeText(requireContext(), "po", Toast.LENGTH_SHORT).show()
 //            var lineItemList = listOf<LineItem>(LineItem(0, "","","",2,40335550546059))
 
+            var item_Image = listOf<NoteAttribute>(NoteAttribute("image",
+                "https://cdn.shopify.com/s/files/1/0589/7509/2875/products/85cc58608bf138a50036bcfe86a3a362.jpg?v=1653403067"))
 
+            var lineItem = LineItem(
+                variant_id = 40335555395723 ,
+                quantity = 1
+            )
+            val myorder = DraftOrder(
+                email = "reham33@gmail.com",
+                note = "card",
+                note_attributes = item_Image ,
+                line_items = listOf(lineItem)
+            )
+            val mylist = CartModel(
+                myorder
+            )
+            viewModel.pushPost(mylist)
             viewModel.mRCartResonse.observe(viewLifecycleOwner, {
                 System.out.println("We are in productInfoobjectobserver")
-
                 if (it == null) {
                     Toast.makeText(requireContext(), "failed to post", Toast.LENGTH_LONG)
                         .show()
