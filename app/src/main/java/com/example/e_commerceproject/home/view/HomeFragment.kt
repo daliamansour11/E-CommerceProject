@@ -3,6 +3,7 @@ package com.example.e_commerceproject.home.view
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -21,14 +22,23 @@ import com.example.e_commerceproject.currencyConverter.view.SHARD_NAME
 import com.example.e_commerceproject.home.client.HomeClient
 import com.example.e_commerceproject.home.model.HomeRepository
 import com.example.e_commerceproject.home.model.ViewPagerAdapter
+import com.example.e_commerceproject.home.viewmodel.CouponsViewModel
+import com.example.e_commerceproject.home.viewmodel.CouponsViewModelFactory
 import com.example.e_commerceproject.home.viewmodel.HomeViewModel
 import com.example.e_commerceproject.home.viewmodel.HomeViewModelFactory
 import com.example.e_commerceproject.homesearch.view.HomeSearchFragment
+import com.example.e_commerceproject.network.remotesource.CouponsRepository
+import com.example.e_commerceproject.network.remotesource.RetrofitService
+import com.example.e_commerceproject.payment.view.CashFragment
 import com.example.e_commerceproject.profile.view.ProfileFragment
 
 
 class HomeFragment : Fragment() , OnBrandClickListener{
 
+    lateinit var coupon_viewModel: CouponsViewModel
+    lateinit var coupon__vmFactory: CouponsViewModelFactory
+    lateinit var couponsAdapter: CouponsAdapter
+    lateinit var   coupon_recycler:RecyclerView
     lateinit var viewModel: HomeViewModel
     lateinit var vmFactory: HomeViewModelFactory
     lateinit var recyclerView: RecyclerView
@@ -66,8 +76,15 @@ class HomeFragment : Fragment() , OnBrandClickListener{
         } else {
             Toast.makeText(requireContext(), "Please Check your network connection", Toast.LENGTH_LONG).show()
         }
-
+        val retrofitService = RetrofitService.getInstance()
+        val mainRepository = CouponsRepository(retrofitService)
+        coupon_viewModel = ViewModelProvider(
+            this,
+            CouponsViewModelFactory(mainRepository)
+        ).get(CouponsViewModel::class.java)
     }
+
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle? ): View? {
 
@@ -91,6 +108,15 @@ class HomeFragment : Fragment() , OnBrandClickListener{
             brandsAdapter.setDataList(brands)
             brandsAdapter.notifyDataSetChanged()
         }
+        initCoupon(view)
+        coupon_viewModel.getCoupon()
+        coupon_viewModel._coupons .observe(viewLifecycleOwner){coupons ->
+            Log.i("TAG", "onViewCreated:viewwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww")
+            Log.i("TAG", "onViewCreated: ${coupons}")
+            couponsAdapter.setDataList(coupons.discount_codes)
+            couponsAdapter.notifyDataSetChanged()
+        }
+
 
         imageList = ArrayList<Int>()
         imageList = imageList + R.drawable.ads1
@@ -150,6 +176,25 @@ class HomeFragment : Fragment() , OnBrandClickListener{
         val categoryFragment = CategoryFragment()
         categoryFragment.arguments = bundle
         fragmentManager?.beginTransaction()?.replace(R.id.fragmentContainerView, categoryFragment)?.commit()
+
+    }
+    override fun onDiscountCartClick(_code:String) {
+        var bundle=Bundle()
+        bundle.putString("COUPON",_code)
+
+        val cashFragment = CashFragment()
+        cashFragment.arguments =bundle
+        fragmentManager?.beginTransaction()?.replace(R.id.fragmentContainerView, cashFragment)?.commit()
+
+    }
+    fun initCoupon(view: View) {
+        coupon_recycler = view.findViewById(R.id.coupons_recyclerview)
+        val couponLinearLayoutManager: LinearLayoutManager = LinearLayoutManager(context)
+        couponLinearLayoutManager.orientation = RecyclerView.HORIZONTAL
+        couponsAdapter = CouponsAdapter(requireContext(), this)
+        coupon_recycler.layoutManager = couponLinearLayoutManager
+        coupon_recycler.adapter = couponsAdapter
+
 
     }
 
