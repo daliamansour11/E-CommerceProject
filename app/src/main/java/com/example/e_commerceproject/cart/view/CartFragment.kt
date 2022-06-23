@@ -1,5 +1,6 @@
 package com.example.e_commerceproject.cart.view
 
+import android.content.ContentValues
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
@@ -26,7 +27,7 @@ import com.example.e_commerceproject.currencyConverter.viewModel.ConverterViewMo
 import com.example.e_commerceproject.currencyConverter.viewModel.ConverterViewModelFactory
 import com.example.e_commerceproject.network.ConverterRepository
 import com.example.e_commerceproject.network.remotesource.CartRepository
-import com.example.e_commerceproject.network.remotesource.RemoteSourceClass
+import com.example.e_commerceproject.network.remotesource.ConverterApiService
 import com.example.e_commerceproject.network.remotesource.RetrofitService
 import com.example.e_commerceproject.payment.view.PaymentFragment
 
@@ -45,6 +46,8 @@ class CartFragment : Fragment() ,OnDeleteFromCartListener {
     lateinit var addressArrow: ImageView
     lateinit var payButtonCart: Button
     lateinit var viewModel: CartViewModel
+
+
     var currecncy: String? = null
 //    var cart_id: String = "873008693387"
     var to: String = "USD"
@@ -62,22 +65,20 @@ class CartFragment : Fragment() ,OnDeleteFromCartListener {
         val str_name = sharedPref.getString(CURRUNEY_TYPE, "")
 
 
-        if (currecncy == CURRUNEY_TYPE) {
+        if (currecncy == "EGP") {
+            to = "EGP"
             Toast.makeText(requireContext(), "we are using EGP", Toast.LENGTH_SHORT).show()
-        } else {
-            VFactory = ConverterViewModelFactory(
-                ConverterRepository.getInstance(
+        } else if(currecncy == "USD"){
+            to = "USD"
+            Toast.makeText(requireContext(), "we are using USD", Toast.LENGTH_SHORT).show()
 
-                    RemoteSourceClass.getInstance(),
-                    requireContext()
-                )
-            )
-            CviewModel = ViewModelProvider(this, VFactory).get(
-                ConverterViewModel::class.java
-            )
-            CviewModel.getcontvertedResponse(to)
+            val retrofitService = ConverterApiService.getInstance()
+            val mainRepository = ConverterRepository(retrofitService)
+            CviewModel = ViewModelProvider(this, ConverterViewModelFactory(mainRepository)).get(ConverterViewModel::class.java)
+
+            CviewModel.getcontvertedResponse("PonwHXimsWL7N3LyigLfHj3E1Rrj0V9R" ,"USD" , "5" , "EGP")
             CviewModel._Convert_Response.observe(viewLifecycleOwner) { respo ->
-                // Log.i(ContentValues.TAG, "onChanged: ${respo.result}")
+                 Log.i(ContentValues.TAG, "onChanged: ${respo.result}")
                 System.out.println("Re" + respo.result)
             }
         }

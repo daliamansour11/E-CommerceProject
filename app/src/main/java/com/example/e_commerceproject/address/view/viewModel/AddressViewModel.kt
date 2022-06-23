@@ -7,13 +7,15 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.e_commerceproject.authentication.register.model.CustomerAddress
 import com.example.e_commerceproject.authentication.register.model.CustomerModel
+import com.example.e_commerceproject.authentication.register.model.GetAddress
+import com.example.e_commerceproject.authentication.register.model.PostAddress
 import com.example.e_commerceproject.network.remotesource.AdressRepository
 import kotlinx.coroutines.*
 
 class AddressViewModel  (private var repo : AdressRepository): ViewModel() {
-    var mCustomerAddress = MutableLiveData<CustomerModel>()
-    var CustomerAddress = MutableLiveData<CustomerAddress>()
-    var address_response: LiveData<CustomerModel> = mCustomerAddress
+    var postCustomerAddress = MutableLiveData<PostAddress>()
+    var getCustomerAddresses = MutableLiveData<GetAddress>()
+    var address_response: LiveData<PostAddress> = postCustomerAddress
     var job: Job? = null
     val errorMessage = MutableLiveData<String>()
     val loading = MutableLiveData<Boolean>()
@@ -21,13 +23,21 @@ class AddressViewModel  (private var repo : AdressRepository): ViewModel() {
         // onError("Exception handled: ${throwable.localizedMessage}")
     }
 
-    fun pushPostAddress(id: String, address: CustomerModel) {
-        viewModelScope.launch {
+    fun pushPostAddress(id: String, address: PostAddress) {
+        job = CoroutineScope(Dispatchers.IO + exceptionHandler).launch {
             val response = repo.postAddress(id, address)
             withContext(Dispatchers.Main) {
-                mCustomerAddress.value = response.body()
+                if (response.isSuccessful) {
+                    Log.i("TAG", "getPostAddress: addresssssssssssssssssssssssss")
+                    postCustomerAddress.value = response.body()
+                    loading.value = false
+                } else {
+                    Log.i("TAG", "Errorrrrrrrrrrrrrrrr: ${response.body()} ")
+                    // onError("Errorrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr : ${response.message()} iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii ")
 
+                }
             }
+
         }
     }
 //                if (response.isSuccessful) {
@@ -50,7 +60,7 @@ class AddressViewModel  (private var repo : AdressRepository): ViewModel() {
             withContext(Dispatchers.Main) {
                 if (response.isSuccessful) {
                     Log.i("TAG", "getPostAddress: addresssssssssssssssssssssssss")
-                    CustomerAddress.postValue(response.body())
+                    getCustomerAddresses.postValue(response.body())
                     loading.value = false
                 } else {
                     Log.i("TAG", "Errorrrrrrrrrrrrrrrr: ${response.body()} ")

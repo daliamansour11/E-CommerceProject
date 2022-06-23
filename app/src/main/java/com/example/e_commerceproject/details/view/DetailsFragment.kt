@@ -180,7 +180,7 @@ class DetailsFragment : Fragment() {
                         Toast.makeText(requireContext(), "failed to add to favorite", Toast.LENGTH_LONG).show()
                     } else {
                         Log.i("TAG", "onViewCreatedppppppppppppppppppppppppp: ${it.draft_order}")
-                        Toast.makeText(requireContext(), "${it.draft_order.id}", Toast.LENGTH_LONG).show()
+                        Toast.makeText(requireContext(), "${it.draft_order?.id}", Toast.LENGTH_LONG).show()
                         Toast.makeText(requireContext(), "added sucessfully", Toast.LENGTH_LONG).show()
                     }
                 })

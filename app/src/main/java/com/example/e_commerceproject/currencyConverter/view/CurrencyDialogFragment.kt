@@ -17,6 +17,7 @@ import com.example.e_commerceproject.Settings.view.SettingsFragment
 import com.example.e_commerceproject.currencyConverter.viewModel.ConverterViewModel
 import com.example.e_commerceproject.currencyConverter.viewModel.ConverterViewModelFactory
 import com.example.e_commerceproject.network.ConverterRepository
+import com.example.e_commerceproject.network.remotesource.ConverterApiService
 import com.example.e_commerceproject.network.remotesource.RemoteSourceClass
 
 const val SHARD_NAME = "shard"
@@ -53,15 +54,21 @@ class CurrencydiologFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        VFactory = ConverterViewModelFactory(
-            ConverterRepository.getInstance(
-                RemoteSourceClass.getInstance(),
-                requireContext()
-            )
-        )
-        CviewModel = ViewModelProvider(this@CurrencydiologFragment, VFactory).get(
-            ConverterViewModel::class.java
-        )
+//        VFactory = ConverterViewModelFactory(
+//            ConverterRepository.getInstance(
+//                RemoteSourceClass.getInstance(),
+//                requireContext()
+//            )
+////        )
+//        CviewModel = ViewModelProvider(this@CurrencydiologFragment, VFactory).get(
+//            ConverterViewModel::class.java
+//        )
+
+
+        val retrofitService = ConverterApiService.getInstance()
+        val mainRepository = ConverterRepository(retrofitService)
+        CviewModel = ViewModelProvider(this, ConverterViewModelFactory(mainRepository)).get(ConverterViewModel::class.java)
+        CviewModel.getcontvertedResponse("PonwHXimsWL7N3LyigLfHj3E1Rrj0V9R" ,"USD" , "5" , "EGP")
         CviewModel._Convert_Response.observe(viewLifecycleOwner) { respo ->
             Log.i(ContentValues.TAG, "onChanged: ${respo.result}")
             System.out.println("Re" + respo.result)
@@ -95,7 +102,7 @@ class CurrencydiologFragment : Fragment() {
 
         ok_btn.setOnClickListener(object : View.OnClickListener {
             override fun onClick(view: View?) {
-                CviewModel.getcontvertedResponse(v)
+                CviewModel.getcontvertedResponse("PonwHXimsWL7N3LyigLfHj3E1Rrj0V9R" ,"USD" , "5" , "EGP")
 
                 val settingsFragment = SettingsFragment()
                 fragmentManager?.beginTransaction()
