@@ -87,7 +87,7 @@ class AddressFragment : Fragment() {
                 var custom_Address = CustomerModel(customer)
                 viewModel.pushPostAddress("5770511351947",postAddress)
                 viewModel.postCustomerAddress.observe(viewLifecycleOwner, {
-                    Log.i("TAGGGGGGGGGGGGGGGGGGGGGGG", "onViewCreated: ${it}")
+                    Log.i("TAGGGGGGGGGGGGGGGGGGGGGGGGGGG", "onViewCreated: ${it}")
                 })
                 val address2Fragment = Address2Fragment()
                 fragmentManager?.beginTransaction()
