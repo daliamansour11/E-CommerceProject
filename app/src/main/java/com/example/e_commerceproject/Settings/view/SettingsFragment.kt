@@ -12,7 +12,7 @@ import android.widget.ImageView
 import android.widget.Toast
 import com.example.e_commerceproject.AboutFragment
 import com.example.e_commerceproject.R
-import com.example.e_commerceproject.address.view.AddressFragment
+import com.example.e_commerceproject.address.view.view.AddressFragment
 import com.example.e_commerceproject.currencyConverter.view.CurrencydiologFragment
 import com.example.e_commerceproject.profile.view.ProfileFragment
 
@@ -47,11 +47,10 @@ class SettingsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         backArrow= settingsFragmentView.findViewById(R.id.settingArrowBack)
         backArrow.setOnClickListener(View.OnClickListener {
-            val fragmentManager=parentFragmentManager
-            val fragmentTransaction=fragmentManager.beginTransaction()
+            val profileFragment = ProfileFragment()
+            fragmentManager?.beginTransaction()?.replace(R.id.fragmentContainerView,profileFragment )?.commit()
+            Toast.makeText(requireContext() ,"uyuyhfuyu" , Toast.LENGTH_SHORT ).show()
 
-            //  fragmentTransaction.replace(R.id.,fragment)
-            fragmentTransaction.commit()
         })
         addressArrow= settingsFragmentView.findViewById(R.id.navigateToAddressScreenBtn)
         addressArrow.setOnClickListener(View.OnClickListener {
@@ -78,9 +77,7 @@ class SettingsFragment : Fragment() {
             val currency_fragment =CurrencydiologFragment()
             fragmentManager?.beginTransaction()?.replace(R.id.fragmentContainerView, currency_fragment)?.commit()
             Toast.makeText(requireContext() ,"currency dialog" , Toast.LENGTH_SHORT ).show()
-
         }
-
         navigateToContactusScreenBtn = settingsFragmentView.findViewById(R.id.navigateToContactusScreenBtn)
         navigateToContactusScreenBtn.setOnClickListener {
 
@@ -89,16 +86,13 @@ class SettingsFragment : Fragment() {
             Toast.makeText(requireContext() ,"uyuyhfuyu" , Toast.LENGTH_SHORT ).show()
 
         }
-
         navigateToaboutScreenBtn = settingsFragmentView.findViewById(R.id.navigateToaboutScreenBtn)
         navigateToaboutScreenBtn.setOnClickListener {
 
             val about_fragment = AboutFragment()
             fragmentManager?.beginTransaction()?.replace(R.id.fragmentContainerView,about_fragment )?.commit()
             Toast.makeText(requireContext() ,"uyuyhfuyu" , Toast.LENGTH_SHORT ).show()
-
         }
-
         logoutButton = view.findViewById(R.id.logoutButton)
         logoutButton.setOnClickListener {
 
@@ -109,12 +103,8 @@ class SettingsFragment : Fragment() {
                 putString("EMAIL_LOGIN" ,  "")
                 putString("PASSWORD_LOGIN" ,  "")
             }.apply()
-
             Toast.makeText(requireContext() ,"logout" , Toast.LENGTH_SHORT ).show()
-
         }
-
-
     }
 
 

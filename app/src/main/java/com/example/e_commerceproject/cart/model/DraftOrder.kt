@@ -1,7 +1,7 @@
 package com.example.e_commerceproject.cart.model
 
 
-data class DraftOrder(
+data class  DraftOrder(
     val admin_graphql_api_id: String? =null,
     val applied_discount: Any? =null,
     val billing_address: Any? =null,
@@ -9,8 +9,8 @@ data class DraftOrder(
     val created_at: String? =null,
     val currency: String? =null,
     val customer: Customer? =null,
-    val email: String? =null,
-    val id: Long? =null,
+    var email: String? =null,
+    val id: String? =null,
     val invoice_sent_at: Any? =null,
     val invoice_url: String? =null,
     val line_items: List<LineItem>? =null,

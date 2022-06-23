@@ -4,26 +4,53 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.e_commerceproject.authentication.register.model.CustomerAddress
+import com.example.e_commerceproject.authentication.register.model.CustomerModel
 import com.example.e_commerceproject.network.remotesource.AdressRepository
 import kotlinx.coroutines.*
 
-class AddressViewModel  (private var repo : AdressRepository): ViewModel(){
-    var  mCustomerAddress  = MutableLiveData<CustomerAddress>()
-    private var address_response : LiveData<CustomerAddress> =mCustomerAddress
+class AddressViewModel  (private var repo : AdressRepository): ViewModel() {
+    var mCustomerAddress = MutableLiveData<CustomerModel>()
+    var CustomerAddress = MutableLiveData<CustomerAddress>()
+    var address_response: LiveData<CustomerModel> = mCustomerAddress
     var job: Job? = null
     val errorMessage = MutableLiveData<String>()
     val loading = MutableLiveData<Boolean>()
     val exceptionHandler = CoroutineExceptionHandler { _, throwable ->
         // onError("Exception handled: ${throwable.localizedMessage}")
     }
-    fun pushPostAddress(address: CustomerAddress) {
-        job = CoroutineScope(Dispatchers.IO + exceptionHandler).launch {
-            val response = repo.postAddress(address)
+
+    fun pushPostAddress(id: String, address: CustomerModel) {
+        viewModelScope.launch {
+            val response = repo.postAddress(id, address)
+            withContext(Dispatchers.Main) {
+                mCustomerAddress.value = response.body()
+
+            }
+        }
+    }
+//                if (response.isSuccessful) {
+//                    mCustomerAddress.postValue(response.body())
+//                    Log.i("TAGGGG", "pushPostAddress: addresssssssssssssssssssssssss${response.code()}")
+//
+//                    loading.value = false
+//                } else {
+//                    Log.i("TAGGGG", "Errorrrrrrrrrrrrrrrr: ${response.body()} ")
+//                    // onError("Errorrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr : ${response.message()} iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii ")
+//
+//                }
+//            }
+//
+
+
+    fun getAddress(customer_id: String) {
+         job = CoroutineScope(Dispatchers.IO + exceptionHandler).launch {
+            val response = repo.getAddress(customer_id)
             withContext(Dispatchers.Main) {
                 if (response.isSuccessful) {
-                    Log.i("TAG", "pushPostAddress: addresssssssssssssssssssssssss")
-                    mCustomerAddress.postValue(response.body())
+                    Log.i("TAG", "getPostAddress: addresssssssssssssssssssssssss")
+                    CustomerAddress.postValue(response.body())
                     loading.value = false
                 } else {
                     Log.i("TAG", "Errorrrrrrrrrrrrrrrr: ${response.body()} ")
@@ -33,5 +60,4 @@ class AddressViewModel  (private var repo : AdressRepository): ViewModel(){
             }
         }
     }
-
 }

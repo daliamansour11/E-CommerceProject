@@ -4,10 +4,10 @@ import com.example.e_commerceproject.currencyConverter.model.ConverterModel
 import retrofit2.Response
 
 class RemoteSourceClass :RemoteSourceinterface {
-    override suspend fun getconvertedCurrency(): Response<ConverterModel> {
+    override suspend fun getconvertedCurrency(to:String): Response<ConverterModel> {
 
         val apiService =  RetrofitConverter.getInstance().create(ConverterApiService::class.java)
-        var response =  apiService.getconvertedCurrencyvalue("PonwHXimsWL7N3LyigLfHj3E1Rrj0V9R","EGP",1,"USD")
+        var response =  apiService.getconvertedCurrencyvalue(to)
 
         return  response
     }
