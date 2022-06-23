@@ -11,13 +11,12 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 class ConverterViewModel(val  iRepo_convert : ConverterRepoInterface) : ViewModel(){
-
     private val iRepo : ConverterRepoInterface = iRepo_convert
     val _Convert_Response = MutableLiveData<ConverterModel>()
-    fun getcontvertedResponse(){
+    fun getcontvertedResponse(to:String){
 
         viewModelScope.launch {
-            val convert_value = iRepo_convert.getConvertedCurrency()
+            val convert_value = iRepo_convert.getConvertedCurrency(to)
             withContext(Dispatchers.Main){
                 _Convert_Response.postValue(convert_value.body())
 
@@ -25,3 +24,4 @@ class ConverterViewModel(val  iRepo_convert : ConverterRepoInterface) : ViewMode
             }
         }
     }}
+

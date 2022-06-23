@@ -1,46 +1,53 @@
 package com.example.e_commerceproject.cart.view
 
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.e_commerceproject.payment.view.PaymentFragment
 import com.example.e_commerceproject.R
 import com.example.e_commerceproject.cart.model.CartModel
+import com.example.e_commerceproject.cart.model.DraftOrder
 import com.example.e_commerceproject.cart.viewmodel.CartViewModel
 import com.example.e_commerceproject.cart.viewmodel.CartViewModelFactory
+import com.example.e_commerceproject.currencyConverter.view.CURRUNEY_TYPE
+import com.example.e_commerceproject.currencyConverter.view.SHARD_NAME
+import com.example.e_commerceproject.currencyConverter.viewModel.ConverterViewModel
+import com.example.e_commerceproject.currencyConverter.viewModel.ConverterViewModelFactory
+import com.example.e_commerceproject.network.ConverterRepository
 import com.example.e_commerceproject.network.remotesource.CartRepository
+import com.example.e_commerceproject.network.remotesource.RemoteSourceClass
 import com.example.e_commerceproject.network.remotesource.RetrofitService
-import com.google.android.material.snackbar.Snackbar
+import com.example.e_commerceproject.payment.view.PaymentFragment
 
-//import com.example.e_commerceproject.home.model.DummyData
-
-//import com.example.e_commerceproject.home.model.DummyData
-//import com.example.e_commerceproject.common.model.DummyData
-
-
-class CartFragment : Fragment() {
+class CartFragment : Fragment() ,OnDeleteFromCartListener {
     lateinit var cartList: CartModel
     lateinit var recyclerView: RecyclerView
     lateinit var cartAdapter: CartAdapter
-    val mlist = ArrayList<CartModel>()
+    val mlist = ArrayList<DraftOrder>()
+    lateinit var CviewModel: ConverterViewModel
+    lateinit var VFactory: ConverterViewModelFactory
+    lateinit var sharedPref: SharedPreferences
+    lateinit var editor: SharedPreferences.Editor
+    lateinit var total_price: TextView
 
-
-    lateinit var total_price :TextView
     //lateinit var cartFragmentView: View
     lateinit var addressArrow: ImageView
     lateinit var payButtonCart: Button
     lateinit var viewModel: CartViewModel
-    var cart_id :Long = 5764286480523
+    var currecncy: String? = null
+//    var cart_id: String = "873008693387"
+    var to: String = "USD"
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
@@ -49,13 +56,36 @@ class CartFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-//
+        sharedPref = requireActivity().getSharedPreferences(SHARD_NAME, Context.MODE_PRIVATE)
+        editor = sharedPref.edit()
+        val sharedPref = requireActivity().getSharedPreferences(SHARD_NAME, Context.MODE_PRIVATE)
+        val str_name = sharedPref.getString(CURRUNEY_TYPE, "")
 
+
+        if (currecncy == CURRUNEY_TYPE) {
+            Toast.makeText(requireContext(), "we are using EGP", Toast.LENGTH_SHORT).show()
+        } else {
+            VFactory = ConverterViewModelFactory(
+                ConverterRepository.getInstance(
+
+                    RemoteSourceClass.getInstance(),
+                    requireContext()
+                )
+            )
+            CviewModel = ViewModelProvider(this, VFactory).get(
+                ConverterViewModel::class.java
+            )
+            CviewModel.getcontvertedResponse(to)
+            CviewModel._Convert_Response.observe(viewLifecycleOwner) { respo ->
+                // Log.i(ContentValues.TAG, "onChanged: ${respo.result}")
+                System.out.println("Re" + respo.result)
+            }
+        }
         // Inflate the layout for this fragment
-        var cart_frag =  inflater.inflate(R.layout.fragment_cart, container, false)
+        var cart_frag = inflater.inflate(R.layout.fragment_cart, container, false)
 
-        total_price  = cart_frag.findViewById(R.id.textView)
-        return  cart_frag
+        total_price = cart_frag.findViewById(R.id.textView)
+        return cart_frag
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -65,8 +95,8 @@ class CartFragment : Fragment() {
         recyclerView = view.findViewById(R.id.cartRecyclerView)
         val cartLinearLayoutManager: LinearLayoutManager = LinearLayoutManager(context)
         cartLinearLayoutManager.orientation = RecyclerView.VERTICAL
-        cartAdapter = CartAdapter(requireContext(), this)
-           swipeToDelete()
+        cartAdapter = CartAdapter(requireContext(), this , this )
+        //swipeToDelete()
 
         val retrofitService = RetrofitService.getInstance()
         val mainRepository = CartRepository(retrofitService)
@@ -80,12 +110,50 @@ class CartFragment : Fragment() {
         viewModel.cart_Response.observe(viewLifecycleOwner, {
             Log.d("TAG", "inside cartfragment")
             Log.i("TAG", "onViewCreated:rrrrrrTTTTTTTTTrrrrrr ${it}")
+            var price = 0.0
+            val cartList: MutableList<DraftOrder> = mutableListOf()
+            for (i in 0..it.draft_orders.size - 1) {
+                val sharedPreferences: SharedPreferences =
+                    requireContext().getSharedPreferences("loginsharedprefs", Context.MODE_PRIVATE)
+                var userEmail: String = sharedPreferences.getString("EMAIL_LOGIN", "").toString()
+                Log.i("UserEMAIL", "onViewCreated: email======================" + userEmail)
 
-                cartAdapter.setlist(it.draft_orders)
-                total_price.text= it.draft_orders[0].subtotal_price
-                cartAdapter.notifyDataSetChanged()
+                if (it.draft_orders.get(i).email == "reham33@gmail.com"
+//                    it.draft_orders.get(i).note == "cart"
+                ) {
+                    cartList.add(it.draft_orders.get(i))
+                    price += it.draft_orders[i].subtotal_price?.toDouble() ?: 0.0
+                }
 
-            })
+                //cartAdapter.setlist(cartList)
+                /*    for (i in 0..it.draft_orders.size) {
+                        val items_price: Int =
+    //                           it.draft_orders[0].line_items?.get(0)?.price * it.draft_orders[0].line_items?.get(0)?.price
+    //                       total_price.text=("INR " + items_price + "Rs")
+    //                       total_price += total_price + items_price;
+                            Log.d("TAG", "bind: Toatal = ${total_price}otalPrice")
+    //                       var total : Long = it.draft_orders[0].subtotal_price "*" it.draft_orders.size
+    //                       total_price.text= total.toString()
+
+                    }*/
+//                       total_price.text= it.draft_orders[0].subtotal_price
+                /*cartAdapter.setlist(it.draft_orders)
+
+                total_price.text = it.draft_orders[0].subtotal_price
+
+                cartAdapter.notifyDataSetChanged()*/
+
+                //  }
+
+            }
+            Log.i(
+                "TAGTAGTAG",
+                "onViewCreated: ========================================" + cartList.size
+            )
+            cartAdapter.setlist(cartList)
+            total_price.text = price.toString()
+            cartAdapter.notifyDataSetChanged()
+        })
 
 
 //        viewModel.getTotalPrice().observe(viewLifecycleOwner,{
@@ -107,59 +175,105 @@ class CartFragment : Fragment() {
             val paymentFragment = PaymentFragment()
             fragmentManager?.beginTransaction()
                 ?.replace(R.id.fragmentContainerView, paymentFragment)?.commit()
-
         }
-
     }
+
+    fun upgateCart(cartid: String, data: CartModel) {
+        viewModel.updateCart(cartid, data)
+    }
+
+//    fun deleteitem(cartid: String) {
+//        viewModel.deleteCart(cart_id)
+//    }
+
+    override fun onDeleteFromFavClicked(id: String) {
+        Toast.makeText(requireContext() , "kk" , Toast.LENGTH_SHORT).show()
+
+        val retrofitService = RetrofitService.getInstance()
+        val mainRepository = CartRepository(retrofitService)
+        viewModel = ViewModelProvider(this, CartViewModelFactory(mainRepository)).get(CartViewModel::class.java)
+        viewModel.deleteCartProduct(id)
+
+        viewModel.deleteCart_Res.observe(viewLifecycleOwner, {
+
+            if(it != null){
+                Toast.makeText(requireContext() , "deleted sucssefuly" , Toast.LENGTH_SHORT).show()
+
+//                viewModel.getCart()
 //
-    fun upgateCart(data: CartModel) {
-        viewModel.updateCart(data)
-    }
+//                viewModel.cart_Response.observe(viewLifecycleOwner, {
+//
+//                    CartAdapter.(it.draft_orders)
+//                    CartAdapter.notifyDataSetChanged()
+//
+//                })
 
+            }else{
+                Toast.makeText(requireContext() , " cant delete this item " , Toast.LENGTH_SHORT).show()
 
-
-private fun swipeToDelete(){
-    ItemTouchHelper(object : ItemTouchHelper.SimpleCallback(
-        ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT,
-        ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT
-    ){
-        override fun onMove(
-            recyclerView: RecyclerView,
-            viewHolder: RecyclerView.ViewHolder,
-            target: RecyclerView.ViewHolder
-        ): Boolean {
-            return true
-
-        }
-
-        override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-            val  postion = viewHolder.adapterPosition
-            val item = cartAdapter.data1[postion]
-                   mlist.removeAt(postion)
-            cartAdapter.notifyItemRemoved(postion)
-          //  upgateCart()
-            Snackbar.make(
-             viewHolder.itemView.findViewById(R.id.cart_constraint),
-            "item ${item}",
-                Snackbar.LENGTH_SHORT
-            ).apply {
-                setAction("Undo"){
-///    mlist.add(item)
-                }
             }
 
 
-                .show()
-           // upgateCart(mlist.trimToSize().toString())
+            // favoriteAdapter.setlist(it.draft_orders)
+            //CartAdapter.notifyDataSetChanged()
 
+        })
 
-        }
+    }
 
-    }).attachToRecyclerView(recyclerView)
+//    override fun onIncrementClicked(id: String) {
+//
+//    }
+//
+//    override fun onDecrementClicked(id: String) {
+////        var count = 0
+////                    if (count >= 1) {
+////                count--
+////                id = count
+////                holder.productCount.text = data1[position].line_items?.get(0)?.quantity.toString()
+//////                data= CartModel(data1[position])
+//////                cartFragment.upgateCart(cartid  ,data)
+////                data = CartModel(
+////                    data1[position]
+////                )
+////                cartFragment.upgateCart(cart_id, data)
+////            }
+//    }
 }
 
-}
 
-
-
+//
+//private fun swipeToDelete(){
+//    ItemTouchHelper(object : ItemTouchHelper.SimpleCallback(
+//        ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT,
+//        ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT
+//    ){
+//        override fun onMove(
+//            recyclerView: RecyclerView,
+//            viewHolder: RecyclerView.ViewHolder,
+//            target: RecyclerView.ViewHolder
+//        ): Boolean {
+//            return true
+//
+//        }
+////        override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+//            val  postion = viewHolder.adapterPosition
+//            val item = cartAdapter.data1[postion]
+//                   mlist.removeAt(postion)
+//            cartAdapter.notifyItemRemoved(postion)
+//           deleteitem(cart_id)
+//                    Snackbar.make(
+//             viewHolder.itemView.findViewById(R.id.cart_constraint),
+//            "item ${item}",
+//                Snackbar.LENGTH_SHORT
+//            ).apply {
+//                setAction("Undo"){
+/////    mlist.add(item)
+//                }
+//            }.show()
+//        }
+//
+//    }).attachToRecyclerView(recyclerView)
+//}
+//}
 
