@@ -13,4 +13,8 @@ class DetailsRepository ( private  val retrofitService: RetrofitService) {
         Log.i("TAG", "postCartItemmmmmmmmmmmmmmmmmmmmmmmmmmmmm: ${n.body()}  ${n.code()}")
         return n
     }
+
+    suspend fun postFavoriteProduct(favoriteItem: CartModel) = retrofitService.postFavorieItem(favoriteItem)
+
+
 }

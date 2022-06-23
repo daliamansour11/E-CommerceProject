@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager.widget.ViewPager
 import com.example.e_commerceproject.R
+import com.example.e_commerceproject.authentication.login.view.LoginFragment
 import com.example.e_commerceproject.category.model.CategoriesModel
 import com.example.e_commerceproject.category.model.Product
 import com.example.e_commerceproject.category.view.adapters.CategoryAdapter
@@ -21,6 +22,7 @@ import com.example.e_commerceproject.category.viewmodel.CategoryViewModelFactory
 import com.example.e_commerceproject.details.view.DetailsFragment
 import com.example.e_commerceproject.network.CategoryRepository
 import com.example.e_commerceproject.network.remotesource.RetrofitService
+import com.example.e_commerceproject.profile.view.ProfileFragment
 import com.google.android.material.tabs.TabLayout
 import kotlin.streams.toList
 
@@ -41,8 +43,8 @@ class CategoryFragment : Fragment(), OnProductClickInterface  {
     lateinit var shosebtn: Button;
     lateinit var accessoriesbtn: Button;
     lateinit var t_shirtbtn: Button;
+    lateinit var profile : ImageView
     var productList: List<Product> = ArrayList()
-
     var brandId = ""
     var collectionId = ""
 
@@ -79,6 +81,12 @@ class CategoryFragment : Fragment(), OnProductClickInterface  {
         shosebtn = view.findViewById(R.id.Shose_button)
         accessoriesbtn = view.findViewById(R.id.Accessories_button)
         t_shirtbtn = view.findViewById(R.id.t_shirt_button)
+        profile = view.findViewById(R.id.profileIconCategoryScreen)
+        profile.setOnClickListener {
+            val profileFragment = ProfileFragment()
+            fragmentManager?.beginTransaction()?.replace(R.id.fragmentContainerView, profileFragment)?.commit()
+
+        }
 
         recyclerView = view.findViewById(R.id.CategoryRecycleview)
         recyclerView.layoutManager = GridLayoutManager(requireContext(), 2)
