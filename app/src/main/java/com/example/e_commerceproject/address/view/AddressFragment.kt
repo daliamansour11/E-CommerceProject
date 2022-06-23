@@ -39,8 +39,8 @@ class AddressFragment : Fragment() {
         addbtn .setOnClickListener(object : View.OnClickListener {
             override fun onClick(view: View?) {
 
-                val address2Fragment = Address2Fragment()
-               fragmentManager?.beginTransaction()?.replace(R.id.fragmentContainerView, address2Fragment)?.commit()
+               // val address2Fragment = Address2Fragment()
+              // fragmentManager?.beginTransaction()?.replace(R.id.fragmentContainerView, address2Fragment)?.commit()
                 Toast.makeText(context, "address added" , Toast.LENGTH_LONG).show()
 
             }
