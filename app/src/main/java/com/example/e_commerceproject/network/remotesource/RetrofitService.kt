@@ -5,7 +5,6 @@ import com.example.e_commerceproject.cart.model.CartListModel
 import com.example.e_commerceproject.cart.model.CartModel
 import com.example.e_commerceproject.cart.model.DraftOrder
 
-import com.example.e_commerceproject.authentication.login.model.Customerr
 import com.example.e_commerceproject.authentication.login.model.Customers
 import com.example.e_commerceproject.authentication.register.model.CustomerAddress
 import com.example.e_commerceproject.authentication.register.model.CustomerModel
@@ -44,13 +43,14 @@ interface RetrofitService {
     // products.json?product_type=SHOES&collection_id=273053745291
     @GET("products.json?")
     suspend fun getSubCategory(@Query("product_type") product_type:String, @Query("collection_id") collection_id : Long ) : Response<CategoryModel>
+    //poat cart///////
+
     @Headers(
         "Accept: application/json",
         "X-Shopify-Access-Token: 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",
     )
     @POST("draft_orders.json")
     suspend fun  postCartOrder(@Body cartItem: CartModel): Response<CartModel>
-    ////////// get cart/////
     ////////// get cart/////
     @Headers(
         "Accept: application/json",
@@ -65,8 +65,24 @@ interface RetrofitService {
         "Accept: application/json",
         "X-Shopify-Access-Token: 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",
     )
-    @PUT("draft_orders.json")
-    suspend fun  updateCartOrder(@Body cartItem: CartModel) : Response<CartModel>
+    @PUT("draft_orders/{draft-order-id}.json?limit=250")
+    suspend fun  updateCartOrder(@Path("draft-order-id")id :String , @Body cartItem: CartModel) : Response<CartModel>
+
+//    @Headers(
+//        "Accept: application/json",
+//        "X-Shopify-Access-Token: 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",
+//    )
+//    @DELETE("draft_orders/{draft-order-id}.json")
+//    suspend fun  deleteDraftOrder(@Path("draft-order-id")id: String):Response<CartModel>
+
+    @Headers(
+        "Accept: application/json",
+        "X-Shopify-Access-Token: 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",
+    )
+
+    @DELETE("draft_orders/{draft_order_id}.json")
+    suspend fun deleteCartItem(@Path("draft_order_id") draft_order_id: String):Response<CartModel>
+
 
     ///Coupons///
 
@@ -102,14 +118,27 @@ interface RetrofitService {
 
     @GET("customers.json?")
     suspend fun getCustomerById(@Query("email") email:String):Response<Customers>
+
 //address//
 
     @Headers(
         "Accept: application/json",
         "X-Shopify-Access-Token: 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",
     )
-    @PUT("2022-01/customers/207119551/addresses.json")
-    suspend fun updateCustomerAddress(@Body customerAddress: CustomerAddress):Response<CustomerAddress>
+    @PUT("customers/{id}.json")
+    suspend fun addAddress(@Path ("id") id:String,@Body address: CustomerModel
+    ): Response<CustomerModel>
+
+    //get Address
+    @Headers(
+        "Accept: application/json",
+        "X-Shopify-Access-Token: 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",
+    )
+    @GET("customers/{customer_id}/addresses.json")
+    suspend fun getAddress(
+        @Path("id") id: String,
+
+    ): Response<CustomerAddress>
 
 
 
