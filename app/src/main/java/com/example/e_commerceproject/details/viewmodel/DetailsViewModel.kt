@@ -10,7 +10,9 @@ import com.example.e_commerceproject.details.model.DetailsProductModel
 import kotlinx.coroutines.*
 
 class DetailsViewModel constructor( private val repository: DetailsRepository) : ViewModel() {
+
     var  mRCartResonse  = MutableLiveData<CartModel>()
+    var postFavorite = MutableLiveData<CartModel>()
     val productInfo = MutableLiveData<DetailsProductModel>()
     var job: Job? = null
     val errorMessage = MutableLiveData<String>()
@@ -49,6 +51,25 @@ class DetailsViewModel constructor( private val repository: DetailsRepository) :
                     Log.i("TAG", "Errorrrrrrrrrrrrrrrr: ${response.code()} ")
 
 //                    onError("Error : ${response.message()} iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii ")
+
+                }
+
+            }
+        }
+    }
+
+    fun postFavorite(favProduct: CartModel) {
+        job = CoroutineScope(Dispatchers.IO + exceptionHandler).launch {
+            val response = repository.postFavoriteProduct(favProduct)
+            withContext(Dispatchers.Main) {
+                if (response.isSuccessful) {
+                    Log.i("TAG", "onViewCreated:cartttttttttttttt")
+                    postFavorite.value = response.body()
+                    loading.value = false
+                } else {
+                    Log.i("TAG", "Error: ")
+                    Log.i("TAG", "Errorrrrrrrrrrrrrrrr: ${response.body()} ")
+                    Log.i("TAG", "Errorrrrrrrrrrrrrrrr: ${response.code()} ")
 
                 }
 

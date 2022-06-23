@@ -39,11 +39,12 @@ interface RetrofitService {
         @Query("product_type") product_type : String,
         @Query("vendor") vendor : String,
     ): Response<CategoryModel>
+    
     //https://madalex20220.myshopify.com/admin/api/2022-04/products.json?collection_id=273053745291&product_type=""&vendor=""
     // products.json?product_type=SHOES&collection_id=273053745291
     @GET("products.json?")
     suspend fun getSubCategory(@Query("product_type") product_type:String, @Query("collection_id") collection_id : Long ) : Response<CategoryModel>
-    //poat cart///////
+
 
     @Headers(
         "Accept: application/json",
@@ -51,6 +52,7 @@ interface RetrofitService {
     )
     @POST("draft_orders.json")
     suspend fun  postCartOrder(@Body cartItem: CartModel): Response<CartModel>
+
     ////////// get cart/////
     @Headers(
         "Accept: application/json",
@@ -107,9 +109,10 @@ interface RetrofitService {
 //    ): Response<Coupons>
     //Get all Coupons
 
-
     @GET("customers.json")
     suspend fun getCustomers():Response<Customers>
+
+    // get customer for login
 
     @Headers(
         "Accept: application/json",
@@ -139,6 +142,34 @@ interface RetrofitService {
         @Path("id") id: String,
 
     ): Response<CustomerAddress>
+
+    // favorite
+
+    @Headers(
+        "Accept: application/json",
+        "X-Shopify-Access-Token: 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",
+    )
+    @POST("draft_orders.json")
+    suspend fun  postFavorieItem(@Body cartItem: CartModel): Response<CartModel>
+
+
+    @Headers(
+        "Accept: application/json",
+        "X-Shopify-Access-Token: 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",
+    )
+
+    @GET("draft_orders.json")
+    suspend fun getFavoriteProducts():Response<CartListModel>
+
+
+    @Headers(
+        "Accept: application/json",
+        "X-Shopify-Access-Token: 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",
+    )
+
+    @DELETE("draft_orders/{draft_order_id}.json")
+    suspend fun deleteFavoriteItem(@Path("draft_order_id") draft_order_id: String):Response<CartModel>
+
 
 
 

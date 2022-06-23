@@ -2,7 +2,7 @@
     <!-- Base application theme. -->
     <style name="Theme.ECommerceProject" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">#FB9703</item>
+        <item name="colorPrimary">#FFC107</item>
         <item name="colorPrimaryVariant">#E3E7E8</item>
         <item name="colorOnPrimary">@color/white</item>
         <!-- Secondary brand color. -->

@@ -1,25 +1,21 @@
 package com.example.e_commerceproject.authentication.login.view
 
-import android.app.backup.SharedPreferencesBackupHelper
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.e_commerceproject.R
-import com.example.e_commerceproject.authentication.login.model.Customers
 import com.example.e_commerceproject.authentication.login.viewmodel.LoginViewModel
 import com.example.e_commerceproject.authentication.login.viewmodel.LoginViewModelFactory
 import com.example.e_commerceproject.authentication.register.view.RegisterFragment
-import com.example.e_commerceproject.authentication.register.viewmodel.AuthenticationViewModel
-import com.example.e_commerceproject.authentication.register.viewmodel.AuthenticationViewModelFactory
 import com.example.e_commerceproject.data.AuthenticationRepository
 import com.example.e_commerceproject.network.remotesource.RetrofitService
 import com.example.e_commerceproject.profile.view.ProfileFragment
@@ -113,6 +109,9 @@ class LoginFragment : Fragment() {
     private fun saveDataInSharedPrefrence() {
         val sharedPreferences : SharedPreferences = requireContext().getSharedPreferences("loginsharedprefs" ,Context.MODE_PRIVATE)
         val editor = sharedPreferences.edit()
+        editor.putStringSet("jhj" , setOf("jh" , "ghg"))
+        //val mySet: Set<String> = HashSet<String>(wordsQueue)
+        //editor.putStringSet("Words", mySet).apply()
         editor.apply(){
             putString("EMAIL_LOGIN" ,  "${email.text}")
             putString("PASSWORD_LOGIN" ,  "${password.text}")
@@ -123,3 +122,4 @@ class LoginFragment : Fragment() {
     }
 
 }
+
