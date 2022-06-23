@@ -4,6 +4,6 @@ import com.example.e_commerceproject.currencyConverter.model.ConverterModel
 import retrofit2.Response
 
 interface RemoteSourceinterface {
-    suspend fun getconvertedCurrency(to:String) : Response<ConverterModel>
+    suspend fun getconvertedCurrency() : Response<ConverterModel>
 
 }
