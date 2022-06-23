@@ -150,38 +150,71 @@
         </androidx.cardview.widget.CardView>
 
 
-        <TextView
-            android:id="@+id/textView2"
-            android:layout_width="222dp"
-            android:layout_height="46dp"
-            android:text="@string/brands"
-            android:textAlignment="center"
-            android:textColor="@color/black"
-            android:textSize="30sp"
-            app:layout_constraintBottom_toTopOf="@+id/brandsEndGuidelineId"
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardView2"
+            android:layout_width="394dp"
+            android:layout_height="119dp"
+            android:layout_margin="15dp"
+            android:background="@drawable/edittext_shape"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.497"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/adsEndGuidelineId" />
+            app:layout_constraintTop_toBottomOf="@+id/adsCardView">
 
-        <androidx.recyclerview.widget.RecyclerView
-
-            android:id="@+id/brandsRecycleView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginBottom="20dp"
-            android:padding="20dp"
-            android:scrollbars="horizontal"
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/coupons_recyclerview"
+                android:layout_width="374dp"
+                android:layout_height="130dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:background="@drawable/edittext_shape"
+                android:scrollbars="horizontal"
+                tools:layout_editor_absoluteX="6dp"
+                tools:layout_editor_absoluteY="240dp"
+                tools:listitem="@layout/coupons_item" />
+        </androidx.cardview.widget.CardView>
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="398dp"
+            android:layout_height="330dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="8dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.157"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/brandsEndGuidelineId" />
+            app:layout_constraintTop_toBottomOf="@+id/cardView2">
 
 
+            <TextView
+                android:id="@+id/textView6"
+                android:layout_width="379dp"
+                android:layout_height="43dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginRight="25dp"
+                android:gravity="center_horizontal"
+
+                android:text="Brands"
+                android:textSize="35dp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.545"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/brandsRecycleView"
+                android:layout_width="411dp"
+                android:layout_height="265dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginRight="10dp"
+                android:padding="20dp"
+                android:scrollbars="horizontal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.516"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView6" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-
 </androidx.constraintlayout.widget.ConstraintLayout>

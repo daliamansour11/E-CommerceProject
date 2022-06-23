@@ -18,6 +18,7 @@ import com.example.e_commerceproject.authentication.login.viewmodel.LoginViewMod
 import com.example.e_commerceproject.authentication.register.view.RegisterFragment
 import com.example.e_commerceproject.data.AuthenticationRepository
 import com.example.e_commerceproject.network.remotesource.RetrofitService
+import com.example.e_commerceproject.profile.view.ProfileFragment
 
 
 class LoginFragment : Fragment() {
@@ -27,6 +28,7 @@ class LoginFragment : Fragment() {
     lateinit var email:EditText
     lateinit var password :EditText
     lateinit var viewModel: LoginViewModel
+    lateinit var backArrow: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -74,6 +76,7 @@ class LoginFragment : Fragment() {
                         putString("EMAIL_LOGIN" ,  "${email.text}")
                         putString("PASSWORD_LOGIN" ,  "${password.text}")
                         putString("Name_LOGIN" ,  "${it.customers[0].first_name}")
+                        putString("CUSTOMER_ID" ,  "${it.customers[0].id}")
                     }.apply()
 
                    // saveDataInSharedPrefrence()
@@ -92,6 +95,15 @@ class LoginFragment : Fragment() {
             fragmentManager?.beginTransaction()?.replace(R.id.fragmentContainerView, registerFragment)?.commit()
 
         }
+
+        backArrow = view.findViewById(R.id.backbtn)
+        backArrow.setOnClickListener(View.OnClickListener {
+            val fragmentManager = parentFragmentManager
+            val profileFragment = ProfileFragment()
+            val fragmentTransaction = fragmentManager.beginTransaction()
+            fragmentTransaction.replace(R.id.fragmentContainerView,profileFragment)
+            fragmentTransaction.commit()
+        })
     }
 
     private fun saveDataInSharedPrefrence() {

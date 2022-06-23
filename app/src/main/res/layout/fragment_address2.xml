@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context="com.example.e_commerceproject.address.view.Address2Fragment">
+    tools:context="com.example.e_commerceproject.address.view.view.Address2Fragment">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/tool_bar"

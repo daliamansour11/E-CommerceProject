@@ -11,35 +11,36 @@ import kotlinx.coroutines.*
 
 class CartViewModel(private val repo: CartRepository): ViewModel()  {
 
-    var cart_Response : MutableLiveData<CartModel> = MutableLiveData()
+    var cart_Response : MutableLiveData<CartListModel> = MutableLiveData()
+    var updatecart_Res : MutableLiveData<CartModel> = MutableLiveData()
     var job: Job? = null
     val loading = MutableLiveData<Boolean>()
     val exceptionHandler = CoroutineExceptionHandler { _, throwable ->
         // onError("Exception handled: ${throwable.localizedMessage}")
     }
-        fun getCart() {
-            job = CoroutineScope(Dispatchers.IO + exceptionHandler).launch {
-                val response = repo.getCartItem()
-                withContext(Dispatchers.Main) {
-                    if (response.isSuccessful) {
-                        Log.i("TAG", "onViewCreated:rrrrrrrrrrrrkkjkj")
-                        cart_Response.postValue(response.body())
-                        loading.value = false
-                    } else {
-                        Log.i("TAG", "Error: ${response.code()} ")
+    fun getCart() {
+        job = CoroutineScope(Dispatchers.IO + exceptionHandler).launch {
+            val response = repo.getCartItem()
+            withContext(Dispatchers.Main) {
+                if (response.isSuccessful) {
+                    Log.i("TAG", "onViewCreated:rrrrrrrrrrrrkkjkj")
+                    cart_Response.postValue(response.body())
+                    loading.value = false
+                } else {
+                    Log.i("TAG", "Error: ${response.code()} ")
 //                             onError("Error : ${response.message()} iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii ")
 //
-                    }
                 }
             }
         }
-    fun updateCart(draftOrder: DraftOrder) {
+    }
+    fun updateCart(cart: CartModel) {
         job = CoroutineScope(Dispatchers.IO + exceptionHandler).launch {
-            val response = repo.updatedcartItem(draftOrder)
+            val response = repo.updatedcartItem(cart)
             withContext(Dispatchers.Main) {
                 if (response.isSuccessful) {
                     Log.i("TAG", "onViewCreated:rrrrrrrrgggggggrrrrkkjkj")
-                    cart_Response.postValue(response.body())
+                    updatecart_Res.postValue(response.body())
                     loading.value = false
                 } else {
                     Log.i("TAG", "Error: ")
@@ -50,5 +51,9 @@ class CartViewModel(private val repo: CartRepository): ViewModel()  {
         }
 
     }
+//      fun getTotalPrice(): LiveData<Double> {
+//         return  repo.getTotalPrice()
 
-    }
+//    }
+
+}

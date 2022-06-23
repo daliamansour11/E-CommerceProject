@@ -7,6 +7,7 @@ import com.example.e_commerceproject.cart.model.DraftOrder
 
 import com.example.e_commerceproject.authentication.login.model.Customerr
 import com.example.e_commerceproject.authentication.login.model.Customers
+import com.example.e_commerceproject.authentication.register.model.CustomerAddress
 import com.example.e_commerceproject.authentication.register.model.CustomerModel
 import com.example.e_commerceproject.category.model.CategoryModel
 import com.example.e_commerceproject.details.model.DetailsProductModel
@@ -52,21 +53,22 @@ interface RetrofitService {
     suspend fun  postCartOrder(@Body cartItem: CartModel): Response<CartModel>
 
     ////////// get cart/////
+    ////////// get cart/////
     @Headers(
         "Accept: application/json",
         "X-Shopify-Access-Token: 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",
     )
 
-    @GET("draft_orders/873007775883.json")
-    suspend fun getpostedOrder():Response<CartModel>
-
+    @GET("draft_orders.json")
+    suspend fun getpostedOrder():Response<CartListModel>
+    //https://shopify.dev/api/admin-rest/2022-04/resources/draftorder#get-draft-orders-draft-order-id
+    // 873007513739
     @Headers(
         "Accept: application/json",
         "X-Shopify-Access-Token: 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",
     )
-    @PUT("draft_orders/873007775883.json")
-    suspend fun  upDateCart(@Body updateitem : DraftOrder):Response<CartModel>
-
+    @PUT("draft_orders.json")
+    suspend fun  updateCartOrder(@Body cartItem: CartModel) : Response<CartModel>
 
     ///Coupons///
 
@@ -103,6 +105,14 @@ interface RetrofitService {
 
     @GET("customers.json?")
     suspend fun getCustomerById(@Query("email") email:String):Response<Customers>
+//address//
+
+    @Headers(
+        "Accept: application/json",
+        "X-Shopify-Access-Token: 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",
+    )
+    @PUT("2022-01/customers/207119551/addresses.json")
+    suspend fun updateCustomerAddress(@Body customerAddress: CustomerAddress):Response<CustomerAddress>
 
     // favorite
 
