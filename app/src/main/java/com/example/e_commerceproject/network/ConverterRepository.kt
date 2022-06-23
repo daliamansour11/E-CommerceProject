@@ -9,7 +9,7 @@ import retrofit2.Response
 class ConverterRepository(
     val context: Context,
     val remote:RemoteSourceinterface)
-    :ConverterRepoInterface {
+    :ConverterRepoInterface{
 
 
     companion object {
@@ -18,15 +18,13 @@ class ConverterRepository(
             remoteSource: RemoteSourceinterface,
             context: Context
         ): ConverterRepository {
-            return instance ?: ConverterRepository(
-                context, remoteSource
+            return instance ?: ConverterRepository(context,remoteSource
             )
         }
     }
-
-    override suspend fun getConvertedCurrency(to: String): Response<ConverterModel> {
+    override suspend fun getConvertedCurrency(): Response<ConverterModel> {
         var response =
-            remote.getconvertedCurrency(to)
+            remote.getconvertedCurrency()
         if (response.isSuccessful) {
             System.out.println("We are here")
             Log.e("TAG", "response" + response.body())
@@ -41,7 +39,7 @@ class ConverterRepository(
             Log.e("TAG", "Error" + response.errorBody())
         }
 
-        return response
+        return  response
     }
 
 }

@@ -29,7 +29,7 @@ class CashFragment : Fragment() {
  lateinit var   shippingfees: TextView
  lateinit var   discount: TextView
  lateinit var   totalprice: TextView
-  lateinit var viewModel : CashViewModel
+  lateinit var viewModel :CashViewModel
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
