@@ -5,5 +5,5 @@ data class CartListModel(
 )
 
 data class CartModel(
-    val draft_order: DraftOrder
+    val draft_order: DraftOrder? =null
 )

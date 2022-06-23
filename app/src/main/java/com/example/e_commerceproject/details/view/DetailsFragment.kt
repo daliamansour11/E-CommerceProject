@@ -208,6 +208,7 @@ class DetailsFragment : Fragment() {
                 note = "card",
                 note_attributes = item_Image ,
                 line_items = listOf(lineItem)
+
             )
             val mylist = CartModel(
                 myorder

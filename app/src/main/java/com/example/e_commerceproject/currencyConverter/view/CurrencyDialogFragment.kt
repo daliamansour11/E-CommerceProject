@@ -19,25 +19,20 @@ import com.example.e_commerceproject.currencyConverter.viewModel.ConverterViewMo
 import com.example.e_commerceproject.network.ConverterRepository
 import com.example.e_commerceproject.network.remotesource.RemoteSourceClass
 
-
 const val SHARD_NAME = "shard"
 const val CURRUNEY_TYPE = "currency"
-
-
 class CurrencydiologFragment : Fragment() {
-
     lateinit var CviewModel: ConverterViewModel
     lateinit var VFactory: ConverterViewModelFactory
     lateinit var Egp_currency: Button
     lateinit var USD_currency: Button
-
+    var v :String="EGP"
     lateinit var ok_btn: Button
     lateinit var sharedPref: SharedPreferences
     lateinit var editor: SharedPreferences.Editor
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-
 
         }
     }
@@ -58,67 +53,63 @@ class CurrencydiologFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        VFactory = ConverterViewModelFactory(
+            ConverterRepository.getInstance(
+                RemoteSourceClass.getInstance(),
+                requireContext()
+            )
+        )
+        CviewModel = ViewModelProvider(this@CurrencydiologFragment, VFactory).get(
+            ConverterViewModel::class.java
+        )
+        CviewModel._Convert_Response.observe(viewLifecycleOwner) { respo ->
+            Log.i(ContentValues.TAG, "onChanged: ${respo.result}")
+            System.out.println("Re" + respo.result)
+            sharedPref  = requireActivity().getSharedPreferences(SHARD_NAME, Context.MODE_PRIVATE)
+                   ?: return@observe
+         with(sharedPref.edit()) {
+             putString(CURRUNEY_TYPE, "" + respo.result)
+                 commit()
 
-        val sharedPref =
-            requireActivity().getSharedPreferences(SHARD_NAME, Context.MODE_PRIVATE) ?: return
-        with(sharedPref.edit()) {
-            putString(CURRUNEY_TYPE, "EGP")
-            commit()
-        }
-
-        when (CURRUNEY_TYPE) {
-            "EGP" -> {
-                Egp_currency!!.isClickable = true
+           }
+            val shared =
+                requireActivity().getSharedPreferences(SHARD_NAME, Context.MODE_PRIVATE)
+                    ?: return@observe
+            with(shared.edit()) {
+                putString(CURRUNEY_TYPE, "" + v)
+                commit()
             }
 
-            "USD" -> {
-                USD_currency!!.isClickable = true
-            }
         }
         Egp_currency?.setOnClickListener(object : View.OnClickListener {
             override fun onClick(view: View?) {
-                //     changeCurrency("EGP")
+                v = "EGP"
             }
         })
 
-        USD_currency.setOnClickListener(object : View.OnClickListener { override fun onClick(view: View?) {
-//
-            //                changeCurrency("USD")
-        }
+        USD_currency.setOnClickListener(object : View.OnClickListener {
+            override fun onClick(view: View?) {
+                v = "USD"
+            }
         })
 
         ok_btn.setOnClickListener(object : View.OnClickListener {
             override fun onClick(view: View?) {
+                CviewModel.getcontvertedResponse(v)
+
+                val settingsFragment = SettingsFragment()
+                fragmentManager?.beginTransaction()
+                    ?.replace(R.id.fragmentContainerView, settingsFragment)
+                    ?.commit()
+                Toast.makeText(
+                    requireContext(),
+                    "come back from cuurency dialog",
+                    Toast.LENGTH_SHORT
+                ).show()
+
+            }
+        })
+    }
 
 
-                VFactory = ConverterViewModelFactory(
-                    ConverterRepository.getInstance(
-
-                        RemoteSourceClass.getInstance(),
-                        requireContext()
-
-                    )
-                )
-
-                CviewModel = ViewModelProvider(this@CurrencydiologFragment, VFactory).get(
-                    ConverterViewModel::class.java
-                )
-
-                CviewModel.getcontvertedResponse()
-                CviewModel._Convert_Response.observe(viewLifecycleOwner) { respo ->
-                    Log.i(ContentValues.TAG, "onChanged: ${respo.result}")
-                    System.out.println("Re"+respo.result)
-
-                    val settingsFragment = SettingsFragment()
-                    fragmentManager?.beginTransaction()
-                        ?.replace(R.id.fragmentContainerView, settingsFragment)
-                        ?.commit()
-                    Toast.makeText(
-                        requireContext(),
-                        "come back from cuurency dialog",
-                        Toast.LENGTH_SHORT
-                    ).show()
-
-                }
-            }})
-    }}
+}
