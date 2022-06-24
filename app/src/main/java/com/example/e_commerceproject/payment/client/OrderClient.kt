@@ -1,7 +1,7 @@
-package com.example.e_commerceproject.cart.client
+package com.example.e_commerceproject.payment.client
 
-import com.example.e_commerceproject.cart.model.AddedOrderModel
-import com.example.e_commerceproject.cart.model.PostOrderModel
+import com.example.e_commerceproject.payment.model.AddedOrderModel
+import com.example.e_commerceproject.payment.model.PostOrderModel
 import com.example.e_commerceproject.common.network.RetrofitAPIClient
 
 

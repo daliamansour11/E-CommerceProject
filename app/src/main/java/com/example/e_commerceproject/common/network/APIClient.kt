@@ -1,6 +1,6 @@
 package com.example.e_commerceproject.common.network
 
-import com.example.e_commerceproject.cart.model.PostOrderModel
+import com.example.e_commerceproject.payment.model.PostOrderModel
 import com.example.e_commerceproject.homesearch.model.ProductListModel
 import com.example.e_commerceproject.home.model.CollectionModel
 import com.example.e_commerceproject.profile.model.OrderListModel

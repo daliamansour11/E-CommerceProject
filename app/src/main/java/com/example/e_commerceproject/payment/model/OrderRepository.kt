@@ -1,7 +1,7 @@
-package com.example.e_commerceproject.cart.model
+package com.example.e_commerceproject.payment.model
 
 import android.content.Context
-import com.example.e_commerceproject.cart.client.OrderRemoteSource
+import com.example.e_commerceproject.payment.client.OrderRemoteSource
 
 
 class OrderRepository private constructor(
@@ -12,7 +12,7 @@ class OrderRepository private constructor(
     companion object{
         private var instance: OrderRepository? = null
         fun getInstance(remoteSource: OrderRemoteSource, context: Context): OrderRepository {
-            return instance?: OrderRepository(
+            return instance ?: OrderRepository(
                 remoteSource, context)
         }
     }
