@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.Toast
 import com.example.e_commerceproject.R
+import com.example.e_commerceproject.address.view.view.Address2Fragment
 
 class AddressFragment : Fragment() {
     lateinit var addbtn :Button
@@ -40,6 +41,7 @@ class AddressFragment : Fragment() {
             override fun onClick(view: View?) {
 
                 val address2Fragment = Address2Fragment()
+
                fragmentManager?.beginTransaction()?.replace(R.id.fragmentContainerView, address2Fragment)?.commit()
                 Toast.makeText(context, "address added" , Toast.LENGTH_LONG).show()
 

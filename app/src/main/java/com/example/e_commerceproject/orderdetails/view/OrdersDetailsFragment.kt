@@ -10,8 +10,8 @@ import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.e_commerceproject.R
+import com.example.e_commerceproject.moreorders.view.MoreOrdersFragment
 import com.example.e_commerceproject.profile.model.OrderModel
-import com.example.e_commerceproject.profile.view.MoreOrdersFragment
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 

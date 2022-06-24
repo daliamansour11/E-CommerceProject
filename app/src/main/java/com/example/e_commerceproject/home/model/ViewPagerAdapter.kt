@@ -46,9 +46,9 @@ class ViewPagerAdapter(val context: Context, val imageList: List<Int>) : PagerAd
         // item view to the container.
         Objects.requireNonNull(container).addView(itemView)
 
-        itemView.setOnClickListener{
+       /* itemView.setOnClickListener{
             Toast.makeText(context,"images"+(position+1), Toast.LENGTH_LONG).show()
-        }
+        }*/
         // on below line we are simply
         // returning our item view.
         return itemView

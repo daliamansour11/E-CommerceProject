@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager.widget.ViewPager
 import com.example.e_commerceproject.R
+import com.example.e_commerceproject.Settings.view.SettingsFragment
 import com.example.e_commerceproject.category.model.CategoriesModel
 import com.example.e_commerceproject.category.model.Product
 import com.example.e_commerceproject.category.view.adapters.CategoryAdapter
@@ -19,6 +20,7 @@ import com.example.e_commerceproject.category.view.adapters.MyAdapter
 import com.example.e_commerceproject.category.viewmodel.CategoryViewModel
 import com.example.e_commerceproject.category.viewmodel.CategoryViewModelFactory
 import com.example.e_commerceproject.details.view.DetailsFragment
+import com.example.e_commerceproject.home.view.HomeFragment
 import com.example.e_commerceproject.network.CategoryRepository
 import com.example.e_commerceproject.network.remotesource.RetrofitService
 import com.google.android.material.tabs.TabLayout
@@ -27,6 +29,7 @@ import kotlin.streams.toList
 class CategoryFragment : Fragment(), OnProductClickInterface  {
 
     lateinit var toolbar: Toolbar
+    lateinit var category_back: ImageView
     lateinit var tabLayout: TabLayout
 //    lateinit var viewPager: ViewPager
 //    lateinit var searchClickListener: OnSearchClickListener
@@ -73,9 +76,9 @@ class CategoryFragment : Fragment(), OnProductClickInterface  {
         }else{
             brandId =  args?.get("BRAND_ID") as String
             Log.i("TAG", "onViewCreatedmmmmmmmmmmmmmmmmmmmmmmm: ${brandId}")
-            Toast.makeText(requireContext() , brandId , Toast.LENGTH_SHORT).show()
+         //   Toast.makeText(requireContext() , brandId , Toast.LENGTH_SHORT).show()
         }
-
+        category_back = view.findViewById(R.id.categoryArrowBack)
         shosebtn = view.findViewById(R.id.Shose_button)
         accessoriesbtn = view.findViewById(R.id.Accessories_button)
         t_shirtbtn = view.findViewById(R.id.t_shirt_button)
@@ -116,6 +119,13 @@ class CategoryFragment : Fragment(), OnProductClickInterface  {
                 categoryAdapter.setlist(it.products)
                 categoryAdapter.notifyDataSetChanged()
             })
+        }
+
+        category_back.setOnClickListener {
+
+            val homeFragment = HomeFragment()
+            fragmentManager?.beginTransaction()?.replace(R.id.fragmentContainerView, homeFragment)?.commit()
+
         }
 
         t_shirtbtn.setOnClickListener {

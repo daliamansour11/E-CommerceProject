@@ -39,6 +39,16 @@
                 app:layout_constraintGuide_percent="0.85" />
 
             <ImageView
+                android:id="@+id/categoryArrowBack"
+                android:layout_width="wrap_content"
+                android:layout_height="37dp"
+
+
+                android:src="@drawable/ic_baseline_arrow_back_ios_new_24"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
                 android:id="@+id/profileIconCategoryScreen"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
@@ -70,10 +80,11 @@
         android:layout_width="match_parent"
         android:layout_height="39dp"
         android:background="@color/white"
-        app:tabTextColor="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/toolbar">
+        app:layout_constraintTop_toBottomOf="@id/toolbar"
+        app:tabTextColor="@color/black"
+        tools:ignore="SpeakableTextPresentCheck">
 
     </com.google.android.material.tabs.TabLayout>
 

@@ -15,7 +15,7 @@ class HomeViewModel (iRepo: HomeRepositoryInterface) : ViewModel() {
     val brandList = MutableLiveData<List<BrandModel>>()
 
     fun getAllBrands(){
-       viewModelScope.launch{
+        viewModelScope.launch{
             val brands = homeRepo.getAllBrands()
             withContext(Dispatchers.Main){
                 brandList.postValue(brands)

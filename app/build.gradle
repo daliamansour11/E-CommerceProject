@@ -48,6 +48,19 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
 
+    testImplementation "org.hamcrest:hamcrest-all:1.3"
+    testImplementation "androidx.arch.core:core-testing:2.1.0"
+    testImplementation "org.robolectric:robolectric:4.5.1"
+
+//    testImplementation "androidx.test:runner:1.4.0"
+    // AndroidX Test - JVM testing
+    testImplementation "androidx.test:core-ktx:1.4.0"
+    testImplementation "androidx.test.ext:junit:1.1.3"
+
+    //Coroutine
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.0"
+    testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:1.5.0"
+
     implementation'androidx.recyclerview:recyclerview:1.2.1'
     implementation'androidx.gridlayout:gridlayout:1.0.0'
     implementation 'androidx.cardview:cardview:1.0.0'
@@ -83,10 +96,6 @@ dependencies {
    // implementation 'com.github.denzcoskun:ImageSlideshow:0.1.0'
     //implementation 'com.github.smarteist:autoimageslider:1.4.0-appcompat'
     kapt 'com.github.bumptech.glide:compiler:4.8.0'
-
-
-
-
 
 
 }
