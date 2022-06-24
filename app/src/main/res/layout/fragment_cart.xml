@@ -5,12 +5,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".cart.view.CartFragment"
-    android:background="@color/white">
+    android:background="#B7C6C8">
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="#ccc"
+        android:background="#ffff"
         android:fitsSystemWindows="true"
         app:layout_collapseMode="pin"
         app:layout_constraintEnd_toEndOf="parent"
@@ -44,33 +44,43 @@
         android:layout_width="405dp"
         android:layout_height="504dp"
         android:layout_marginTop="56dp"
-        app:layout_constraintBottom_toTopOf="@+id/textView3"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0" />
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="136dp"
-        android:layout_height="45dp"
-        android:layout_marginStart="56dp"
-        android:layout_marginTop="40dp"
-        android:text="@string/totalprice"
-        android:textSize="24sp"
-        app:layout_constraintBottom_toTopOf="@+id/payButtonCart"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout"
+        android:layout_width="404dp"
+        android:layout_height="181dp"
+        android:layout_marginTop="2dp"
+        android:background="#EAEAEA"
+        app:layout_constraintBottom_toBottomOf="@+id/payButtonCart"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cartRecyclerView"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toBottomOf="@+id/cartRecyclerView">
 
-    <TextView
-        android:id="@+id/textView3"
-        android:layout_width="172dp"
-        android:layout_height="45dp"
-        android:layout_marginStart="28dp"
-        android:layout_marginBottom="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/payButtonCart"
-        app:layout_constraintStart_toEndOf="@+id/textView" />
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="136dp"
+            android:layout_height="45dp"
+            android:layout_marginStart="52dp"
+            android:layout_marginBottom="92dp"
+            android:gravity="center"
+            android:text="@string/totalprice"
+            android:textSize="24sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="172dp"
+            android:layout_height="45dp"
+            android:layout_marginEnd="28dp"
+            android:layout_marginBottom="92dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <Button
         android:id="@+id/payButtonCart"

@@ -3,9 +3,10 @@ package com.example.e_commerceproject.currencyConverter.viewModel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.e_commerceproject.network.ConverterRepoInterface
+import com.example.e_commerceproject.network.ConverterRepository
 import java.lang.IllegalArgumentException
 
-class ConverterViewModelFactory (private val _iRepo: ConverterRepoInterface) :
+class ConverterViewModelFactory(private val _iRepo: ConverterRepository) :
     ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         return if (modelClass.isAssignableFrom(ConverterViewModel::class.java)) {

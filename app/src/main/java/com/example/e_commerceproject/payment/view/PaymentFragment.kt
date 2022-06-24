@@ -9,8 +9,7 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.Toast
 import com.example.e_commerceproject.R
-import com.example.e_commerceproject.payment.view.CashFragment
-import com.example.e_commerceproject.payment.view.OnlinePaymentFragment
+import com.example.e_commerceproject.cart.view.CartFragment
 
 class PaymentFragment : Fragment() {
 
@@ -40,6 +39,7 @@ class PaymentFragment : Fragment() {
         back =view.findViewById(R.id.paymentoption_backarrow)
         cashbtn.setOnClickListener {
             Toast.makeText(requireContext() , "cash" , Toast.LENGTH_SHORT).show()
+
             val cashFragment = CashFragment()
             fragmentManager?.beginTransaction()?.replace(R.id.fragmentContainerView, cashFragment)?.commit()
 
@@ -53,7 +53,7 @@ class PaymentFragment : Fragment() {
         }
         back.setOnClickListener {
             Toast.makeText(requireContext() , "online" , Toast.LENGTH_SHORT).show()
-            val cartFragment = CashFragment()
+            val cartFragment = CartFragment()
             fragmentManager?.beginTransaction()?.replace(R.id.fragmentContainerView, cartFragment)?.commit()
 
         }

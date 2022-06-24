@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.*
 import androidx.lifecycle.ViewModelProvider
 import com.example.e_commerceproject.R
+import com.example.e_commerceproject.cart.viewmodel.CartViewModel
 import com.example.e_commerceproject.details.viewmodel.DetailsViewModel
 import com.example.e_commerceproject.details.viewmodel.DetailsViewModelFactory
 import com.example.e_commerceproject.network.remotesource.CouponsRepository
@@ -18,9 +19,8 @@ import com.example.e_commerceproject.payment.viewModel.CashViewModel
 import com.example.e_commerceproject.payment.viewModel.CashViewModelFactory
 import com.example.e_commerceproject.profile.view.ProfileFragment
 
-
 class CashFragment : Fragment() {
-
+ lateinit var  cartViewModel: CartViewModel
     lateinit var placeorderbtn : Button
     lateinit var validate_btn : TextView
     lateinit var back_arrow : ImageView
@@ -30,15 +30,14 @@ class CashFragment : Fragment() {
  lateinit var   discount: TextView
  lateinit var   totalprice: TextView
   lateinit var viewModel : CashViewModel
-
+  var coupon =""
+    var subtotal : Double = 0.0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-
         }
     }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -51,15 +50,14 @@ class CashFragment : Fragment() {
         shippingfees= cashFrag.findViewById(R.id.shippingfee)
         discount= cashFrag.findViewById(R.id.discount_cost)
         totalprice= cashFrag.findViewById(R.id.totalprice)
-
         validate_btn= cashFrag.findViewById(R.id.validate)
         return cashFrag
         coupons= cashFrag.findViewById(R.id.Coupon)
-
     }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        var args = this.arguments
+         coupon= args?.get("COUPON").toString()
 
         val retrofitService = RetrofitService.getInstance()
         val mRepository = CouponsRepository(retrofitService)

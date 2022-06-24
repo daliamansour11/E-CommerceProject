@@ -194,6 +194,10 @@ data class Customer2(
     val verified_email: Boolean = true,
 )
 
+data class PostAddress (val customer_address : CustomerAddress )
+data class GetAddress (val addresses : List<CustomerAddress> )
+
+
 data class CustomerAddress(
     val address1: String? = null,
     val address2: Any? = null,
