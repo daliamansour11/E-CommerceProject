@@ -15,10 +15,20 @@ import com.example.e_commerceproject.details.viewmodel.DetailsViewModelFactory
 import com.example.e_commerceproject.network.remotesource.CouponsRepository
 import com.example.e_commerceproject.network.remotesource.DetailsRepository
 import com.example.e_commerceproject.network.remotesource.RetrofitService
+import com.example.e_commerceproject.payment.client.OrderClient
+import com.example.e_commerceproject.payment.model.AddedOrderModel
+import com.example.e_commerceproject.payment.model.OrderRepository
 import com.example.e_commerceproject.payment.viewModel.CashViewModel
 import com.example.e_commerceproject.payment.viewModel.CashViewModelFactory
+import com.example.e_commerceproject.payment.viewModel.OrderViewModel
+import com.example.e_commerceproject.payment.viewModel.OrderViewModelFactory
 import com.example.e_commerceproject.profile.view.ProfileFragment
+
  const val COUPON =""
+
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
+
 
 class CashFragment : Fragment() {
  lateinit var  cartViewModel: CartViewModel
@@ -33,11 +43,23 @@ class CashFragment : Fragment() {
   lateinit var viewModel : CashViewModel
   var coupon =""
     var subtotal : Double = 0.0
+    lateinit var addedOrderModel: AddedOrderModel
+    lateinit var orderViewModel: OrderViewModel
+    lateinit var orderVmFactory: OrderViewModelFactory
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.let {
+        arguments?.let {bundle->
+            class Token : TypeToken<AddedOrderModel>()
+            addedOrderModel = Gson().fromJson(bundle.getString("addedOrderModel"), Token().type)
         }
+        orderVmFactory = OrderViewModelFactory(
+            OrderRepository.getInstance(
+                OrderClient.getInstance(),
+                requireContext()
+            ))
+        orderViewModel = ViewModelProvider(this, orderVmFactory).get(OrderViewModel::class.java)
+
     }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -67,7 +89,7 @@ class CashFragment : Fragment() {
         viewModel.getMyCoupons()
         placeorderbtn.setOnClickListener(object : View.OnClickListener {
             override fun onClick(view: View?) {
-
+                orderViewModel.postOrder(addedOrderModel)
                 Toast.makeText(context, "place your Order ", Toast.LENGTH_LONG).show()
                 viewModel.myCoupons.observe(viewLifecycleOwner,  {
                     Log.d("TAG", "inside observe")
@@ -84,7 +106,12 @@ class CashFragment : Fragment() {
                 Toast.makeText(context, "place your Order ", Toast.LENGTH_LONG).show()
                 val payment= PaymentFragment()
                 var bundle = Bundle()
+
                 payment.arguments = bundle
+
+
+                bundle.putString("addedOrderModel", Gson().toJson(addedOrderModel))
+                payment.setArguments(bundle)
 
                 fragmentManager?.beginTransaction()?.replace(R.id.fragmentContainerView, payment)
                     ?.commit()

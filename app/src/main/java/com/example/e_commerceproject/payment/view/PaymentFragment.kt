@@ -10,16 +10,23 @@ import android.widget.ImageView
 import android.widget.Toast
 import com.example.e_commerceproject.R
 import com.example.e_commerceproject.cart.view.CartFragment
+import com.example.e_commerceproject.payment.model.AddedOrderModel
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 
 class PaymentFragment : Fragment() {
 
     lateinit var cashbtn : Button
     lateinit var onlinebtn : Button
     lateinit var back:ImageView
-
+    lateinit var addedOrderModel: AddedOrderModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        arguments?.let {bundle->
+            class Token : TypeToken<AddedOrderModel>()
+            addedOrderModel = Gson().fromJson(bundle.getString("addedOrderModel"), Token().type)
+        }
 
     }
 
@@ -41,6 +48,9 @@ class PaymentFragment : Fragment() {
             Toast.makeText(requireContext() , "cash" , Toast.LENGTH_SHORT).show()
 
             val cashFragment = CashFragment()
+            var bundle = Bundle()
+            bundle.putString("addedOrderModel", Gson().toJson(addedOrderModel))
+            cashFragment.setArguments(bundle)
             fragmentManager?.beginTransaction()?.replace(R.id.fragmentContainerView, cashFragment)?.commit()
 
         }

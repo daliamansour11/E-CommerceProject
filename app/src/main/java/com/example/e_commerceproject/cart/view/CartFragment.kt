@@ -19,6 +19,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.e_commerceproject.R
 import com.example.e_commerceproject.cart.model.CartModel
 import com.example.e_commerceproject.cart.model.DraftOrder
+import com.example.e_commerceproject.cart.model.LineItem
 import com.example.e_commerceproject.cart.viewmodel.CartViewModel
 import com.example.e_commerceproject.cart.viewmodel.CartViewModelFactory
 import com.example.e_commerceproject.currencyConverter.view.CURRUNEY_TYPE
@@ -29,8 +30,12 @@ import com.example.e_commerceproject.network.ConverterRepository
 import com.example.e_commerceproject.network.remotesource.CartRepository
 import com.example.e_commerceproject.network.remotesource.ConverterApiService
 import com.example.e_commerceproject.network.remotesource.RetrofitService
+import com.example.e_commerceproject.payment.model.AddedOrderModel
 import com.example.e_commerceproject.payment.view.CashFragment
 import com.example.e_commerceproject.payment.view.PaymentFragment
+import com.google.gson.Gson
+import java.util.stream.Collectors
+import kotlin.streams.toList
 
 class CartFragment : Fragment() ,OnDeleteFromCartListener,OnPayClickListener {
     lateinit var cartList: CartModel
@@ -175,8 +180,18 @@ class CartFragment : Fragment() ,OnDeleteFromCartListener,OnPayClickListener {
         })
         payButtonCart.setOnClickListener {
             var bundle = Bundle()
+            val sharedPreferences: SharedPreferences =
+                requireContext().getSharedPreferences("loginsharedprefs", Context.MODE_PRIVATE)
+            var userEmail: String = sharedPreferences.getString("EMAIL_LOGIN", "").toString()
             val paymentFragment = PaymentFragment()
-            paymentFragment.arguments = bundle
+            val lineItems : MutableList<LineItem> = mutableListOf()
+            val draftOrders: List<DraftOrder> = cartAdapter.data1
+            for (draftOrder in draftOrders){
+                lineItems.addAll(draftOrder.line_items!!)
+            }
+            var addedOrderModel = AddedOrderModel(userEmail,lineItems)
+            bundle.putString("addedOrderModel", Gson().toJson(addedOrderModel))
+            paymentFragment.setArguments(bundle)
 
 
             fragmentManager?.beginTransaction()

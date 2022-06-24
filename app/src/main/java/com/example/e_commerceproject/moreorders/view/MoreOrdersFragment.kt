@@ -6,32 +6,28 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.e_commerceproject.R
+import com.example.e_commerceproject.orderdetails.view.OrdersDetailsFragment
 import com.example.e_commerceproject.profile.model.OrderModel
 import com.example.e_commerceproject.profile.view.ProfileFragment
 import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 
 
-class MoreOrdersFragment : Fragment() {
-
-    lateinit var orderPrice: TextView
-    lateinit var orderDate: TextView
-    lateinit var backArrow: ImageView
-    lateinit var moreOrdersFragmentView: View
-    lateinit var moreOrderBack: ImageView
+class MoreOrdersFragment : Fragment(), OnOrderClickListener {
+    lateinit var moreorder_back: ImageView
     lateinit var orderList:ArrayList<OrderModel>
     lateinit var recyclerView: RecyclerView
-    lateinit var moreOrdersAdapter: MoreOrderAdapter
+    lateinit var moreOrdersAdapter: MoreOrdersAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {bundle->
-            orderList = Gson().fromJson(bundle.getString("orders"), ArrayList::class.java)
-                    as ArrayList<OrderModel>
+            class Token : TypeToken<ArrayList<OrderModel>>()
+            orderList = Gson().fromJson(bundle.getString("orders"), Token().type)
         }
     }
 
@@ -41,7 +37,7 @@ class MoreOrdersFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         var moreOrders =   inflater.inflate(R.layout.fragment_more_orders, container, false)
-        moreOrderBack = moreOrders.findViewById(R.id.moreOrdersArrowBack)
+        moreorder_back = moreOrders.findViewById(R.id.moreOrdersArrowBack)
         return  moreOrders
     }
 
@@ -51,10 +47,12 @@ class MoreOrdersFragment : Fragment() {
         val homeSearchLinearLayoutManager: LinearLayoutManager = LinearLayoutManager(context)
         homeSearchLinearLayoutManager.orientation= RecyclerView.VERTICAL
         recyclerView.layoutManager=homeSearchLinearLayoutManager
-        moreOrdersAdapter = MoreOrderAdapter(requireContext())
+        moreOrdersAdapter = MoreOrdersAdapter(requireContext(), this)
         recyclerView.adapter=moreOrdersAdapter
+        moreOrdersAdapter.setDataList(orderList)
+        moreOrdersAdapter.notifyDataSetChanged()
 
-        moreOrderBack.setOnClickListener(object : View.OnClickListener {
+        moreorder_back.setOnClickListener(object : View.OnClickListener {
             override fun onClick(view: View?) {
 
                 Toast.makeText(context, "go to profile ", Toast.LENGTH_LONG).show()
@@ -70,5 +68,13 @@ class MoreOrdersFragment : Fragment() {
         })
     }
 
+    override fun onMoreOrderClicked(order: OrderModel) {
+        val ordersDetailsFragment = OrdersDetailsFragment()
+        val bundle = Bundle()
 
+        bundle.putString("orders", Gson().toJson(orderList))
+        bundle.putString("order", Gson().toJson(order))
+        ordersDetailsFragment.setArguments(bundle)
+        fragmentManager?.beginTransaction()?.replace(R.id.fragmentContainerView, ordersDetailsFragment)?.commit()
+    }
 }

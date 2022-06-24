@@ -1,12 +1,10 @@
 package com.example.e_commerceproject.common.network
 
+import com.example.e_commerceproject.payment.model.PostOrderModel
 import com.example.e_commerceproject.homesearch.model.ProductListModel
 import com.example.e_commerceproject.home.model.CollectionModel
 import com.example.e_commerceproject.profile.model.OrderListModel
-import retrofit2.http.GET
-import retrofit2.http.Headers
-import retrofit2.http.Path
-import retrofit2.http.Query
+import retrofit2.http.*
 
 interface APIClient {
     @Headers(
@@ -34,5 +32,13 @@ interface APIClient {
         @Path("customerId") customerId: String,
         @Query("fields") fields: String
     ): OrderListModel
+
+    @Headers(
+        "Accept: application/json",
+        "X-Shopify-Access-Token: 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")
+    @POST("orders.json")
+    suspend fun postOrder(
+        @Body order: PostOrderModel
+    ): PostOrderModel
 
 }
