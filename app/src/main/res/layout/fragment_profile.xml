@@ -291,71 +291,22 @@
                 app:layout_constraintBottom_toBottomOf="@+id/textView5"
                 app:layout_constraintEnd_toEndOf="parent" />
 
-            <androidx.cardview.widget.CardView
-                android:background="@drawable/rounder_corner_background"
-
-                android:id="@+id/wishesCardView"
-                cardCornerRadius="9dp"
-                cardElevation="8dp"
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/profile_favorite_recycleview"
                 android:layout_width="match_parent"
-                android:layout_height="123dp"
+                android:layout_height="200dp"
+                android:layout_row="0"
+                android:layout_rowWeight="1"
+                android:layout_column="0"
+                android:layout_gravity="fill"
+                android:layout_marginTop="10dp"
                 android:layout_marginStart="20dp"
                 android:layout_marginEnd="20dp"
-                android:layout_marginTop="25dp"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView5">
+                app:layout_constraintTop_toBottomOf="@+id/textView5"/>
 
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <TextView
-                        android:id="@+id/textView11"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Price : "
-                        android:textSize="20sp"
-                        android:layout_marginStart="15dp"
-                        android:layout_marginTop="15dp"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <TextView
-                        android:id="@+id/wishesPriceTextView"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text=""
-                        android:textSize="20sp"
-                        app:layout_constraintBottom_toBottomOf="@+id/textView11"
-                        app:layout_constraintStart_toEndOf="@+id/textView11"
-
-                        tools:layout_editor_absoluteX="242dp" />
-
-                    <TextView
-                        android:id="@+id/textView12"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="16dp"
-                        android:layout_marginTop="68dp"
-                        android:text="Created at: "
-                        android:textSize="20sp"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <TextView
-                        android:id="@+id/dateOfWishesTxtView"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text=""
-                        android:textSize="20sp"
-                        app:layout_constraintBottom_toBottomOf="@+id/textView12"
-                        app:layout_constraintStart_toEndOf="@+id/textView12"
-
-                        tools:layout_editor_absoluteX="242dp" />
-                </androidx.constraintlayout.widget.ConstraintLayout>
-            </androidx.cardview.widget.CardView>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

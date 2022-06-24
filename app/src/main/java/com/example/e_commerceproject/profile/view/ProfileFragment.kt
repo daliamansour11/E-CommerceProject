@@ -86,7 +86,7 @@ class ProfileFragment : Fragment() {
         var profile_frg  = inflater.inflate(R.layout.fragment_profile, container, false)
 //        moreWishes_btn = profile_frg.findViewById(R.id.morewish_btn)
 
-        moreWishes_btn = profile_frg.findViewById(R.id.morewish_btn)
+        moreWishes_btn = profile_frg.findViewById(R.id.moreWishesTxtView)
 
         moreorder_btn = profile_frg.findViewById(R.id.moreOrdersTxtView)
         profile_back = profile_frg.findViewById(R.id.profileArrowBack)
