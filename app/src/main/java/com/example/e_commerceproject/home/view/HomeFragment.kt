@@ -120,14 +120,21 @@ class HomeFragment : Fragment() , OnBrandClickListener{
 
         imageList = ArrayList<Int>()
         imageList = imageList + R.drawable.ads8
+
+        imageList = imageList + R.drawable.ads9
+        imageList = imageList + R.drawable.ads7
+        imageList = imageList + R.drawable.ads1
+
         imageList = imageList + R.drawable.ads2
         imageList = imageList + R.drawable.ads9
         imageList = imageList + R.drawable.ads4
         imageList = imageList + R.drawable.ads5
         imageList = imageList + R.drawable.ads6
+
         imageList = imageList + R.drawable.ads7
         imageList = imageList + R.drawable.ads1
         imageList = imageList + R.drawable.ads3
+
 
         viewPagerAdapter = ViewPagerAdapter(requireContext(), imageList)
         viewPager!!.adapter = viewPagerAdapter
@@ -176,7 +183,6 @@ class HomeFragment : Fragment() , OnBrandClickListener{
         val categoryFragment = CategoryFragment()
         categoryFragment.arguments = bundle
         fragmentManager?.beginTransaction()?.replace(R.id.fragmentContainerView, categoryFragment)?.commit()
-
     }
     override fun onDiscountCartClick(_code:String) {
         var bundle=Bundle()
