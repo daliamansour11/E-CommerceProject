@@ -107,8 +107,8 @@ class CashFragment : Fragment() {
                 Toast.makeText(context, "place your Order ", Toast.LENGTH_LONG).show()
                 val payment= PaymentFragment()
                 var bundle = Bundle()
-
-                payment.arguments = bundle
+                bundle.putString("addedOrderModel", Gson().toJson(addedOrderModel))
+                payment.setArguments(bundle)
                 fragmentManager?.beginTransaction()?.replace(R.id.fragmentContainerView, payment)
                     ?.commit()
 
