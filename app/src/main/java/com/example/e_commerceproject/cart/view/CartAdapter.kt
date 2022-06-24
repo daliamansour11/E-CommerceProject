@@ -114,7 +114,7 @@ class CartAdapter(private var context: Context, var cartFragment: CartFragment, 
         var productCount: TextView = itemView.findViewById(R.id.productsCount)
         var incrementBtn: Button = itemView.findViewById(R.id.incrementedBtn)
         var decrementBtn: Button = itemView.findViewById(R.id.decrementedBtn)
-        var deleteBtn: Button = itemView.findViewById(R.id.delete)
+        var deleteBtn: Button = itemView.findViewById(R.id.delete_item_from_cart)
     }
 
     fun removeSelected(position: Int) {

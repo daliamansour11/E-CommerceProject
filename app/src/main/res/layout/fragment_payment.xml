@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#EEF2F3"
     tools:context=".payment.view.PaymentFragment">
 
 
@@ -12,7 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:layout_marginTop="4dp"
-        android:background="#E1E0E0"
+        android:background="#ffff"
         android:fitsSystemWindows="true"
 
         android:theme="?attr/actionBarTheme"

@@ -29,9 +29,10 @@ import com.example.e_commerceproject.network.ConverterRepository
 import com.example.e_commerceproject.network.remotesource.CartRepository
 import com.example.e_commerceproject.network.remotesource.ConverterApiService
 import com.example.e_commerceproject.network.remotesource.RetrofitService
+import com.example.e_commerceproject.payment.view.CashFragment
 import com.example.e_commerceproject.payment.view.PaymentFragment
 
-class CartFragment : Fragment() ,OnDeleteFromCartListener {
+class CartFragment : Fragment() ,OnDeleteFromCartListener,OnPayClickListener {
     lateinit var cartList: CartModel
     lateinit var recyclerView: RecyclerView
     lateinit var cartAdapter: CartAdapter
@@ -173,7 +174,11 @@ class CartFragment : Fragment() ,OnDeleteFromCartListener {
             fragmentTransaction.commit()
         })
         payButtonCart.setOnClickListener {
+            var bundle = Bundle()
             val paymentFragment = PaymentFragment()
+            paymentFragment.arguments = bundle
+
+
             fragmentManager?.beginTransaction()
                 ?.replace(R.id.fragmentContainerView, paymentFragment)?.commit()
         }
@@ -219,6 +224,15 @@ class CartFragment : Fragment() ,OnDeleteFromCartListener {
             //CartAdapter.notifyDataSetChanged()
 
         })
+
+    }
+
+    override fun onPayBtnClicked(totalPrice: Double) {
+        var bundle=Bundle()
+        bundle.putDouble("SUBTOTAL",totalPrice)
+        val cashFragment = CashFragment()
+        cashFragment.arguments =bundle
+        fragmentManager?.beginTransaction()?.replace(R.id.fragmentContainerView, cashFragment)?.commit()
 
     }
 
