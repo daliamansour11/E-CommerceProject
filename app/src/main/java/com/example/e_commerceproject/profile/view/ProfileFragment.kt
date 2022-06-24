@@ -28,6 +28,7 @@ import com.example.e_commerceproject.favorite.view.OnDeletefromFavoriteClikListe
 import com.example.e_commerceproject.favorite.viewmodel.FavoriteViewModel
 import com.example.e_commerceproject.favorite.viewmodel.FavoriteViewModelFactory
 import com.example.e_commerceproject.home.view.HomeFragment
+import com.example.e_commerceproject.moreorders.view.MoreOrdersFragment
 import com.example.e_commerceproject.network.FavoriteRepository
 import com.example.e_commerceproject.network.remotesource.RetrofitService
 import com.example.e_commerceproject.profile.client.ProfileClient
@@ -39,13 +40,13 @@ import com.google.gson.Gson
 
 
 class ProfileFragment : Fragment() {
-    lateinit var moreorder_btn : Button
-    lateinit var moreWishes_btn : Button
+    lateinit var moreorder_btn : TextView
+    lateinit var moreWishes_btn : TextView
 
     lateinit var login_btn : Button
     lateinit var welcome_text : TextView
     //lateinit var register_btn : Button
-    lateinit var profile_back : Button
+    lateinit var profile_back : ImageView
     lateinit var profile_settings : ImageView
     lateinit var priceTextView: TextView
     lateinit var dateOfOrderTxtView: TextView
@@ -85,10 +86,10 @@ class ProfileFragment : Fragment() {
         var profile_frg  = inflater.inflate(R.layout.fragment_profile, container, false)
 //        moreWishes_btn = profile_frg.findViewById(R.id.morewish_btn)
 
-        moreWishes_btn = profile_frg.findViewById(R.id.morewish_btn)
+        moreWishes_btn = profile_frg.findViewById(R.id.moreWishesTxtView)
 
-        moreorder_btn = profile_frg.findViewById(R.id.moreOrder_btn)
-        profile_back = profile_frg.findViewById(R.id.profile_back)
+        moreorder_btn = profile_frg.findViewById(R.id.moreOrdersTxtView)
+        profile_back = profile_frg.findViewById(R.id.profileArrowBack)
 
         profile_settings = profile_frg.findViewById(R.id.profile_settings)
 //        userNameTxt=profile_frg.findViewById(R.id.userNameTxt)
