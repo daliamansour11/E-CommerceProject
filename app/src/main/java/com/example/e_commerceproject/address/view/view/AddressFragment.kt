@@ -17,6 +17,7 @@ import com.example.e_commerceproject.address.view.viewModel.AddressViewModelFact
 import com.example.e_commerceproject.authentication.register.model.Customer2
 import com.example.e_commerceproject.authentication.register.model.CustomerAddress
 import com.example.e_commerceproject.authentication.register.model.CustomerModel
+import com.example.e_commerceproject.authentication.register.model.PostAddress
 import com.example.e_commerceproject.authentication.register.viewmodel.AuthenticationViewModel
 import com.example.e_commerceproject.authentication.register.viewmodel.AuthenticationViewModelFactory
 import com.example.e_commerceproject.data.AuthenticationRepository
@@ -81,11 +82,12 @@ class AddressFragment : Fragment() {
                     country_name = "${counteryEdittxt.text}",
                     province_code = "21533"
                 )
+                var postAddress = PostAddress(myAddressDetails)
                 customer.addresses = listOf(myAddressDetails)
                 var custom_Address = CustomerModel(customer)
-                viewModel.pushPostAddress("5770511351947",custom_Address)
-                viewModel.address_response.observe(viewLifecycleOwner, {
-                    Log.i("TAGGGGGGGGGGGGGGGGGGGGGGG", "onViewCreated: ${it}")
+                viewModel.pushPostAddress("5770511351947",postAddress)
+                viewModel.postCustomerAddress.observe(viewLifecycleOwner, {
+                    Log.i("TAGGGGGGGGGGGGGGGGGGGGGGGGGGG", "onViewCreated: ${it}")
                 })
                 val address2Fragment = Address2Fragment()
                 fragmentManager?.beginTransaction()

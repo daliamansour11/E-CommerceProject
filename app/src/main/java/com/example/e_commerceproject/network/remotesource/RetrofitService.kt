@@ -8,6 +8,8 @@ import com.example.e_commerceproject.cart.model.DraftOrder
 import com.example.e_commerceproject.authentication.login.model.Customers
 import com.example.e_commerceproject.authentication.register.model.CustomerAddress
 import com.example.e_commerceproject.authentication.register.model.CustomerModel
+import com.example.e_commerceproject.authentication.register.model.GetAddress
+import com.example.e_commerceproject.authentication.register.model.PostAddress
 import com.example.e_commerceproject.category.model.CategoryModel
 import com.example.e_commerceproject.details.model.DetailsProductModel
 import com.example.e_commerceproject.payment.model.CouponsX
@@ -128,9 +130,9 @@ interface RetrofitService {
         "Accept: application/json",
         "X-Shopify-Access-Token: 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",
     )
-    @PUT("customers/{id}.json")
-    suspend fun addAddress(@Path ("id") id:String,@Body address: CustomerModel
-    ): Response<CustomerModel>
+    @POST("customers/{customer_id}/addresses.json")
+    suspend fun addAddress(@Path ("customer_id") customer_id : String , @Body address: PostAddress): Response<PostAddress>
+
 
     //get Address
     @Headers(
@@ -138,10 +140,7 @@ interface RetrofitService {
         "X-Shopify-Access-Token: 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",
     )
     @GET("customers/{customer_id}/addresses.json")
-    suspend fun getAddress(
-        @Path("id") id: String,
-
-    ): Response<CustomerAddress>
+    suspend fun getAddress(@Path("customer_id") customer_id: String, ): Response<GetAddress>
 
     // favorite
 

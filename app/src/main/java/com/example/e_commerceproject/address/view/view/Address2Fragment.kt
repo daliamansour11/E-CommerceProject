@@ -23,7 +23,7 @@ class Address2Fragment : Fragment() {
     lateinit var addersstxt :TextView
     lateinit var counterytxt :TextView
     lateinit var phonetxt :TextView
-    var customerId: String = "207119551"
+    var customerId: String = "5770511351947"//207119551
     lateinit var viewModel: AddressViewModel
 
 
@@ -58,11 +58,11 @@ class Address2Fragment : Fragment() {
         viewModel = ViewModelProvider(this, AddressViewModelFactory(mainRepository)).get(
             AddressViewModel::class.java)
         viewModel.getAddress(customerId)
-        viewModel.CustomerAddress.observe(viewLifecycleOwner, {
+        viewModel.getCustomerAddresses.observe(viewLifecycleOwner, {
             Log.d("TAG", "inside cartfragment")
-             counterytxt.text = it.country
-             addersstxt.text = it.address1
-             phonetxt.text = it.phone
+             counterytxt.text = it.addresses[0].country_name
+             addersstxt.text = it.addresses[0].address1
+             phonetxt.text = it.addresses[0].phone
             Log.i("TAG", "onViewCreated:rrrrrrTTTTTTTTTrrrrrr ${it}")
         })
         back.setOnClickListener(object : View.OnClickListener {

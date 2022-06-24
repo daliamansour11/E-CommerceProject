@@ -181,7 +181,6 @@ class HomeFragment : Fragment() , OnBrandClickListener{
     override fun onDiscountCartClick(_code:String) {
         var bundle=Bundle()
         bundle.putString("COUPON",_code)
-
         val cashFragment = CashFragment()
         cashFragment.arguments =bundle
         fragmentManager?.beginTransaction()?.replace(R.id.fragmentContainerView, cashFragment)?.commit()
