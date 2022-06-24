@@ -7,27 +7,26 @@
     android:layout_height="210dp">
 
 
+
+
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="162dp"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp"
+        android:layout_height="match_parent"
         android:orientation="horizontal"
-        app:cardCornerRadius="8dp"
-
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        android:background="@drawable/edittext_shape"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:cardCornerRadius="8dp"
+            android:layout_margin="10dp"
+            android:background="@drawable/edittext_shape"
+            tools:ignore="MissingClass,MissingConstraints">
 
-            >
+
             <ImageView
                 android:id="@+id/productImage"
                 android:layout_width="146dp"
@@ -44,8 +43,8 @@
                 style="@style/Widget.App.Button.OutlinedButton.IconOnly"
                 android:layout_width="60dp"
                 android:layout_height="38dp"
-                android:layout_marginEnd="220dp"
-                android:layout_marginBottom="4dp"
+                android:layout_marginEnd="232dp"
+                android:layout_marginBottom="16dp"
                 android:background="@color/white"
                 app:icon="@drawable/delete_24"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -53,14 +52,13 @@
 
             <TextView
                 android:id="@+id/productName"
-                android:layout_width="202dp"
-                android:layout_height="52dp"
-                android:layout_marginStart="4dp"
-                android:layout_marginTop="16dp"
+                android:layout_width="223dp"
+                android:layout_height="49dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="32dp"
                 android:gravity="center"
                 android:text="productname"
                 android:textSize="20dp"
-                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/productImage"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -69,7 +67,7 @@
                 android:layout_width="104dp"
                 android:layout_height="28dp"
                 android:layout_marginTop="8dp"
-                android:layout_marginEnd="84dp"
+                android:layout_marginEnd="136dp"
                 android:gravity="center"
                 android:text="productprize"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -79,8 +77,8 @@
                 android:id="@+id/decrementedBtn"
                 android:layout_width="39dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="184dp"
-                android:layout_marginBottom="4dp"
+                android:layout_marginStart="232dp"
+                android:layout_marginBottom="16dp"
                 android:text="-"
                 android:textSize="15dp"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -99,14 +97,14 @@
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toEndOf="@+id/decrementedBtn"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.886" />
+                app:layout_constraintVertical_bias="0.844" />
 
             <Button
                 android:id="@+id/incrementedBtn"
                 android:layout_width="39dp"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="15dp"
-                android:layout_marginBottom="4dp"
+                android:layout_marginBottom="16dp"
                 android:text="+"
                 android:textSize="15dp"
                 app:layout_constraintBottom_toBottomOf="parent"
