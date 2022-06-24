@@ -44,11 +44,16 @@ dependencies {
     implementation 'androidx.navigation:navigation-ui-ktx:2.4.2'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'androidx.preference:preference:1.1.1'
+
 //    implementation 'com.google.androidbrowserhelper:billing:1.0.0-alpha07'
 //    implementation 'com.google.android.gms:play-services-wallet:19.1.0'
     implementation 'com.android.volley:volley:1.2.1'
     implementation 'androidx.games:games-activity:1.0.0-rc01'
 //    implementation 'androidx.games:games-text-input:1.0.0-rc01'
+
+ //   implementation 'com.google.androidbrowserhelper:billing:1.0.0-alpha07'
+ //   implementation 'com.google.android.gms:play-services-wallet:19.1.0'
+
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
@@ -90,9 +95,10 @@ dependencies {
     kapt 'com.github.bumptech.glide:compiler:4.8.0'
 
 // stripe////
+
    implementation 'com.stripe:stripe-android:17.2.0'
       implementation 'com.android.volley:volley:1.1.0'
-//
+
 
 
 
