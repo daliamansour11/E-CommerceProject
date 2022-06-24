@@ -86,7 +86,7 @@ class CartFragment : Fragment() ,OnDeleteFromCartListener,OnPayClickListener {
         // Inflate the layout for this fragment
         var cart_frag = inflater.inflate(R.layout.fragment_cart, container, false)
 
-        total_price = cart_frag.findViewById(R.id.textView)
+        total_price = cart_frag.findViewById(R.id.textView3)
         return cart_frag
     }
 
