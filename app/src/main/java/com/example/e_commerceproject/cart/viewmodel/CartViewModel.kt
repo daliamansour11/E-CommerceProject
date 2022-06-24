@@ -8,11 +8,12 @@ import com.example.e_commerceproject.cart.model.CartModel
 import com.example.e_commerceproject.cart.model.DraftOrder
 import com.example.e_commerceproject.network.remotesource.CartRepository
 import kotlinx.coroutines.*
-
 class CartViewModel(private val repo: CartRepository): ViewModel()  {
 
     var cart_Response : MutableLiveData<CartListModel> = MutableLiveData()
     var updatecart_Res : MutableLiveData<CartModel> = MutableLiveData()
+    var deleteCart_Res : MutableLiveData<CartModel> = MutableLiveData()
+
     var job: Job? = null
     val loading = MutableLiveData<Boolean>()
     val exceptionHandler = CoroutineExceptionHandler { _, throwable ->
@@ -34,9 +35,9 @@ class CartViewModel(private val repo: CartRepository): ViewModel()  {
             }
         }
     }
-    fun updateCart(cart: CartModel) {
+    fun updateCart(cart_id :String,cart: CartModel) {
         job = CoroutineScope(Dispatchers.IO + exceptionHandler).launch {
-            val response = repo.updatedcartItem(cart)
+            val response = repo.updatedcartItem(cart_id,cart)
             withContext(Dispatchers.Main) {
                 if (response.isSuccessful) {
                     Log.i("TAG", "onViewCreated:rrrrrrrrgggggggrrrrkkjkj")
@@ -51,6 +52,44 @@ class CartViewModel(private val repo: CartRepository): ViewModel()  {
         }
 
     }
+
+//    fun deleteCart(cart_id: String) {
+//        job = CoroutineScope(Dispatchers.IO + exceptionHandler).launch {
+//            val response = repo.deleteCartItem(cart_id)
+//            withContext(Dispatchers.Main) {
+//                if (response.isSuccessful) {
+//                    Log.i("TAG", "onViewCreated:rrrrrrrrgggggggrrrrkkjkj")
+//                    updatecart_Res.postValue(response.body())
+//                    loading.value = false
+//                } else {
+//                    Log.i("TAG", "Error: ")
+////                              onError("Error : ${response.message()} iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii ")
+//
+//                }
+//            }
+//        }
+//
+//    }
+    fun deleteCartProduct(id : String)  {
+        job = CoroutineScope(Dispatchers.IO + exceptionHandler).launch {
+            val response = repo.deleteCartItems(id)
+            withContext(Dispatchers.Main) {
+                if (response.isSuccessful) {
+                    Log.i("TAG", "onViewCreated:rrrrrrrrrrrrkkjkj")
+                    deleteCart_Res .value = response.body()
+
+                    loading.value = false
+                } else {
+                    Log.i("TAG", "Errorbbbbbbbbbbbbbbssssssssssss:${response.message()} ")
+//                    onError("Error : ${response.message()} iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii ")
+                }
+            }
+        }
+
+    }
+
+
+
 //      fun getTotalPrice(): LiveData<Double> {
 //         return  repo.getTotalPrice()
 
