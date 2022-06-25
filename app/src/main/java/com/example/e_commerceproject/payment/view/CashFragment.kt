@@ -23,12 +23,8 @@ import com.example.e_commerceproject.payment.viewModel.CashViewModelFactory
 import com.example.e_commerceproject.payment.viewModel.OrderViewModel
 import com.example.e_commerceproject.payment.viewModel.OrderViewModelFactory
 import com.example.e_commerceproject.profile.view.ProfileFragment
-
- const val COUPON =""
-
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
-
 
 class CashFragment : Fragment() {
  lateinit var  cartViewModel: CartViewModel
@@ -94,25 +90,25 @@ class CashFragment : Fragment() {
                 viewModel.myCoupons.observe(viewLifecycleOwner,  {
                     Log.d("TAG", "inside observe")
                     Log.i("TAG", "onViewCreated:rrrrrrrrrrrr ${it}")
+
+
                 })
+
             }
 //                val intent = Intent(this,HomeFragment ::class.java)
 //                intent.putExtra("key", "Kotlin")
 //                startActivity(intent)
 //            }
+
         })
         back_arrow.setOnClickListener(object : View.OnClickListener {
             override fun onClick(view: View?) {
+
                 Toast.makeText(context, "place your Order ", Toast.LENGTH_LONG).show()
                 val payment= PaymentFragment()
                 var bundle = Bundle()
-
-                payment.arguments = bundle
-
-
                 bundle.putString("addedOrderModel", Gson().toJson(addedOrderModel))
                 payment.setArguments(bundle)
-
                 fragmentManager?.beginTransaction()?.replace(R.id.fragmentContainerView, payment)
                     ?.commit()
 
@@ -120,7 +116,4 @@ class CashFragment : Fragment() {
 
         })
 
-}
-
-
-}
+}}
