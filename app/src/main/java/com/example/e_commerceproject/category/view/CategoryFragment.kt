@@ -57,6 +57,7 @@ class CategoryFragment : Fragment(), OnProductClickInterface , OnFavoriteButtonC
 
     var brandId = ""
     var collectionId = ""
+    var searchQueryText=""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -110,8 +111,7 @@ class CategoryFragment : Fragment(), OnProductClickInterface , OnFavoriteButtonC
         viewModel.categoryList.observe(viewLifecycleOwner, {
 
             productList = it.products
-            categoryAdapter.setlist(it.products)
-            categoryAdapter.notifyDataSetChanged()
+            showProducts()
 
         })
 
@@ -120,8 +120,7 @@ class CategoryFragment : Fragment(), OnProductClickInterface , OnFavoriteButtonC
             viewModel.getCategoryProduct(collectionId, "SHOES", brandId)
             viewModel.subCategoryList.observe(viewLifecycleOwner, {
                 productList = it.products
-                categoryAdapter.setlist(it.products)
-                categoryAdapter.notifyDataSetChanged()
+                showProducts()
             })
         }
 
@@ -129,8 +128,7 @@ class CategoryFragment : Fragment(), OnProductClickInterface , OnFavoriteButtonC
             viewModel.getCategoryProduct(collectionId, "ACCESSORIES", brandId)
             viewModel.subCategoryList.observe(viewLifecycleOwner, {
                 productList = it.products
-                categoryAdapter.setlist(it.products)
-                categoryAdapter.notifyDataSetChanged()
+                showProducts()
             })
         }
 
@@ -145,8 +143,7 @@ class CategoryFragment : Fragment(), OnProductClickInterface , OnFavoriteButtonC
             viewModel.getCategoryProduct(collectionId, "T-SHIRTS", brandId)
             viewModel.subCategoryList.observe(viewLifecycleOwner, {
                 productList = it.products
-                categoryAdapter.setlist(it.products)
-                categoryAdapter.notifyDataSetChanged()
+                showProducts()
             })
         }
 
@@ -171,8 +168,7 @@ class CategoryFragment : Fragment(), OnProductClickInterface , OnFavoriteButtonC
                     viewModel.categoryList.observe(viewLifecycleOwner, {
 
                         productList = it.products
-                        categoryAdapter.setlist(it.products)
-                        categoryAdapter.notifyDataSetChanged()
+                        showProducts()
 
                     })
                 }else if(tab.position == 1){
@@ -181,8 +177,7 @@ class CategoryFragment : Fragment(), OnProductClickInterface , OnFavoriteButtonC
                     viewModel.categoryList.observe(viewLifecycleOwner, {
 
                         productList = it.products
-                        categoryAdapter.setlist(it.products)
-                        categoryAdapter.notifyDataSetChanged()
+                        showProducts()
 
                     })
                 }else if(tab.position == 2) {
@@ -191,8 +186,7 @@ class CategoryFragment : Fragment(), OnProductClickInterface , OnFavoriteButtonC
                     viewModel.categoryList.observe(viewLifecycleOwner, {
 
                         productList = it.products
-                        categoryAdapter.setlist(it.products)
-                        categoryAdapter.notifyDataSetChanged()
+                        showProducts()
 
                     })
                 } else if(tab.position == 3) {
@@ -201,8 +195,7 @@ class CategoryFragment : Fragment(), OnProductClickInterface , OnFavoriteButtonC
                     viewModel.categoryList.observe(viewLifecycleOwner, {
 
                         productList = it.products
-                        categoryAdapter.setlist(it.products)
-                        categoryAdapter.notifyDataSetChanged()
+                        showProducts()
 
                     })
                 }else if(tab.position == 4) {
@@ -211,8 +204,7 @@ class CategoryFragment : Fragment(), OnProductClickInterface , OnFavoriteButtonC
                         viewModel.categoryList.observe(viewLifecycleOwner, {
 
                             productList = it.products
-                            categoryAdapter.setlist(it.products)
-                            categoryAdapter.notifyDataSetChanged()
+                            showProducts()
 
                         })
 
@@ -233,21 +225,21 @@ class CategoryFragment : Fragment(), OnProductClickInterface , OnFavoriteButtonC
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 if (query != null) {
-                    var filteredProductList = productList.stream().filter { product ->
-
-                        product.title.lowercase().contains(query.lowercase())
-
-                    }.toList()
+                    searchQueryText = query
+                    var filteredProductList = filterData(query)
                     categoryAdapter.setlist(filteredProductList)
                     categoryAdapter.notifyDataSetChanged()
+                    searchView.clearFocus()
                     return true
                 }
                 return false
             }
             override fun onQueryTextChange(newText: String?): Boolean {
                 if (newText != null && newText.length==0) {
+                    searchQueryText = newText
                     categoryAdapter.setlist(productList)
                     categoryAdapter.notifyDataSetChanged()
+                    searchView.clearFocus()
                     return true
                 }
                 return false
@@ -256,6 +248,24 @@ class CategoryFragment : Fragment(), OnProductClickInterface , OnFavoriteButtonC
 
     }
 
+    private fun filterData(query: String): List<Product> {
+        var filteredProductList = productList.stream().filter { product ->
+
+            product.title.lowercase().contains(query.lowercase())
+
+        }.toList()
+        return filteredProductList
+    }
+
+    private fun showProducts(){
+        if (searchQueryText!=null && searchQueryText.length>0){
+            var filteredProductList = filterData(searchQueryText)
+            categoryAdapter.setlist(filteredProductList)
+        }else {
+            categoryAdapter.setlist(productList)
+        }
+        categoryAdapter.notifyDataSetChanged()
+    }
     override fun onProductClick(id :Long) {
         Toast.makeText(requireContext(), "iui", Toast.LENGTH_SHORT).show()
         var bundle = Bundle()

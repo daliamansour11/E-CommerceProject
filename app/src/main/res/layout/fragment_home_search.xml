@@ -13,17 +13,21 @@
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.08" />
 
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/homeSearchIconEndId"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.15" />
 
     <ImageView
         android:id="@+id/homeSearchArrowBack"
-        android:layout_width="wrap_content"
-        android:layout_height="37dp"
-        android:layout_marginStart="30dp"
-        android:layout_marginEnd="5dp"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
 
         android:src="@drawable/ic_baseline_arrow_back_ios_new_24"
         app:layout_constraintBottom_toTopOf="@+id/homeSearchViewGuideline"
-        app:layout_constraintEnd_toStartOf="@+id/homeSearchView"
+        app:layout_constraintEnd_toStartOf="@+id/homeSearchIconEndId"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/homeSearchView"
         app:layout_constraintVertical_bias="0.0" />
@@ -32,6 +36,7 @@
         android:id="@+id/homeSearchView"
         android:layout_width="347dp"
         android:layout_height="35dp"
+        android:layout_marginBottom="5dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="30dp"
@@ -41,7 +46,7 @@
         android:queryHint="search"
         app:layout_constraintBottom_toBottomOf="@id/homeSearchViewGuideline"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/homeSearchArrowBack"
+        app:layout_constraintStart_toEndOf="@+id/homeSearchIconEndId"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0" />
 
@@ -49,7 +54,7 @@
         android:id="@+id/searchViewConstraintLayout"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="20dp"
         android:layout_marginStart="7dp"
         android:layout_marginEnd="7dp"
         android:layout_marginBottom="70dp"
