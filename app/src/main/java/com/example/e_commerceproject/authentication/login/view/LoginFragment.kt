@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -17,6 +18,7 @@ import com.example.e_commerceproject.authentication.login.viewmodel.LoginViewMod
 import com.example.e_commerceproject.authentication.login.viewmodel.LoginViewModelFactory
 import com.example.e_commerceproject.authentication.register.view.RegisterFragment
 import com.example.e_commerceproject.data.AuthenticationRepository
+import com.example.e_commerceproject.home.view.HomeFragment
 import com.example.e_commerceproject.network.remotesource.RetrofitService
 import com.example.e_commerceproject.profile.view.ProfileFragment
 
@@ -28,7 +30,7 @@ class LoginFragment : Fragment() {
     lateinit var email:EditText
     lateinit var password :EditText
     lateinit var viewModel: LoginViewModel
-    lateinit var backArrow: Button
+    lateinit var backButton : ImageView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -54,6 +56,7 @@ class LoginFragment : Fragment() {
         registerbtn = view.findViewById(R.id.registerbtn)
         email = view.findViewById(R.id.login_email_editText)
         password = view.findViewById(R.id.login_password_editText)
+        backButton = view.findViewById(R.id.loginArrowBack)
 
 
         val retrofitService = RetrofitService.getInstance()
@@ -62,8 +65,6 @@ class LoginFragment : Fragment() {
 
 
         loginbtn.setOnClickListener {
-            Toast.makeText(requireContext() , "login" , Toast.LENGTH_SHORT).show()
-
 
             //viewModel.getCustomerById("jkjkjk@gmail.com")
             // mnmnmnmnmn
@@ -96,14 +97,13 @@ class LoginFragment : Fragment() {
 
         }
 
-        backArrow = view.findViewById(R.id.backbtn)
-        backArrow.setOnClickListener(View.OnClickListener {
-            val fragmentManager = parentFragmentManager
+
+
+        backButton.setOnClickListener {
             val profileFragment = ProfileFragment()
-            val fragmentTransaction = fragmentManager.beginTransaction()
-            fragmentTransaction.replace(R.id.fragmentContainerView,profileFragment)
-            fragmentTransaction.commit()
-        })
+            fragmentManager?.beginTransaction()?.replace(R.id.fragmentContainerView, profileFragment)?.commit()
+        }
+
     }
 
     private fun saveDataInSharedPrefrence() {
