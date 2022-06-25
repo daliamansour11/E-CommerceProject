@@ -19,11 +19,11 @@ class SplashActivity2 : AppCompatActivity() {
         setContentView(R.layout.activity_splash2)
 
 
-        topAnimation = AnimationUtils.loadAnimation(this,R.anim.top_animation)
-        bottomAnimation = AnimationUtils.loadAnimation(this,R.anim.bottom_animation)
+        //topAnimation = AnimationUtils.loadAnimation(this,R.anim.top_animation)
+        //bottomAnimation = AnimationUtils.loadAnimation(this,R.anim.bottom_animation)
         splash_img = findViewById(R.id.splash)
 
-        splash_img.animation = bottomAnimation
+        //splash_img.animation = bottomAnimation
 
         Handler().postDelayed({
 

@@ -24,11 +24,11 @@ import com.example.e_commerceproject.payment.viewModel.OrderViewModel
 import com.example.e_commerceproject.payment.viewModel.OrderViewModelFactory
 import com.example.e_commerceproject.profile.view.ProfileFragment
 
- const val COUPON =""
+
 
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
-
+const val COUPON =""
 
 class CashFragment : Fragment() {
  lateinit var  cartViewModel: CartViewModel
