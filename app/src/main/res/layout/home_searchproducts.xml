@@ -5,7 +5,8 @@
     android:id="@+id/homeSearchItemConstraint"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginTop="5dp">
+
+    android:layout_margin="5dp">
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
@@ -15,6 +16,7 @@
         app:cardElevation="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -75,23 +77,23 @@
                 app:layout_constraintStart_toStartOf="@+id/homeProductimageView"
                 app:layout_constraintTop_toBottomOf="@+id/homeProductName" />
 
-            <Button
-                android:id="@+id/SearchOfHomeProductfavorieimageButton"
-                style="@style/Widget.App.Button.OutlinedButton.IconOnly"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                android:background="@color/white"
-                app:icon="@drawable/favorite_24"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
+<!--            <Button-->
+<!--                android:id="@+id/SearchOfHomeProductfavorieimageButton"-->
+<!--                style="@style/Widget.App.Button.OutlinedButton.IconOnly"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginBottom="16dp"-->
+<!--                android:background="@color/white"-->
+<!--                app:icon="@drawable/favorite_24"-->
+<!--                app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                app:layout_constraintEnd_toEndOf="parent"-->
 
 
-                app:layout_constraintHorizontal_bias="0.417"
-                app:layout_constraintStart_toEndOf="@+id/homeProductPrice"
+<!--                app:layout_constraintHorizontal_bias="0.417"-->
+<!--                app:layout_constraintStart_toEndOf="@+id/homeProductPrice"-->
 
 
-                tools:ignore="SpeakableTextPresentCheck" />
+<!--                tools:ignore="SpeakableTextPresentCheck" />-->
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
