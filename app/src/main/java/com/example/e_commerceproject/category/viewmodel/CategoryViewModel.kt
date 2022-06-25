@@ -3,6 +3,8 @@ package com.example.e_commerceproject.category.viewmodel
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.e_commerceproject.cart.model.CartListModel
+import com.example.e_commerceproject.cart.model.CartModel
 import com.example.e_commerceproject.category.model.CategoryModel
 import com.example.e_commerceproject.network.CategoryRepository
 import kotlinx.coroutines.*
@@ -12,6 +14,9 @@ class CategoryViewModel constructor( private val repository: CategoryRepository)
 
     val categoryList = MutableLiveData<CategoryModel>()
     var subCategoryList = MutableLiveData<CategoryModel>()
+    val favoriteProducts = MutableLiveData<CartListModel>()
+    var postFavorite = MutableLiveData<CartModel>()
+    var deleteFromFavorite = MutableLiveData<CartModel>()
     var job: Job? = null
     val errorMessage = MutableLiveData<String>()
     val loading = MutableLiveData<Boolean>()
@@ -77,10 +82,58 @@ class CategoryViewModel constructor( private val repository: CategoryRepository)
         loading.value = false
     }
 
-//    override fun onCleared() {
-//        super.onCleared()
-//        job?.cancel()
-//    }
 
+    fun getFavoriteProducts()  {
+        job = CoroutineScope(Dispatchers.IO + exceptionHandler).launch {
+            val response = repository.getFavoriteProducts()
+            withContext(Dispatchers.Main) {
+                if (response.isSuccessful) {
+                    Log.i("TAG", "onViewCreated:rrrrrrrrrrrrkkjkj")
+                    favoriteProducts.value = response.body()
+
+                    loading.value = false
+                } else {
+                    Log.i("TAG", "Errorbbbbbbbbbbbbbbssssssssssss:${response.message()} ")
+                }
+            }
+        }
+
+    }
+
+    fun postFavorite(favProduct: CartModel) {
+        job = CoroutineScope(Dispatchers.IO + exceptionHandler).launch {
+            val response = repository.postFavoriteProduct(favProduct)
+            withContext(Dispatchers.Main) {
+                if (response.isSuccessful) {
+                    Log.i("TAG", "onViewCreated:cartttttttttttttt")
+                    postFavorite.value = response.body()
+                    loading.value = false
+                } else {
+                    Log.i("TAG", "Error: ")
+                    Log.i("TAG", "Errorrrrrrrrrrrrrrrr: ${response.body()} ")
+                    Log.i("TAG", "Errorrrrrrrrrrrrrrrr: ${response.code()} ")
+
+                }
+
+            }
+        }
+    }
+
+    fun deleteProductFromFavorite(id : String)  {
+        job = CoroutineScope(Dispatchers.IO + exceptionHandler).launch {
+            val response = repository.deleteFavoriteItem(id)
+            withContext(Dispatchers.Main) {
+                if (response.isSuccessful) {
+                    Log.i("TAG", "onViewCreated:rrrrrrrrrrrrkkjkj")
+                    deleteFromFavorite.value = response.body()
+
+                    loading.value = false
+                } else {
+                    Log.i("TAG", "Errorbbbbbbbbbbbbbbssssssssssss:${response.message()} ")
+                }
+            }
+        }
+
+    }
 
 }

@@ -1,5 +1,7 @@
 package com.example.e_commerceproject.category.view
 
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
 import android.view.*
@@ -13,6 +15,10 @@ import androidx.viewpager.widget.ViewPager
 import com.example.e_commerceproject.R
 import com.example.e_commerceproject.authentication.login.view.LoginFragment
 import com.example.e_commerceproject.Settings.view.SettingsFragment
+import com.example.e_commerceproject.cart.model.CartModel
+import com.example.e_commerceproject.cart.model.DraftOrder
+import com.example.e_commerceproject.cart.model.LineItem
+import com.example.e_commerceproject.cart.model.NoteAttribute
 import com.example.e_commerceproject.category.model.CategoriesModel
 import com.example.e_commerceproject.category.model.Product
 import com.example.e_commerceproject.category.view.adapters.CategoryAdapter
@@ -28,7 +34,7 @@ import com.example.e_commerceproject.profile.view.ProfileFragment
 import com.google.android.material.tabs.TabLayout
 import kotlin.streams.toList
 
-class CategoryFragment : Fragment(), OnProductClickInterface  {
+class CategoryFragment : Fragment(), OnProductClickInterface , OnFavoriteButtonClickListener  {
 
     lateinit var toolbar: Toolbar
     lateinit var category_back: ImageView
@@ -75,11 +81,9 @@ class CategoryFragment : Fragment(), OnProductClickInterface  {
 
         var args = this.arguments
         if(args == null){
-            Toast.makeText(requireContext() , "null" , Toast.LENGTH_SHORT).show()
         }else{
             brandId =  args?.get("BRAND_ID") as String
             Log.i("TAG", "onViewCreatedmmmmmmmmmmmmmmmmmmmmmmm: ${brandId}")
-         //   Toast.makeText(requireContext() , brandId , Toast.LENGTH_SHORT).show()
         }
         category_back = view.findViewById(R.id.categoryArrowBack)
         shosebtn = view.findViewById(R.id.Shose_button)
@@ -94,7 +98,7 @@ class CategoryFragment : Fragment(), OnProductClickInterface  {
 
         recyclerView = view.findViewById(R.id.CategoryRecycleview)
         recyclerView.layoutManager = GridLayoutManager(requireContext(), 2)
-        categoryAdapter = CategoryAdapter(requireContext(), this)
+        categoryAdapter = CategoryAdapter(requireContext(), this , this)
         recyclerView.adapter = categoryAdapter
 
 
@@ -260,6 +264,84 @@ class CategoryFragment : Fragment(), OnProductClickInterface  {
         detailsfragment.arguments = bundle
         fragmentManager?.beginTransaction()?.replace(R.id.fragmentContainerView, detailsfragment)?.commit()
     }
+
+    override fun OnFavoriteButtonClickListener(data: Product) {
+
+        val sharedPreferences: SharedPreferences = requireContext().getSharedPreferences("loginsharedprefs", Context.MODE_PRIVATE)
+        var userEmail: String = sharedPreferences.getString("EMAIL_LOGIN", "").toString()
+
+
+        if (userEmail == null || userEmail == "") {
+            // navigate to login screen
+            Toast.makeText(requireContext(), "you must login or register first", Toast.LENGTH_SHORT).show()
+            val loginFragment = LoginFragment()
+            fragmentManager?.beginTransaction()?.replace(R.id.fragmentContainerView, loginFragment)?.commit()
+
+        } else {
+
+            var item_Image1 = listOf<NoteAttribute>(NoteAttribute("image", data.images[0].src))
+
+            var lineItem1 = LineItem(variant_id = data.variants[0].id, quantity = 1)
+            val myorder1 = DraftOrder(email = userEmail, note = "fav", note_attributes = item_Image1, line_items = listOf(lineItem1))
+            val mylist = CartModel(myorder1)
+
+            val retrofitService = RetrofitService.getInstance()
+            val mainRepository = CategoryRepository(retrofitService)
+
+            viewModel = ViewModelProvider(this, CategoryViewModelFactory(mainRepository)).get(CategoryViewModel::class.java)
+            viewModel.postFavorite(mylist)
+            viewModel.postFavorite.observe(viewLifecycleOwner, {
+
+                if (it == null) {
+                    Toast.makeText(requireContext(),"failed to add to favorite", Toast.LENGTH_LONG).show()
+                } else {
+
+                    Toast.makeText(requireContext(), "added sucessfully", Toast.LENGTH_LONG).show()
+                }
+            })
+        }
+
+    }
+
+    override fun OnRemoveFromFavoriteButtonClickListener(data: Product) {
+
+
+        val sharedPreferences: SharedPreferences = requireContext().getSharedPreferences("loginsharedprefs", Context.MODE_PRIVATE)
+        var userEmail: String = sharedPreferences.getString("EMAIL_LOGIN", "").toString()
+
+        val retrofitService = RetrofitService.getInstance()
+        val mainRepository = CategoryRepository(retrofitService)
+
+        // get all product -> filter by productid -> if exist -> draftorderid -> draft order id
+        var productId = "${data.id}"
+        Log.i("TAG", "OnRemoveFromFavoriteButtonClickListener: ${productId}")
+        var draftOrderId = ""
+
+
+        viewModel = ViewModelProvider(this, CategoryViewModelFactory(mainRepository)).get(CategoryViewModel::class.java)
+        viewModel.getFavoriteProducts()
+        viewModel.favoriteProducts.observe(viewLifecycleOwner, {
+            var arr = (it.draft_orders.filter { it.email == userEmail && it.note == "fav" })  // [0].line_items?.get(0)?.product_id.toString()
+            Log.i("TAG", "OnRemoveFromFavoriteButtonClickListener: ${arr.count()}")
+
+            for (i in 0 until arr.size) {
+                if (productId in arr[i].line_items?.get(0)?.product_id.toString()) {
+                    draftOrderId = arr[i].id.toString()
+                    viewModel.deleteProductFromFavorite(draftOrderId)
+                    viewModel.deleteFromFavorite.observe(viewLifecycleOwner, {
+                        if (it != null) {
+                            Toast.makeText(requireContext(), "deleted sucssefuly", Toast.LENGTH_SHORT).show()
+                        } else {
+                            Toast.makeText(requireContext(), " cant delete this item ", Toast.LENGTH_SHORT).show()
+                        }
+                    })
+                }
+            }
+        })
+
+        }
+
+
 
 
 }

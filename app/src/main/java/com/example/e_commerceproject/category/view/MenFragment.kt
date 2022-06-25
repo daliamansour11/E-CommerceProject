@@ -21,7 +21,7 @@ import com.example.e_commerceproject.network.remotesource.RetrofitService
 import com.example.e_commerceproject.details.view.DetailsFragment
 import kotlin.streams.toList
 
-class MenFragment : Fragment(), OnProductClickInterface,OnSearchClickListener {
+class MenFragment : Fragment(), OnProductClickInterface,OnSearchClickListener , OnFavoriteButtonClickListener {
 
     private lateinit var categoryAdapter: CategoryAdapter
     lateinit var recyclerView: RecyclerView;
@@ -55,7 +55,7 @@ class MenFragment : Fragment(), OnProductClickInterface,OnSearchClickListener {
 
         recyclerView = view.findViewById(R.id.menCategoryRecycleview)
         recyclerView.layoutManager = GridLayoutManager(requireContext(), 2)
-        categoryAdapter = CategoryAdapter(requireContext(), this)
+        categoryAdapter = CategoryAdapter(requireContext(), this , this)
         recyclerView.adapter = categoryAdapter
 
         val retrofitService = RetrofitService.getInstance()
@@ -132,6 +132,13 @@ class MenFragment : Fragment(), OnProductClickInterface,OnSearchClickListener {
             return true
         }
         return false
+    }
+
+    override fun OnFavoriteButtonClickListener(data: Product) {
+
+    }
+
+    override fun OnRemoveFromFavoriteButtonClickListener(data: Product) {
     }
 
 }

@@ -25,7 +25,7 @@ import com.example.e_commerceproject.home.model.HomeRepository
 import com.example.e_commerceproject.home.viewmodel.HomeViewModelFactory
 import kotlin.streams.toList
 
-class WomenFragment : Fragment(), OnProductClickInterface, OnSearchClickListener {
+class WomenFragment : Fragment(), OnProductClickInterface, OnSearchClickListener , OnFavoriteButtonClickListener {
 
     private lateinit var categoryAdapter: CategoryAdapter
     lateinit var recyclerView: RecyclerView;
@@ -59,7 +59,7 @@ class WomenFragment : Fragment(), OnProductClickInterface, OnSearchClickListener
 
         recyclerView = view.findViewById(R.id.womenCategoryRecycleview)
         recyclerView.layoutManager = GridLayoutManager(requireContext(), 2)
-        categoryAdapter = CategoryAdapter(requireContext(), this)
+        categoryAdapter = CategoryAdapter(requireContext(), this , this)
         recyclerView.adapter = categoryAdapter
 
 
@@ -144,6 +144,13 @@ class WomenFragment : Fragment(), OnProductClickInterface, OnSearchClickListener
             return true
         }
         return false
+    }
+
+    override fun OnFavoriteButtonClickListener(data: Product) {
+
+    }
+
+    override fun OnRemoveFromFavoriteButtonClickListener(data: Product) {
     }
 
 }
