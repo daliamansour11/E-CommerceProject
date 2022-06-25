@@ -1,5 +1,6 @@
 package com.example.e_commerceproject.network
 
+import com.example.e_commerceproject.cart.model.CartModel
 import com.example.e_commerceproject.network.remotesource.RetrofitService
 
 class CategoryRepository constructor( private  val retrofitService: RetrofitService) {
@@ -8,5 +9,12 @@ class CategoryRepository constructor( private  val retrofitService: RetrofitServ
     suspend fun getCategoryProducts( collection_id : String,  product_type : String , vendor : String) = retrofitService.getAllProducts(collection_id , product_type , vendor )
 
     suspend fun getProductsOfSubCategory(product_type : String , collection_id : Long ) = retrofitService?.getSubCategory( product_type , collection_id)
+
+    suspend fun postFavoriteProduct(favoriteItem: CartModel) = retrofitService.postFavorieItem(favoriteItem)
+
+    suspend fun deleteFavoriteItem(id: String) = retrofitService.deleteFavoriteItem(id)
+
+    suspend fun getFavoriteProducts() = retrofitService.getFavoriteProducts()
+
 }
 

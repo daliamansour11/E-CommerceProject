@@ -14,9 +14,10 @@ import com.bumptech.glide.Glide
 import com.example.e_commerceproject.R
 import com.example.e_commerceproject.category.model.CategoryModel
 import com.example.e_commerceproject.category.model.Product
+import com.example.e_commerceproject.category.view.OnFavoriteButtonClickListener
 import com.example.e_commerceproject.category.view.OnProductClickInterface
 
-class CategoryAdapter (var context: Context , val onProductClickInterface: OnProductClickInterface) : RecyclerView.Adapter<CategoryAdapter.ViewHolder>() {
+class CategoryAdapter (var context: Context , val onProductClickInterface: OnProductClickInterface , val onFavoriteButtonClickListener: OnFavoriteButtonClickListener) : RecyclerView.Adapter<CategoryAdapter.ViewHolder>() {
 
     var dataList : List<CategoryModel> = ArrayList()
 
@@ -34,14 +35,18 @@ class CategoryAdapter (var context: Context , val onProductClickInterface: OnPro
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var image: ImageView
         var title: TextView
-        var categoryfavorieimageButton : Button
+        var categoryaddfavorieimageButton : Button
+        var categoryReomveFromFavorieButton : Button
+
         var productitemview : ConstraintLayout
 
 
         init {
             image = itemView.findViewById(R.id.categoriesimageView)
             title = itemView.findViewById(R.id.categoriestextView)
-            categoryfavorieimageButton = itemView.findViewById(R.id.categoryfavorieimageButton)
+            categoryaddfavorieimageButton = itemView.findViewById(R.id.category_add_to_favorieButton)
+            categoryReomveFromFavorieButton = itemView.findViewById(R.id.category_remove_favorieButton)
+
             productitemview = itemView.findViewById(R.id.productitemview)
         }
     }
@@ -67,6 +72,24 @@ class CategoryAdapter (var context: Context , val onProductClickInterface: OnPro
             onProductClickInterface.onProductClick(data.id)
 
         }
+           holder.categoryaddfavorieimageButton.visibility = View.VISIBLE
+           holder.categoryReomveFromFavorieButton.visibility = View.GONE
+
+         holder.categoryaddfavorieimageButton.setOnClickListener {
+             holder.categoryaddfavorieimageButton.visibility = View.GONE
+             holder.categoryReomveFromFavorieButton.visibility = View.VISIBLE
+
+             onFavoriteButtonClickListener.OnFavoriteButtonClickListener(data)
+         }
+
+         holder.categoryReomveFromFavorieButton.setOnClickListener {
+             holder.categoryReomveFromFavorieButton.visibility = View.GONE
+             holder.categoryaddfavorieimageButton.visibility = View.VISIBLE
+
+             onFavoriteButtonClickListener.OnRemoveFromFavoriteButtonClickListener(data)
+         }
+//
+
 
     }
 
