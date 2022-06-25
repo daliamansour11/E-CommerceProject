@@ -7,23 +7,30 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.*
+import android.widget.Button
+import android.widget.RatingBar
+import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager2.widget.ViewPager2
 import com.example.e_commerceproject.R
 import com.example.e_commerceproject.authentication.login.view.LoginFragment
-import com.example.e_commerceproject.cart.model.*
+import com.example.e_commerceproject.cart.model.CartModel
+import com.example.e_commerceproject.cart.model.DraftOrder
+import com.example.e_commerceproject.cart.model.LineItem
+import com.example.e_commerceproject.cart.model.NoteAttribute
 import com.example.e_commerceproject.cart.view.CartFragment
-import com.example.e_commerceproject.network.remotesource.DetailsRepository
-import com.example.e_commerceproject.network.remotesource.RetrofitService
 import com.example.e_commerceproject.details.viewmodel.DetailsViewModel
 import com.example.e_commerceproject.details.viewmodel.DetailsViewModelFactory
+import com.example.e_commerceproject.network.remotesource.DetailsRepository
+import com.example.e_commerceproject.network.remotesource.RetrofitService
 
 
 class DetailsFragment : Fragment() {
 
     lateinit var detailsaddtofavorieButton: Button
+    lateinit var detailsRemoveFromFavorite : Button
     lateinit var addtocartbtn: Button
     lateinit var viewModel: DetailsViewModel
     lateinit var productName: TextView
@@ -33,13 +40,13 @@ class DetailsFragment : Fragment() {
     var probuctid: Long = 6870134685835
     var data: List<String> = ArrayList()
 
-    //    lateinit var imgSwitcher : ImageSwitcher
     var imagearraysize = 4
-    private var index = 0
-    val imagearray = arrayOfNulls<String>(imagearraysize)
-    var image =
-        "https://cdn.shopify.com/s/files/1/0589/7509/2875/products/85cc58608bf138a50036bcfe86a3a362.jpg?v=1653403067"
+    var image = "https://cdn.shopify.com/s/files/1/0589/7509/2875/products/85cc58608bf138a50036bcfe86a3a362.jpg?v=1653403067"
     var varientId = 40335555035275
+    var productIdd = ""
+    var draftOrderId = ""
+    val productIdSet  = mutableSetOf("")
+    val draftOrderIdSet  = mutableSetOf("")
     lateinit var adapter: ImagesAdapter
     lateinit var viewPager: ViewPager2
 
@@ -55,27 +62,17 @@ class DetailsFragment : Fragment() {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_details, container, false)
     }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val sharedPreferences: SharedPreferences =
-            requireContext().getSharedPreferences("loginsharedprefs", Context.MODE_PRIVATE)
+        val sharedPreferences: SharedPreferences = requireContext().getSharedPreferences("loginsharedprefs", Context.MODE_PRIVATE)
         var userEmail: String = sharedPreferences.getString("EMAIL_LOGIN", "").toString()
 
-
         var args = this.arguments
-         probuctid= args?.get("productid") as Long
-
-        // imgSwitcher = view.findViewById(R.id.details_image_switcher)
-
-//        imgSwitcher?.setFactory({
-//            val imgView = ImageView(requireContext())
-//            imgView.scaleType = ImageView.ScaleType.FIT_CENTER
-//            imgView
-//        })
+        probuctid= args?.get("productid") as Long
 
         adapter = ImagesAdapter(requireContext())
-
 
         viewPager = view.findViewById(R.id.images_viewpager2)
 
@@ -84,19 +81,37 @@ class DetailsFragment : Fragment() {
         productDescription = view.findViewById(R.id.product_description_for_details)
         ratingBar = view.findViewById(R.id.product_ratingbar_details)
 
-        ratingBar.isClickable = false
+        //val productIdSet: Set<String> = HashSet()
+        //val draftOrderIdSet: Set<String> = HashSet()
+//        productIdSet.add("lk")
+//        productIdSet.add("hg")
+//        val sharedPreferencess : SharedPreferences = requireContext().getSharedPreferences("loginsharedprefs" ,Context.MODE_PRIVATE)
+//        val editor = sharedPreferences.edit()
+//
+//
+//        var productIdSett = sharedPreferencess.getStringSet("productIdSet", null)
+//        var draftOrderIdSett = sharedPreferencess.getStringSet("draftOrderIdSet", null)
+
+
+//
+//        var p = "873751937163:6870135275659"
+//        val delim = ":"
+//
+//        val list = p.split(delim)
+//        if("6870135275659" in list ){
+//            Log.i("TAG", "onViewCreated: irrrrrrrrrrrrrrrrrrrrrrrrrrr ${list[0]}")
+//
+//        }
+
 
 
         val retrofitService = RetrofitService.getInstance()
         val mainRepository = DetailsRepository(retrofitService)
 
-        viewModel = ViewModelProvider(
-            this,
-            DetailsViewModelFactory(mainRepository)
-        ).get(DetailsViewModel::class.java)
+        viewModel = ViewModelProvider(this, DetailsViewModelFactory(mainRepository)).get(DetailsViewModel::class.java)
         viewModel.getProductInfo("${probuctid}")
         viewModel.productInfo.observe(viewLifecycleOwner, {
-            Log.d("TAG", "inside observe")
+
             Log.i("TAG", "onViewCreated:rrrrrrrrrrrr ${it}")
             imagearraysize = it.product.images.size
             productName.text = it.product.title
@@ -106,117 +121,118 @@ class DetailsFragment : Fragment() {
 
             image = it.product.image.src
             varientId = it.product.variants[0].id
+            productIdd = "${it.product.id}"
+            //productIdSet.add(productId)
+
 
             adapter.setListd(it.product.images)
             adapter.notifyDataSetChanged()
 
-            Log.i("TAG", "onViewCreated: $imagearraysize")
         })
         viewPager.adapter = adapter
-//
-            // ratingBar.set
-            // adapter.setListd(list)
-
-//            val prev = view.findViewById<Button>(R.id.details_image_prev_obtn)
-//            prev.setOnClickListener {
-//                index = if (index - 1 >= 0) index - 1 else 2
-//                imgSwitcher?.setImageResource(flowers[index])
-//            }
-//            // next button functionality
-//            val next = view.findViewById<Button>(R.id.details_image_next_obtn)
-//            next.setOnClickListener {
-//                index = if (index + 1 < flowers.size) index +1 else 0
-//                imgSwitcher?.setImageResource(flowers[index])
-//            }
-
-
-//        var item_Image = listOf<NoteAttribute>(
-//            NoteAttribute(
-//                "image",
-//                "https://cdn.shopify.com/s/files/1/0589/7509/2875/products/85cc58608bf138a50036bcfe86a3a362.jpg?v=1653403067"
-//            )
-//        )
-//
-//        var lineItem = LineItem(
-//            variant_id = 40335555395723,
-//            quantity = 1
-//        )
-//        val myorder = DraftOrder(
-//            email = "reham33@gmail.com",
-//            note = "card",
-//            note_attributes = item_Image,
-//            line_items = listOf(lineItem)
-//        )
-//        val mylist = CartModel(
-//            myorder
-//        )
-//        viewModel.pushPost(mylist)
 
 
 
 
 
         detailsaddtofavorieButton = view.findViewById(R.id.detailsaddtofavorieButton)
+        detailsRemoveFromFavorite = view.findViewById(R.id.details_remove_from_favorieButton)
+
+        detailsaddtofavorieButton.visibility = View.VISIBLE
+        detailsRemoveFromFavorite.visibility = View.GONE
+
+
+        if (userEmail == null || userEmail == "") {
+            // if no user -> add to fav -> go to login first
+            detailsaddtofavorieButton.visibility = View.VISIBLE
+            detailsRemoveFromFavorite.visibility = View.GONE
+
+        }else{
+            productIdd = ""
+            // if product id in draftorders -> detailsRemoveFromFavorite = visible
+            // and draftorderid = draftorderid
+            viewModel.getFavoriteProducts()
+            viewModel.favoriteProducts.observe(viewLifecycleOwner, {
+                var arr = (it.draft_orders.filter { it.email ==  userEmail && it.note == "fav" })  // [0].line_items?.get(0)?.product_id.toString()
+                for (i in 0 until arr.size){
+                    if (productIdd in arr[i].line_items?.get(0)?.product_id.toString()  ){
+                        draftOrderId = arr[i].id.toString()
+                        detailsaddtofavorieButton.visibility = View.GONE
+                        detailsRemoveFromFavorite.visibility = View.VISIBLE
+                    }
+               }
+
+
+
+
+            })
+        }
+
+
         detailsaddtofavorieButton.setOnClickListener {
+
 
             if (userEmail == null || userEmail == "") {
                 // navigate to login screen
-                Toast.makeText(
-                    requireContext(),
-                    "you must login or register first",
-                    Toast.LENGTH_SHORT
-                ).show()
+                Toast.makeText(requireContext(), "you must login or register first", Toast.LENGTH_SHORT).show()
                 val loginFragment = LoginFragment()
-                fragmentManager?.beginTransaction()
-                    ?.replace(R.id.fragmentContainerView, loginFragment)?.commit()
+                fragmentManager?.beginTransaction()?.replace(R.id.fragmentContainerView, loginFragment)?.commit()
 
             } else {
+
                 Log.i("TAG", "onViewCreated image : ${image}")
                 var item_Image1 = listOf<NoteAttribute>(NoteAttribute("image", image))
 
-                var lineItem1 = LineItem(
-                    variant_id = varientId,
-                    quantity = 1
-                )
-                val myorder1 = DraftOrder(
-                    email = userEmail,
-                    note = "fav",
-                    note_attributes = item_Image1,
-                    line_items = listOf(lineItem1)
-                )
+                var lineItem1 = LineItem(variant_id = varientId, quantity = 1)
+                val myorder1 = DraftOrder(email = userEmail, note = "fav", note_attributes = item_Image1, line_items = listOf(lineItem1))
                 val mylist = CartModel(myorder1)
+
                 viewModel.postFavorite(mylist)
                 viewModel.postFavorite.observe(viewLifecycleOwner, {
-                    System.out.println("We are in productInfoobjectobserver")
 
                     if (it == null) {
-                        Toast.makeText(
-                            requireContext(),"failed to add to favorite", Toast.LENGTH_LONG).show()
+                        Toast.makeText(requireContext(),"failed to add to favorite", Toast.LENGTH_LONG).show()
                     } else {
-                        Log.i("TAG", "onViewCreatedppppppppppppppppppppppppp: ${it.draft_order}")
+                        draftOrderId = "${it.draft_order?.id}"
+//                        draftOrderIdSett?.add("${draftOrderId}")
+//                        productIdSett?.add(productId)
+//                        editor.putStringSet("draftOrderIdSet", draftOrderIdSett).apply()
+//                        editor.putStringSet("productIdSet", productIdSett).apply()
 
-                        Toast.makeText(requireContext(), "${it.draft_order?.id}", Toast.LENGTH_LONG).show()
                         Toast.makeText(requireContext(), "added sucessfully", Toast.LENGTH_LONG).show()
+                        detailsaddtofavorieButton.visibility = View.GONE
+                        detailsRemoveFromFavorite.visibility = View.VISIBLE
 
                     }
                 })
             }
         }
 
+        detailsRemoveFromFavorite.setOnClickListener {
+
+            viewModel.deleteProductFromFavorite(draftOrderId)
+            viewModel.deleteFromFavorite.observe(viewLifecycleOwner, {
+                if(it != null){
+                    Toast.makeText(requireContext() , "deleted sucssefuly" , Toast.LENGTH_SHORT).show()
+                    detailsaddtofavorieButton.visibility = View.VISIBLE
+                    detailsRemoveFromFavorite.visibility = View.GONE
+                }else{
+                    Toast.makeText(requireContext() , " cant delete this item " , Toast.LENGTH_SHORT).show()
+                }
+            })
+
+        }
+
         addtocartbtn = view.findViewById(R.id.addtocartbtn)
         addtocartbtn.setOnClickListener {
 
-
-            Toast.makeText(requireContext(), "poCart", Toast.LENGTH_SHORT).show()
            if (userEmail == null || userEmail == "") {
                 // navigate to login screen
-                Toast.makeText(
-                    requireContext(), "you must login or register first",Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), "you must login or register first",Toast.LENGTH_SHORT).show()
                 val loginFragment = LoginFragment()
                 fragmentManager?.beginTransaction()
                     ?.replace(R.id.fragmentContainerView, loginFragment)?.commit()
             } else {
-                Log.i("TAG", "onViewCreated image : ${image}")
                 var item_Image2 = listOf<NoteAttribute>(NoteAttribute("image", image))
 
 //                var item_Image = listOf<NoteAttribute>(
@@ -225,33 +241,20 @@ class DetailsFragment : Fragment() {
 //                        "https://cdn.shopify.com/s/files/1/0589/7509/2875/products/85cc58608bf138a50036bcfe86a3a362.jpg?v=1653403067"
 //  ))
 
-                var lineItem = LineItem(
-                    variant_id = varientId,
-                    quantity = 1
-                )
-                val myorder = DraftOrder(
-                    email = userEmail,//reham33@gmail.com
-                    note = "cart",
-                    note_attributes = item_Image2,
-                    line_items = listOf(lineItem)
-                )
-                val mylist = CartModel(
-                    myorder
-                )
+                var lineItem = LineItem( variant_id = varientId, quantity = 1)
+                val myorder = DraftOrder(email = userEmail,//reham33@gmail.com
+                     note = "cart", note_attributes = item_Image2, line_items = listOf(lineItem) )
+                val mylist = CartModel(myorder)
                 viewModel.pushPost(mylist)
                 viewModel.mRCartResonse.observe(viewLifecycleOwner, {
-                    System.out.println("We are in productInfoobjectobserver")
                     if (it == null) {
-                        Toast.makeText(requireContext(), "failed to post", Toast.LENGTH_LONG)
-                            .show()
+                        Toast.makeText(requireContext(), "failed to post", Toast.LENGTH_LONG).show()
                     } else {
-                        Toast.makeText(requireContext(), "sucessfull post", Toast.LENGTH_LONG)
-                            .show()
+                        Toast.makeText(requireContext(), "sucessfull post", Toast.LENGTH_LONG).show()
                     }
                 })
                 val cartFragment =  CartFragment()
-                fragmentManager?.beginTransaction()
-                    ?.replace(R.id.fragmentContainerView, cartFragment)?.commit()
+                fragmentManager?.beginTransaction()?.replace(R.id.fragmentContainerView, cartFragment)?.commit()
 
             }
         }
