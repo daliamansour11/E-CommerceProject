@@ -9,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
@@ -21,6 +22,7 @@ import com.example.e_commerceproject.cart.viewmodel.CartViewModel
 import com.example.e_commerceproject.cart.viewmodel.CartViewModelFactory
 import com.example.e_commerceproject.favorite.viewmodel.FavoriteViewModel
 import com.example.e_commerceproject.favorite.viewmodel.FavoriteViewModelFactory
+import com.example.e_commerceproject.home.view.HomeFragment
 import com.example.e_commerceproject.network.FavoriteRepository
 import com.example.e_commerceproject.network.remotesource.CartRepository
 import com.example.e_commerceproject.network.remotesource.RetrofitService
@@ -30,6 +32,7 @@ class FavoriteFragment : Fragment() , OnDeletefromFavoriteClikListener{
     private lateinit var favoriteAdapter: FavoriteAdapter
     lateinit var recyclerView: RecyclerView;
     lateinit var viewModel: FavoriteViewModel
+    lateinit var backButton : ImageView
     var productId = ""
 
 
@@ -52,6 +55,8 @@ class FavoriteFragment : Fragment() , OnDeletefromFavoriteClikListener{
         val sharedPreferences: SharedPreferences = requireContext().getSharedPreferences("loginsharedprefs", Context.MODE_PRIVATE)
         var userEmail: String = sharedPreferences.getString("EMAIL_LOGIN", "").toString()
 
+
+        backButton = view.findViewById(R.id.favoriteArrowBack)
 
         recyclerView = view.findViewById(R.id.favorite_recycleview)
        // val layoutManager = LinearLayoutManager(requireContext() , LinearLayoutManager.VERTICAL , true )
@@ -85,7 +90,10 @@ class FavoriteFragment : Fragment() , OnDeletefromFavoriteClikListener{
             })
         }
 
-
+        backButton.setOnClickListener {
+            val homeFragment = HomeFragment()
+            fragmentManager?.beginTransaction()?.replace(R.id.fragmentContainerView, homeFragment)?.commit()
+        }
 
     }
 

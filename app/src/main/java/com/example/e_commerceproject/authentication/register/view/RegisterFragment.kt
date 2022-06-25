@@ -10,11 +10,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import com.example.e_commerceproject.R
-import com.example.e_commerceproject.authentication.login.model.Address
-import com.example.e_commerceproject.authentication.login.model.MarketingConsent
 import com.example.e_commerceproject.authentication.login.view.LoginFragment
 import com.example.e_commerceproject.authentication.register.model.*
 import com.example.e_commerceproject.authentication.register.viewmodel.AuthenticationViewModel
@@ -22,6 +21,7 @@ import com.example.e_commerceproject.authentication.register.viewmodel.Authentic
 import com.example.e_commerceproject.data.AuthenticationRepository
 //import com.example.e_commerceproject.network.
 import com.example.e_commerceproject.network.remotesource.RetrofitService
+import com.example.e_commerceproject.profile.view.ProfileFragment
 
 
 class RegisterFragment : Fragment() {
@@ -31,9 +31,9 @@ class RegisterFragment : Fragment() {
     lateinit var lastNameEdittxt :EditText
     lateinit var emailEditText: EditText
     lateinit var passwordEditText: EditText
-    lateinit var confirmPasswordEditText: EditText
     lateinit var phoneEditText: EditText
-    lateinit var backArrow: Button
+    lateinit var LoginBtn: Button
+    lateinit var backArrow : ImageView
 
 
     lateinit var viewModel: AuthenticationViewModel
@@ -64,7 +64,7 @@ class RegisterFragment : Fragment() {
         lastNameEdittxt = view.findViewById(R.id.register_last_name_edittext)
         emailEditText = view.findViewById(R.id.register_email_edittext)
         passwordEditText = view.findViewById(R.id.register_password_edittext)
-        confirmPasswordEditText = view.findViewById(R.id.register_confirmpassword_edittext)
+
         phoneEditText = view.findViewById(R.id.register_phone_edittext)
 
 
@@ -96,14 +96,20 @@ class RegisterFragment : Fragment() {
         }
 
 
-        backArrow = view.findViewById(R.id.backbtn)
-        backArrow.setOnClickListener(View.OnClickListener {
-            val fragmentManager = parentFragmentManager
+        LoginBtn = view.findViewById(R.id.redgisterLoginButton)
+        LoginBtn.setOnClickListener{
+
             val loginFragment = LoginFragment()
-            val fragmentTransaction = fragmentManager.beginTransaction()
-            fragmentTransaction.replace(R.id.fragmentContainerView,loginFragment)
-            fragmentTransaction.commit()
-        })
+            fragmentManager?.beginTransaction()?.replace(R.id.fragmentContainerView, loginFragment)?.commit()
+
+        }
+        backArrow = view.findViewById(R.id.registerArrowBack)
+        backArrow.setOnClickListener{
+
+            val loginFragment = LoginFragment()
+            fragmentManager?.beginTransaction()?.replace(R.id.fragmentContainerView, loginFragment)?.commit()
+
+        }
 
     }
 
