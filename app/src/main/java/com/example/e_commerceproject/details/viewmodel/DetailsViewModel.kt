@@ -12,7 +12,9 @@ import kotlinx.coroutines.*
 class DetailsViewModel constructor( private val repository: DetailsRepository) : ViewModel() {
 
     var  mRCartResonse  = MutableLiveData<CartModel>()
+    val favoriteProducts = MutableLiveData<CartListModel>()
     var postFavorite = MutableLiveData<CartModel>()
+    var deleteFromFavorite = MutableLiveData<CartModel>()
     val productInfo = MutableLiveData<DetailsProductModel>()
     var job: Job? = null
     val errorMessage = MutableLiveData<String>()
@@ -20,6 +22,7 @@ class DetailsViewModel constructor( private val repository: DetailsRepository) :
     val exceptionHandler = CoroutineExceptionHandler { _, throwable ->
         // onError("Exception handled: ${throwable.localizedMessage}")
     }
+
     fun getProductInfo(collection_id : String) {
         job = CoroutineScope(Dispatchers.IO + exceptionHandler).launch {
             val response = repository.getProductInf(collection_id )
@@ -37,6 +40,7 @@ class DetailsViewModel constructor( private val repository: DetailsRepository) :
             }
         }
     }
+
     fun pushPost(cartItem: CartModel) {
         job = CoroutineScope(Dispatchers.IO + exceptionHandler).launch {
             val response = repository.postCartItem(cartItem)
@@ -58,6 +62,23 @@ class DetailsViewModel constructor( private val repository: DetailsRepository) :
         }
     }
 
+    fun getFavoriteProducts()  {
+        job = CoroutineScope(Dispatchers.IO + exceptionHandler).launch {
+            val response = repository.getFavoriteProducts()
+            withContext(Dispatchers.Main) {
+                if (response.isSuccessful) {
+                    Log.i("TAG", "onViewCreated:rrrrrrrrrrrrkkjkj")
+                    favoriteProducts.value = response.body()
+
+                    loading.value = false
+                } else {
+                    Log.i("TAG", "Errorbbbbbbbbbbbbbbssssssssssss:${response.message()} ")
+                }
+            }
+        }
+
+    }
+
     fun postFavorite(favProduct: CartModel) {
         job = CoroutineScope(Dispatchers.IO + exceptionHandler).launch {
             val response = repository.postFavoriteProduct(favProduct)
@@ -75,6 +96,23 @@ class DetailsViewModel constructor( private val repository: DetailsRepository) :
 
             }
         }
+    }
+
+    fun deleteProductFromFavorite(id : String)  {
+        job = CoroutineScope(Dispatchers.IO + exceptionHandler).launch {
+            val response = repository.deleteFavoriteItem(id)
+            withContext(Dispatchers.Main) {
+                if (response.isSuccessful) {
+                    Log.i("TAG", "onViewCreated:rrrrrrrrrrrrkkjkj")
+                    deleteFromFavorite.value = response.body()
+
+                    loading.value = false
+                } else {
+                    Log.i("TAG", "Errorbbbbbbbbbbbbbbssssssssssss:${response.message()} ")
+                }
+            }
+        }
+
     }
 
 }
