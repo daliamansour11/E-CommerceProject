@@ -110,14 +110,9 @@ class LoginFragment : Fragment() {
         val sharedPreferences : SharedPreferences = requireContext().getSharedPreferences("loginsharedprefs" ,Context.MODE_PRIVATE)
         val editor = sharedPreferences.edit()
         editor.putStringSet("jhj" , setOf("jh" , "ghg"))
-       // val draftOrderIdSet  = mutableSetOf("")
-        val draftOrderIdSet: Set<String> = HashSet()
-
-
         //val mySet: Set<String> = HashSet<String>(wordsQueue)
-       // editor.putStringSet("Words", draftOrderIdSet).apply()
+        //editor.putStringSet("Words", mySet).apply()
         editor.apply(){
-
             putString("EMAIL_LOGIN" ,  "${email.text}")
             putString("PASSWORD_LOGIN" ,  "${password.text}")
         }.apply()

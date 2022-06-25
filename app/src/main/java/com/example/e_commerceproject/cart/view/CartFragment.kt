@@ -17,7 +17,6 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.e_commerceproject.R
-import com.example.e_commerceproject.authentication.login.view.LoginFragment
 import com.example.e_commerceproject.cart.model.CartModel
 import com.example.e_commerceproject.cart.model.DraftOrder
 import com.example.e_commerceproject.cart.model.LineItem
@@ -98,11 +97,6 @@ class CartFragment : Fragment() ,OnDeleteFromCartListener,OnPayClickListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        val sharedPreferences: SharedPreferences = requireContext().getSharedPreferences("loginsharedprefs", Context.MODE_PRIVATE)
-        var userEmail: String = sharedPreferences.getString("EMAIL_LOGIN", "").toString()
-
-
         payButtonCart = view.findViewById(R.id.payButtonCart)
 
         recyclerView = view.findViewById(R.id.cartRecyclerView)
@@ -113,70 +107,60 @@ class CartFragment : Fragment() ,OnDeleteFromCartListener,OnPayClickListener {
 
         val retrofitService = RetrofitService.getInstance()
         val mainRepository = CartRepository(retrofitService)
+        viewModel = ViewModelProvider(
+            this,
+            CartViewModelFactory(mainRepository)
+        ).get(CartViewModel::class.java)
         recyclerView.layoutManager = cartLinearLayoutManager
         recyclerView.adapter = cartAdapter
-        viewModel = ViewModelProvider(this, CartViewModelFactory(mainRepository)).get(CartViewModel::class.java)
-        if (userEmail == null || userEmail == "") {
-            // navigate to login screen
-            Toast.makeText(requireContext(), "you must login or register first", Toast.LENGTH_SHORT).show()
+        viewModel.getCart()
+        viewModel.cart_Response.observe(viewLifecycleOwner, {
+            Log.d("TAG", "inside cartfragment")
+            Log.i("TAG", "onViewCreated:rrrrrrTTTTTTTTTrrrrrr ${it}")
+            var price = 0.0
+            val cartList: MutableList<DraftOrder> = mutableListOf()
+            for (i in 0..it.draft_orders.size - 1) {
+                val sharedPreferences: SharedPreferences =
+                    requireContext().getSharedPreferences("loginsharedprefs", Context.MODE_PRIVATE)
+                var userEmail: String = sharedPreferences.getString("EMAIL_LOGIN", "").toString()
+                Log.i("UserEMAIL", "onViewCreated: email======================" + userEmail)
 
-            val loginFragment = LoginFragment()
-            fragmentManager?.beginTransaction()
-                ?.replace(R.id.fragmentContainerView, loginFragment)?.commit()
-
-        }else{
-
-            viewModel.getCart()
-            viewModel.cart_Response.observe(viewLifecycleOwner, {
-                Log.d("TAG", "inside cartfragment")
-                Log.i("TAG", "onViewCreated:rrrrrrTTTTTTTTTrrrrrr ${it}")
-                var price = 0.0
-                val cartList: MutableList<DraftOrder> = mutableListOf()
-                for (i in 0..it.draft_orders.size - 1) {
-                    val sharedPreferences: SharedPreferences =
-                        requireContext().getSharedPreferences("loginsharedprefs", Context.MODE_PRIVATE)
-                    var userEmail: String = sharedPreferences.getString("EMAIL_LOGIN", "").toString()
-                    Log.i("UserEMAIL", "onViewCreated: email======================" + userEmail)
-
-                    if (it.draft_orders.get(i).email == "reham33@gmail.com") {  //
+                if (it.draft_orders.get(i).email == "reham33@gmail.com"
 //                    it.draft_orders.get(i).note == "cart"
-
-                        cartList.add(it.draft_orders.get(i))
-                        price += it.draft_orders[i].subtotal_price?.toDouble() ?: 0.0
-                    }
-
-                    //cartAdapter.setlist(cartList)
-                    /*    for (i in 0..it.draft_orders.size) {
-                            val items_price: Int =
-        //                           it.draft_orders[0].line_items?.get(0)?.price * it.draft_orders[0].line_items?.get(0)?.price
-        //                       total_price.text=("INR " + items_price + "Rs")
-        //                       total_price += total_price + items_price;
-                                Log.d("TAG", "bind: Toatal = ${total_price}otalPrice")
-        //                       var total : Long = it.draft_orders[0].subtotal_price "*" it.draft_orders.size
-        //                       total_price.text= total.toString()
-
-                        }*/
-//                       total_price.text= it.draft_orders[0].subtotal_price
-                    /*cartAdapter.setlist(it.draft_orders)
-
-                    total_price.text = it.draft_orders[0].subtotal_price
-
-                    cartAdapter.notifyDataSetChanged()*/
-
-                    //  }
-
+                ) {
+                    cartList.add(it.draft_orders.get(i))
+                    price += it.draft_orders[i].subtotal_price?.toDouble() ?: 0.0
                 }
-                Log.i(
-                    "TAGTAGTAG",
-                    "onViewCreated: ========================================" + cartList.size
-                )
-                cartAdapter.setlist(cartList)
-                total_price.text = price.toString()
-                cartAdapter.notifyDataSetChanged()
-            })
-        }
 
+                //cartAdapter.setlist(cartList)
+                /*    for (i in 0..it.draft_orders.size) {
+                        val items_price: Int =
+    //                           it.draft_orders[0].line_items?.get(0)?.price * it.draft_orders[0].line_items?.get(0)?.price
+    //                       total_price.text=("INR " + items_price + "Rs")
+    //                       total_price += total_price + items_price;
+                            Log.d("TAG", "bind: Toatal = ${total_price}otalPrice")
+    //                       var total : Long = it.draft_orders[0].subtotal_price "*" it.draft_orders.size
+    //                       total_price.text= total.toString()
 
+                    }*/
+//                       total_price.text= it.draft_orders[0].subtotal_price
+                /*cartAdapter.setlist(it.draft_orders)
+
+                total_price.text = it.draft_orders[0].subtotal_price
+
+                cartAdapter.notifyDataSetChanged()*/
+
+                //  }
+
+            }
+            Log.i(
+                "TAGTAGTAG",
+                "onViewCreated: ========================================" + cartList.size
+            )
+            cartAdapter.setlist(cartList)
+            total_price.text = price.toString()
+            cartAdapter.notifyDataSetChanged()
+        })
 
 
 //        viewModel.getTotalPrice().observe(viewLifecycleOwner,{
