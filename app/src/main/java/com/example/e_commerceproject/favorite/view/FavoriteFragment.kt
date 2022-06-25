@@ -1,5 +1,7 @@
 package com.example.e_commerceproject.favorite.view
 
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -13,6 +15,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.e_commerceproject.R
+import com.example.e_commerceproject.authentication.login.view.LoginFragment
 import com.example.e_commerceproject.cart.model.DraftOrder
 import com.example.e_commerceproject.cart.viewmodel.CartViewModel
 import com.example.e_commerceproject.cart.viewmodel.CartViewModelFactory
@@ -27,7 +30,6 @@ class FavoriteFragment : Fragment() , OnDeletefromFavoriteClikListener{
     private lateinit var favoriteAdapter: FavoriteAdapter
     lateinit var recyclerView: RecyclerView;
     lateinit var viewModel: FavoriteViewModel
-   // lateinit var deleteButton: Button
     var productId = ""
 
 
@@ -47,6 +49,10 @@ class FavoriteFragment : Fragment() , OnDeletefromFavoriteClikListener{
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        val sharedPreferences: SharedPreferences = requireContext().getSharedPreferences("loginsharedprefs", Context.MODE_PRIVATE)
+        var userEmail: String = sharedPreferences.getString("EMAIL_LOGIN", "").toString()
+
+
         recyclerView = view.findViewById(R.id.favorite_recycleview)
        // val layoutManager = LinearLayoutManager(requireContext() , LinearLayoutManager.VERTICAL , true )
         val layoutManager = LinearLayoutManager(context)
@@ -54,50 +60,39 @@ class FavoriteFragment : Fragment() , OnDeletefromFavoriteClikListener{
         recyclerView.layoutManager = layoutManager
         favoriteAdapter = FavoriteAdapter(requireContext() , this)
         recyclerView.adapter = favoriteAdapter
-       // deleteButton = view.findViewById(R.id.favorite_delete_from_favorieButton)
-
 
         val retrofitService = RetrofitService.getInstance()
         val mainRepository = FavoriteRepository(retrofitService)
         viewModel = ViewModelProvider(this, FavoriteViewModelFactory(mainRepository)).get(FavoriteViewModel::class.java)
-        viewModel.getFavoriteProducts()
 
-        viewModel.favoriteProducts.observe(viewLifecycleOwner, {
+        if (userEmail == null || userEmail == "") {
+            // navigate to login screen
+            Toast.makeText(requireContext(), "you must login or register first", Toast.LENGTH_SHORT).show()
 
+            val loginFragment = LoginFragment()
+            fragmentManager?.beginTransaction()
+                ?.replace(R.id.fragmentContainerView, loginFragment)?.commit()
 
+        }else{
+            viewModel.getFavoriteProducts()
 
-            if(it.draft_orders.count() <= 2 ){
-                Toast.makeText(requireContext() , " moreeee " , Toast.LENGTH_SHORT).show()
-            }
-            var ar = ArrayList<DraftOrder>()
-            ar.add(it.draft_orders[0])
-            ar.add(it.draft_orders[1])
-            ar.add(it.draft_orders[2])
-            ar.add(it.draft_orders[3])
-            ar.add(it.draft_orders[4])
-            ar.add(it.draft_orders[5])
-            ar.add(it.draft_orders[6])
-            ar.add(it.draft_orders[7])
-            ar.add(it.draft_orders[8])
-            ar.add(it.draft_orders[9])
-            ar.add(it.draft_orders[10])
+            viewModel.favoriteProducts.observe(viewLifecycleOwner, {
 
-            favoriteAdapter.setlist(it.draft_orders)
-            favoriteAdapter.notifyDataSetChanged()
-            var arfilter = ar.filter {  it.email ==  "jkjkjk@gmail.com" }
-            Log.i("TAG", "onViewCreated: ${arfilter} ")
-            it.draft_orders.filter { "email" == "jkjkjk@gmail.com" && "note" == "fav" }
-            Log.i("TAG", "onViewCreatedjjjjjjjjjjjjjjjjjjjjjjjjjj: ${it.draft_orders.filter { "email" == "reham33@gmail.com" }}")
-           // Log.i("TAG", "onViewCreatedjjjjjjjjjjjjjjjjjjjjjjjjjj: ${it.draft_orders }")
+                favoriteAdapter.setlist(it.draft_orders.filter { it.email ==  userEmail && it.note == "fav" })
+                favoriteAdapter.notifyDataSetChanged()
+             //   Log.i("TAG", "onViewCreatedjjjjjjjjjjjjjjjjjjjjjjjjjj: ${it.draft_orders.filter { it.email ==  "jkjkjk@gmail.com" && it.note == "fav" }.count()}  ")
 
+            })
+        }
 
-        })
 
 
     }
 
     override fun onDeleteFromFavClicked(id: String) {
-        Toast.makeText(requireContext() , "kk" , Toast.LENGTH_SHORT).show()
+
+        val sharedPreferences: SharedPreferences = requireContext().getSharedPreferences("loginsharedprefs", Context.MODE_PRIVATE)
+        var userEmail: String = sharedPreferences.getString("EMAIL_LOGIN", "").toString()
 
         val retrofitService = RetrofitService.getInstance()
         val mainRepository = FavoriteRepository(retrofitService)
@@ -110,26 +105,17 @@ class FavoriteFragment : Fragment() , OnDeletefromFavoriteClikListener{
                 Toast.makeText(requireContext() , "deleted sucssefuly" , Toast.LENGTH_SHORT).show()
 
                 viewModel.getFavoriteProducts()
-
                 viewModel.favoriteProducts.observe(viewLifecycleOwner, {
 
-
-
-                    it.draft_orders.filter { "email" == "jkjkjk@gmail.com" && "note" == "fav" }
-                    Log.i("TAG", "onViewCreatedjjjjjjjjjjjjjjjjjjjjjjjjjj: ${it.draft_orders.filter { "email" == "3bdorafaat@gmail.com" }}")
-                    Log.i("TAG", "onViewCreatedjjjjjjjjjjjjjjjjjjjjjjjjjj: ${it.draft_orders }")
-                    favoriteAdapter.setlist(it.draft_orders)
+                    favoriteAdapter.setlist(it.draft_orders.filter { it.email ==  userEmail && it.note == "fav" })
                     favoriteAdapter.notifyDataSetChanged()
 
                 })
 
             }else{
                 Toast.makeText(requireContext() , " cant delete this item " , Toast.LENGTH_SHORT).show()
-
             }
 
-
-           // favoriteAdapter.setlist(it.draft_orders)
             favoriteAdapter.notifyDataSetChanged()
 
         })
