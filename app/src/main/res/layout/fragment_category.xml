@@ -19,13 +19,12 @@
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="405dp"
+        android:layout_height="45dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        >
+        app:layout_constraintTop_toTopOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -35,6 +34,7 @@
                 android:id="@+id/categorySearchGuideline"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="1dp"
                 android:orientation="vertical"
                 app:layout_constraintGuide_percent="0.85" />
 
@@ -44,6 +44,7 @@
                 android:layout_height="37dp"
 
 
+                android:layout_marginTop="8dp"
                 android:src="@drawable/ic_baseline_arrow_back_ios_new_24"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -64,10 +65,10 @@
                 android:id="@+id/categorySearch"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:queryHint="Search"
                 android:layoutDirection="ltr"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/categorySearchGuideline" />
+                android:queryHint="Search"
+                app:layout_constraintEnd_toStartOf="@+id/categorySearchGuideline"
+                app:layout_constraintTop_toTopOf="parent" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

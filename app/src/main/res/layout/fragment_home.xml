@@ -55,8 +55,10 @@
                 android:src="@drawable/ic_baseline_search_24"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/homeToolBarIconEnd"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.611" />
 
             <TextView
                 android:id="@+id/homeToolBarTitleId"
@@ -167,7 +169,7 @@
                 android:layout_marginTop="14dp"
                 android:id="@+id/coupons_recyclerview"
                 android:layout_width="match_parent"
-                android:layout_height="120dp"
+                android:layout_height="100dp"
                 android:layout_marginLeft="15dp"
                 android:layout_marginRight="15dp"
 
@@ -178,9 +180,9 @@
         </androidx.cardview.widget.CardView>
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="398dp"
-            android:layout_height="330dp"
-            android:layout_marginTop="6dp"
-            android:layout_marginBottom="8dp"
+            android:layout_height="310dp"
+
+            android:layout_marginBottom="80dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -190,15 +192,15 @@
             <TextView
                 android:id="@+id/textView6"
                 android:layout_width="379dp"
-                android:layout_height="43dp"
+                android:layout_height="wrap_content"
                 android:layout_marginLeft="30dp"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="36dp"
                 android:layout_marginRight="25dp"
                 android:gravity="center_horizontal"
 
                 android:text="Brands"
                 android:textColor="@color/black"
-                android:textSize="35dp"
+                android:textSize="30sp"
                 android:textStyle="normal"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.545"
@@ -207,14 +209,15 @@
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/brandsRecycleView"
+                android:layout_marginBottom="14dp"
                 android:layout_width="411dp"
                 android:layout_height="265dp"
-                android:layout_marginLeft="5dp"
-                android:layout_marginTop="2dp"
-                android:layout_marginRight="10dp"
+                android:layout_marginLeft="2dp"
+                android:layout_marginTop="14dp"
+                android:layout_marginRight="5dp"
                 android:padding="20dp"
                 android:scrollbars="horizontal"
-                android:layout_marginBottom="15dp"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.516"
                 app:layout_constraintStart_toStartOf="parent"
