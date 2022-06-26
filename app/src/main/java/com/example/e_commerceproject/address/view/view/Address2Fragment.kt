@@ -1,5 +1,7 @@
 package com.example.e_commerceproject.address.view.view
 
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -23,7 +25,7 @@ class Address2Fragment : Fragment() {
     lateinit var addersstxt :TextView
     lateinit var counterytxt :TextView
     lateinit var phonetxt :TextView
-    var customerId: String = "5775923609739"//207119551   //5770511351947
+  //  var customerId: String = "5775923609739"//207119551   //5770511351947
     lateinit var viewModel: AddressViewModel
 
 
@@ -50,6 +52,9 @@ class Address2Fragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        val sharedPreferences: SharedPreferences = requireContext().getSharedPreferences("loginsharedprefs", Context.MODE_PRIVATE)
+        var customerId: String = sharedPreferences.getString("CUSTOMER_ID", "").toString()
+
         val retrofitService = RetrofitService.getInstance()
         val mainRepository = AdressRepository(retrofitService)
 
@@ -60,7 +65,7 @@ class Address2Fragment : Fragment() {
             Log.d("TAG", "inside addresss2fragment")
             counterytxt.text = it.addresses[0].country_name
             addersstxt.text = it.addresses[0].address1
-            phonetxt.text = it.addresses[1].phone
+            phonetxt.text = it.addresses[0].phone
             Log.i("TAG", "onViewCreated:rrrrrrTTTTTTTTTrrrrrr ${it}")
         })
         back.setOnClickListener(object : View.OnClickListener {

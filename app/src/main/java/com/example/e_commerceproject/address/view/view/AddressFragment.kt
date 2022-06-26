@@ -1,5 +1,7 @@
 package com.example.e_commerceproject.address.view.view
 
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -33,7 +35,7 @@ class AddressFragment : Fragment() {
     lateinit var phoneEditText: EditText
     lateinit var ZipcodeEditText: EditText
     lateinit var viewModel: AddressViewModel
-    var customerId: String = "5775923609739"//5770511351947
+    //var customerId: String = "5775923609739"//5770511351947
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -61,6 +63,11 @@ class AddressFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        val sharedPreferences: SharedPreferences = requireContext().getSharedPreferences("loginsharedprefs", Context.MODE_PRIVATE)
+        var customerId: String = sharedPreferences.getString("CUSTOMER_ID", "").toString()
+
+
         val retrofitService = RetrofitService.getInstance()
         val mainRepository = AdressRepository(retrofitService)
         viewModel = ViewModelProvider(this, AddressViewModelFactory(mainRepository)).get(
@@ -81,7 +88,7 @@ class AddressFragment : Fragment() {
             var postAddress = PostAddress(myAddressDetails)
             //    customer.addresses = listOf(myAddressDetails)
             // var custom_Address = CustomerModel(customer)
-            viewModel.pushPostAddress("5770511351947", postAddress)
+            viewModel.pushPostAddress(customerId, postAddress)
             viewModel.postCustomerAddress.observe(viewLifecycleOwner, {
                 Log.i("TAGGGGGGGGGGGGGGGGGGGGGGGGGGG", "onViewCreated: ${it}")
             })
