@@ -25,16 +25,15 @@ import com.example.e_commerceproject.network.remotesource.AdressRepository
 import com.example.e_commerceproject.network.remotesource.RetrofitService
 
 class AddressFragment : Fragment() {
-    lateinit var addbtn :Button
-    lateinit var back :Button
-    lateinit var counteryEdittxt : EditText
-    lateinit var cityEdittxt : EditText
-    lateinit var  AdderssEditText: EditText
+    lateinit var addbtn: Button
+    lateinit var back: Button
+    lateinit var counteryEdittxt: EditText
+    lateinit var cityEdittxt: EditText
+    lateinit var AdderssEditText: EditText
     lateinit var phoneEditText: EditText
     lateinit var ZipcodeEditText: EditText
     lateinit var viewModel: AddressViewModel
-    var customerId: String= "5770511351947"
-
+    var customerId: String = "5775923609739"//5770511351947
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -47,64 +46,59 @@ class AddressFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        var address1_frg =  inflater.inflate(R.layout.fragment_address, container, false)
+        var address1_frg = inflater.inflate(R.layout.fragment_address, container, false)
 
         addbtn = address1_frg.findViewById(R.id.AddAddress_btn)
         back = address1_frg.findViewById(R.id.addressback_btn)
-        cityEdittxt =  address1_frg.findViewById(R.id.city)
-        counteryEdittxt =  address1_frg.findViewById(R.id.country)
-        AdderssEditText =  address1_frg.findViewById(R.id.address)
-        phoneEditText =  address1_frg.findViewById(R.id.phone)
-        ZipcodeEditText =  address1_frg.findViewById(R.id.zip_code)
+        cityEdittxt = address1_frg.findViewById(R.id.city)
+        counteryEdittxt = address1_frg.findViewById(R.id.country)
+        AdderssEditText = address1_frg.findViewById(R.id.address)
+        phoneEditText = address1_frg.findViewById(R.id.phone)
+//        ZipcodeEditText =  address1_frg.findViewById(R.id.zip_code)
 
-        return  address1_frg
+        return address1_frg
     }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val retrofitService = RetrofitService.getInstance()
         val mainRepository = AdressRepository(retrofitService)
         viewModel = ViewModelProvider(this, AddressViewModelFactory(mainRepository)).get(
-            AddressViewModel::class.java)
+            AddressViewModel::class.java
+        )
 
 
-            addbtn.setOnClickListener({
+        addbtn.setOnClickListener({
 
-                var customer  = Customer2()
-                var myAddressDetails = CustomerAddress(
-                    address1 = "${AdderssEditText.text}",
-                    city = "${cityEdittxt.text}",
-                    country = "${counteryEdittxt.text}",
-                    zip = "${ZipcodeEditText.text}",
-                    phone = "${phoneEditText.text}",
-                   // customer_id =customerId,
-                    country_code = "20",
-                        province="el-syuof",
-                    country_name = "${counteryEdittxt.text}",
-                    province_code = "21533"
-                )
-                var postAddress = PostAddress(myAddressDetails)
-                customer.addresses = listOf(myAddressDetails)
-                var custom_Address = CustomerModel(customer)
-                viewModel.pushPostAddress("5770511351947",postAddress)
-                viewModel.postCustomerAddress.observe(viewLifecycleOwner, {
-                    Log.i("TAGGGGGGGGGGGGGGGGGGGGGGGGGGG", "onViewCreated: ${it}")
-                })
-                val address2Fragment = Address2Fragment()
-                fragmentManager?.beginTransaction()
-                    ?.replace(R.id.fragmentContainerView, address2Fragment)?.commit()
-                Toast.makeText(context, "address ", Toast.LENGTH_LONG).show()
-
+            //var customer  = Customer2()
+            var myAddressDetails = CustomerAddress(
+                address1 = "${AdderssEditText.text}",
+                city = "${cityEdittxt.text}",
+                country = "${counteryEdittxt.text}",
+                phone = "${phoneEditText.text}",
+                id = 6983484997771
+            )
+            var postAddress = PostAddress(myAddressDetails)
+            //    customer.addresses = listOf(myAddressDetails)
+            // var custom_Address = CustomerModel(customer)
+            viewModel.pushPostAddress("5770511351947", postAddress)
+            viewModel.postCustomerAddress.observe(viewLifecycleOwner, {
+                Log.i("TAGGGGGGGGGGGGGGGGGGGGGGGGGGG", "onViewCreated: ${it}")
             })
+            val address2Fragment = Address2Fragment()
+            fragmentManager?.beginTransaction()
+                ?.replace(R.id.fragmentContainerView, address2Fragment)?.commit()
+
+        })
         back.setOnClickListener(object : View.OnClickListener {
-                    override fun onClick(view: View?) {
+            override fun onClick(view: View?) {
 
-                        Toast.makeText(context, "go back to setting ", Toast.LENGTH_LONG).show()
-                        val settingsFragment = SettingsFragment()
-                        fragmentManager?.beginTransaction()
-                            ?.replace(R.id.fragmentContainerView, settingsFragment)?.commit()
-                    }
+                val settingsFragment = SettingsFragment()
+                fragmentManager?.beginTransaction()
+                    ?.replace(R.id.fragmentContainerView, settingsFragment)?.commit()
+            }
 
-                })
+        })
 
-             }
+    }
 }

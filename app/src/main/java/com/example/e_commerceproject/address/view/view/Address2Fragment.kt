@@ -23,9 +23,8 @@ class Address2Fragment : Fragment() {
     lateinit var addersstxt :TextView
     lateinit var counterytxt :TextView
     lateinit var phonetxt :TextView
-    var customerId: String = "5770511351947"//207119551
+    var customerId: String = "5775923609739"//207119551   //5770511351947
     lateinit var viewModel: AddressViewModel
-
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -34,7 +33,6 @@ class Address2Fragment : Fragment() {
 
         }
     }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -47,7 +45,6 @@ class Address2Fragment : Fragment() {
         counterytxt = address2frg.findViewById(R.id.countery_txt)
         addersstxt = address2frg.findViewById(R.id.adderss_txt)
         phonetxt = address2frg.findViewById(R.id.phone_txt)
-
         return address2frg
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -59,17 +56,16 @@ class Address2Fragment : Fragment() {
             AddressViewModel::class.java)
         viewModel.getAddress(customerId)
         viewModel.getCustomerAddresses.observe(viewLifecycleOwner, {
-            Log.d("TAG", "inside cartfragment")
-             counterytxt.text = it.addresses[0].country_name
-             addersstxt.text = it.addresses[0].address1
-             phonetxt.text = it.addresses[0].phone
+            Log.d("TAG", "inside addresss2fragment")
+            counterytxt.text = it.addresses[0].country_name
+            addersstxt.text = it.addresses[0].address1
+            phonetxt.text = it.addresses[1].phone
             Log.i("TAG", "onViewCreated:rrrrrrTTTTTTTTTrrrrrr ${it}")
         })
         back.setOnClickListener(object : View.OnClickListener {
             override fun onClick(view: View?) {
                 val addressFragment = AddressFragment()
                 fragmentManager?.beginTransaction()?.replace(R.id.fragmentContainerView, addressFragment)?.commit()
-                Toast.makeText(context, "address added" , Toast.LENGTH_LONG).show()
             }
         })
 
