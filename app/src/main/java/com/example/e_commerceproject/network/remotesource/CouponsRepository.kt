@@ -13,4 +13,9 @@ class CouponsRepository(private val retrofitService: RetrofitService){
     Log.i("TAG", "getcoupon: ${coupons.body()}  ${coupons.code()}")
     println("--------------------coupon-------------------")
     return  coupons
-}}
+}
+
+    suspend fun getCoupons(code: String)  = retrofitService.validateCoupons(code)
+
+    suspend fun getPriceRuleDiscountValue(id: String) = retrofitService.getPriceRuleDiscountValue(id)
+}

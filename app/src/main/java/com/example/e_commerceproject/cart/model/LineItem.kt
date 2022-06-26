@@ -9,7 +9,7 @@ data class LineItem(
     val grams: Int?= null,
     val id: Long?= null,
     val name: String?= null,
-    val price: String?= null,
+    var price: String?= null,
     val product_id: Long?= null,
     val properties: List<Any>?= null,
     var quantity: Int?= null,

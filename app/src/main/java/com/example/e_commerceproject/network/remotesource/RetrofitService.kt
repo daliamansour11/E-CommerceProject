@@ -12,6 +12,7 @@ import com.example.e_commerceproject.authentication.register.model.GetAddress
 import com.example.e_commerceproject.authentication.register.model.PostAddress
 import com.example.e_commerceproject.category.model.CategoryModel
 import com.example.e_commerceproject.details.model.DetailsProductModel
+import com.example.e_commerceproject.home.model.PriceRules
 import com.example.e_commerceproject.payment.model.CouponsX
 import retrofit2.Response
 import retrofit2.Retrofit
@@ -104,6 +105,26 @@ interface RetrofitService {
     )
    @GET("price_rules/1089622311051/discount_codes.json")
     suspend fun getAvailableCoupons(): Response<CouponsX>
+
+    @Headers(
+        "Accept: application/json",
+        "X-Shopify-Access-Token: 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",
+    )
+
+    @GET("discount_codes/lookup.json?")
+
+    suspend fun validateCoupons(@Query("code") code: String): Response<CouponsX>
+
+
+    @Headers(
+        "Accept: application/json",
+        "X-Shopify-Access-Token: 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",
+    )
+
+    @GET("price_rules/{price_rule_id}.json")
+
+    suspend fun getPriceRuleDiscountValue(@Path("price_rule_id") price_rule_id: String): Response<PriceRules>
+
 
 
 //    @GET("price_rules/507328175/discount_codes.json")

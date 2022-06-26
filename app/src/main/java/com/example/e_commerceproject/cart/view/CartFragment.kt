@@ -23,6 +23,7 @@ import com.example.e_commerceproject.cart.model.DraftOrder
 import com.example.e_commerceproject.cart.model.LineItem
 import com.example.e_commerceproject.cart.viewmodel.CartViewModel
 import com.example.e_commerceproject.cart.viewmodel.CartViewModelFactory
+import com.example.e_commerceproject.category.view.CategoryFragment
 import com.example.e_commerceproject.currencyConverter.view.CURRUNEY_TYPE
 import com.example.e_commerceproject.currencyConverter.view.SHARD_NAME
 import com.example.e_commerceproject.currencyConverter.viewModel.ConverterViewModel
@@ -106,6 +107,7 @@ class CartFragment : Fragment() ,OnDeleteFromCartListener,OnPayClickListener {
         val sharedPreferences: SharedPreferences = requireContext().getSharedPreferences("loginsharedprefs", Context.MODE_PRIVATE)
         var userEmail: String = sharedPreferences.getString("EMAIL_LOGIN", "").toString()
 
+        var price = 0.0
 
         payButtonCart = view.findViewById(R.id.payButtonCart)
 
@@ -135,13 +137,12 @@ class CartFragment : Fragment() ,OnDeleteFromCartListener,OnPayClickListener {
 
                 Log.d("TAG", "inside cartfragment")
                 Log.i("TAG", "onViewCreated:rrrrrrTTTTTTTTTrrrrrr ${it}")
-                var price = 0.0
                 for (i in 0..it.draft_orders.size - 1) {
                     Log.i("UserEMAIL", "onViewCreated: email======================" + userEmail)
 
                     if (it.draft_orders.get(i).email == userEmail && it.draft_orders.get(i).note == "cart" ) {  //"reham33@gmail.com"
 
-                        price += it.draft_orders[i].subtotal_price?.toDouble() ?: 0.0
+                        price += it.draft_orders[i].total_price?.toDouble() ?: 0.0
                     }
 
                 }
@@ -183,11 +184,15 @@ class CartFragment : Fragment() ,OnDeleteFromCartListener,OnPayClickListener {
             }
             var addedOrderModel = AddedOrderModel(userEmail,lineItems)
             bundle.putString("addedOrderModel", Gson().toJson(addedOrderModel))
-            paymentFragment.setArguments(bundle)
+            //paymentFragment.setArguments(bundle)
+
+            Log.i("TAG", "onViewCreated priceeeeeeeeeeeeeeeeeeeeeeeeeeee: ${price}")
+            bundle.putDouble("TOTAL_PRICE" , price)
+            paymentFragment.arguments = bundle
+
+            fragmentManager?.beginTransaction()?.replace(R.id.fragmentContainerView, paymentFragment)?.commit()
 
 
-            fragmentManager?.beginTransaction()
-                ?.replace(R.id.fragmentContainerView, paymentFragment)?.commit()
         }
     }
 
