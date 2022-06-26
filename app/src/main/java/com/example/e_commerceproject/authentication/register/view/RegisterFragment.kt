@@ -32,7 +32,6 @@ class RegisterFragment : Fragment() {
     lateinit var emailEditText: EditText
     lateinit var passwordEditText: EditText
     lateinit var phoneEditText: EditText
-    lateinit var LoginBtn: Button
     lateinit var backArrow : ImageView
 
 
@@ -91,18 +90,13 @@ class RegisterFragment : Fragment() {
                 Log.i("TAG", "onViewCreated: ${it.customer.phone}")
             })
 
-            Toast.makeText(requireContext() , "registernow" , Toast.LENGTH_SHORT).show()
+            Toast.makeText(requireContext() , "Registered Successufully" , Toast.LENGTH_SHORT).show()
+            val profileFragment = ProfileFragment()
+            fragmentManager?.beginTransaction()?.replace(R.id.fragmentContainerView, profileFragment)?.commit()
 
         }
 
 
-        LoginBtn = view.findViewById(R.id.redgisterLoginButton)
-        LoginBtn.setOnClickListener{
-
-            val loginFragment = LoginFragment()
-            fragmentManager?.beginTransaction()?.replace(R.id.fragmentContainerView, loginFragment)?.commit()
-
-        }
         backArrow = view.findViewById(R.id.registerArrowBack)
         backArrow.setOnClickListener{
 

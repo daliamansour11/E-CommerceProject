@@ -267,7 +267,6 @@ class CategoryFragment : Fragment(), OnProductClickInterface , OnFavoriteButtonC
         categoryAdapter.notifyDataSetChanged()
     }
     override fun onProductClick(id :Long) {
-        Toast.makeText(requireContext(), "iui", Toast.LENGTH_SHORT).show()
         var bundle = Bundle()
         bundle.putLong("productid" , id)
         val detailsfragment = DetailsFragment()
@@ -303,10 +302,10 @@ class CategoryFragment : Fragment(), OnProductClickInterface , OnFavoriteButtonC
             viewModel.postFavorite.observe(viewLifecycleOwner, {
 
                 if (it == null) {
-                    Toast.makeText(requireContext(),"failed to add to favorite", Toast.LENGTH_LONG).show()
+                  //  Toast.makeText(requireContext(),"failed to add to favorite", Toast.LENGTH_LONG).show()
                 } else {
 
-                    Toast.makeText(requireContext(), "added sucessfully", Toast.LENGTH_LONG).show()
+                 //   Toast.makeText(requireContext(), "added sucessfully", Toast.LENGTH_LONG).show()
                 }
             })
         }
@@ -340,9 +339,9 @@ class CategoryFragment : Fragment(), OnProductClickInterface , OnFavoriteButtonC
                     viewModel.deleteProductFromFavorite(draftOrderId)
                     viewModel.deleteFromFavorite.observe(viewLifecycleOwner, {
                         if (it != null) {
-                            Toast.makeText(requireContext(), "deleted sucssefuly", Toast.LENGTH_SHORT).show()
+                          //  Toast.makeText(requireContext(), "deleted sucssefuly", Toast.LENGTH_SHORT).show()
                         } else {
-                            Toast.makeText(requireContext(), " cant delete this item ", Toast.LENGTH_SHORT).show()
+                          //  Toast.makeText(requireContext(), " cant delete this item ", Toast.LENGTH_SHORT).show()
                         }
                     })
                 }

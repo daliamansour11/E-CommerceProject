@@ -115,7 +115,7 @@ class DetailsFragment : Fragment() {
             Log.i("TAG", "onViewCreated:rrrrrrrrrrrr ${it}")
             imagearraysize = it.product.images.size
             productName.text = it.product.title
-            productPrice.text = "${it.product.variants[0].price} $"
+            productPrice.text = "${it.product.variants[0].price}"
             productDescription.text = it.product.body_html
             ratingBar.rating = (it.product.variants[0].inventory_quantity.toFloat()) / 2
 

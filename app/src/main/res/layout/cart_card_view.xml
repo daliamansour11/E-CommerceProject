@@ -16,18 +16,17 @@
         android:layout_marginBottom="10dp"
         android:orientation="horizontal"
         app:cardCornerRadius="8dp"
-
+        app:cardElevation="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+
+    <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:cardCornerRadius="8dp"
-
-            >
+            app:cardCornerRadius="8dp">
             <ImageView
                 android:id="@+id/productImage"
                 android:layout_width="146dp"

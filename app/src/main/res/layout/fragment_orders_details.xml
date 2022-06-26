@@ -4,14 +4,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".orderdetails.view.OrdersDetailsFragment">
+    tools:context=".orderdetails.view.OrdersDetailsFragment"
+    android:background="@color/background">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-
         android:fitsSystemWindows="true"
+        android:background="@color/white"
          android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
         app:layout_collapseMode="pin"
         app:layout_constraintEnd_toEndOf="parent"
@@ -35,6 +36,7 @@
         android:layout_marginStart="8dp"
         android:text="Back"
         android:textSize="25dp"
+        android:textColor="@color/black"
         app:layout_constraintBottom_toBottomOf="@+id/toolbar"
         app:layout_constraintTop_toTopOf="@+id/toolbar"
         app:layout_constraintLeft_toRightOf="@+id/orderDetailsArrowBack"
@@ -48,7 +50,7 @@
         android:layout_marginStart="20dp"
         android:layout_marginTop="20dp"
         android:text="Created at: "
-
+        android:textColor="@color/black"
         android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbar" />
@@ -61,6 +63,7 @@
         android:layout_marginTop="20dp"
         android:text=""
         android:textSize="20sp"
+        android:textColor="@color/black"
         app:layout_constraintBottom_toBottomOf="@+id/textView7"
         app:layout_constraintStart_toEndOf="@+id/textView7"
 
@@ -73,7 +76,7 @@
         android:layout_marginStart="20dp"
         android:layout_marginTop="20dp"
         android:text="Shipping to: "
-
+        android:textColor="@color/black"
         android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView7" />
@@ -85,6 +88,7 @@
         android:layout_marginTop="20dp"
         android:text=""
         android:textSize="20sp"
+        android:textColor="@color/black"
         app:layout_constraintBottom_toBottomOf="@+id/textView8"
         app:layout_constraintStart_toEndOf="@+id/textView8"
 
@@ -98,8 +102,8 @@
         android:layout_marginStart="10dp"
         android:layout_marginTop="60dp"
         android:layout_marginEnd="10dp"
+        android:background="@color/background"
         android:layout_marginBottom="80dp"
-
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.444"

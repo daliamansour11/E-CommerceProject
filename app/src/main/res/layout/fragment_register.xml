@@ -33,19 +33,20 @@
         android:layout_width="150dp"
         android:layout_height="50dp"
         android:layout_marginStart="28dp"
-        android:layout_marginTop="80dp"
+        android:layout_marginTop="128dp"
         android:background="@drawable/edittext_shape"
         android:hint="first name"
         android:padding="5dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+
     <EditText
         android:id="@+id/register_last_name_edittext"
         android:layout_width="150dp"
         android:layout_height="50dp"
-        android:layout_marginStart="48dp"
-        android:layout_marginTop="80dp"
+        android:layout_marginStart="52dp"
+        android:layout_marginTop="128dp"
         android:background="@drawable/edittext_shape"
         android:hint="last name"
         android:padding="5dp"
@@ -56,14 +57,14 @@
         android:id="@+id/register_email_edittext"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:layout_marginTop="40dp"
         android:layout_marginLeft="30dp"
+        android:layout_marginTop="40dp"
         android:layout_marginRight="30dp"
         android:background="@drawable/edittext_shape"
         android:hint="email"
         android:padding="5dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.116"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/register_first_name_edittext" />
 
@@ -71,14 +72,14 @@
         android:id="@+id/register_password_edittext"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:layout_marginTop="40dp"
         android:layout_marginLeft="30dp"
+        android:layout_marginTop="48dp"
         android:layout_marginRight="30dp"
         android:background="@drawable/edittext_shape"
         android:hint="Password"
         android:padding="5dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.466"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/register_email_edittext" />
 
@@ -86,38 +87,26 @@
         android:id="@+id/register_phone_edittext"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:layout_marginTop="40dp"
         android:layout_marginLeft="30dp"
+        android:layout_marginTop="52dp"
         android:layout_marginRight="30dp"
         android:background="@drawable/edittext_shape"
         android:hint="phone"
         android:padding="5dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.483"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/register_password_edittext" />
-
 
     <Button
         android:id="@+id/registernowbtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="84dp"
+        android:layout_marginTop="48dp"
         android:text="Register"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/register_phone_edittext" />
-
-    <Button
-        android:id="@+id/redgisterLoginButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
-        android:text="Login"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/registernowbtn" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

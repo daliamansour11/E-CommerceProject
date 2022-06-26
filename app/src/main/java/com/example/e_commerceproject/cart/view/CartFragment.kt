@@ -74,10 +74,10 @@ class CartFragment : Fragment() ,OnDeleteFromCartListener,OnPayClickListener {
 
         if (currecncy == "EGP") {
             to = "EGP"
-            Toast.makeText(requireContext(), "we are using EGP", Toast.LENGTH_SHORT).show()
+          //  Toast.makeText(requireContext(), "we are using EGP", Toast.LENGTH_SHORT).show()
         } else if(currecncy == "USD"){
             to = "USD"
-            Toast.makeText(requireContext(), "we are using USD", Toast.LENGTH_SHORT).show()
+         //   Toast.makeText(requireContext(), "we are using USD", Toast.LENGTH_SHORT).show()
 
             val retrofitService = ConverterApiService.getInstance()
             val mainRepository = ConverterRepository(retrofitService)
@@ -128,49 +128,21 @@ class CartFragment : Fragment() ,OnDeleteFromCartListener,OnPayClickListener {
 
             viewModel.getCart()
             viewModel.cart_Response.observe(viewLifecycleOwner, {
+
                 Log.d("TAG", "inside cartfragment")
                 Log.i("TAG", "onViewCreated:rrrrrrTTTTTTTTTrrrrrr ${it}")
                 var price = 0.0
-                val cartList: MutableList<DraftOrder> = mutableListOf()
                 for (i in 0..it.draft_orders.size - 1) {
-                    val sharedPreferences: SharedPreferences =
-                        requireContext().getSharedPreferences("loginsharedprefs", Context.MODE_PRIVATE)
-                    var userEmail: String = sharedPreferences.getString("EMAIL_LOGIN", "").toString()
                     Log.i("UserEMAIL", "onViewCreated: email======================" + userEmail)
 
-                    if (it.draft_orders.get(i).email == "reham33@gmail.com") {  //
-//                    it.draft_orders.get(i).note == "cart"
+                    if (it.draft_orders.get(i).email == userEmail && it.draft_orders.get(i).note == "cart" ) {  //"reham33@gmail.com"
 
-                        cartList.add(it.draft_orders.get(i))
                         price += it.draft_orders[i].subtotal_price?.toDouble() ?: 0.0
                     }
 
-                    //cartAdapter.setlist(cartList)
-                    /*    for (i in 0..it.draft_orders.size) {
-                            val items_price: Int =
-        //                           it.draft_orders[0].line_items?.get(0)?.price * it.draft_orders[0].line_items?.get(0)?.price
-        //                       total_price.text=("INR " + items_price + "Rs")
-        //                       total_price += total_price + items_price;
-                                Log.d("TAG", "bind: Toatal = ${total_price}otalPrice")
-        //                       var total : Long = it.draft_orders[0].subtotal_price "*" it.draft_orders.size
-        //                       total_price.text= total.toString()
-
-                        }*/
-//                       total_price.text= it.draft_orders[0].subtotal_price
-                    /*cartAdapter.setlist(it.draft_orders)
-
-                    total_price.text = it.draft_orders[0].subtotal_price
-
-                    cartAdapter.notifyDataSetChanged()*/
-
-                    //  }
-
                 }
-                Log.i(
-                    "TAGTAGTAG",
-                    "onViewCreated: ========================================" + cartList.size
-                )
-                cartAdapter.setlist(cartList)
+
+                cartAdapter.setlist(it.draft_orders.filter { it.email ==  userEmail && it.note == "cart" })
                 total_price.text = price.toString()
                 cartAdapter.notifyDataSetChanged()
             })
@@ -224,7 +196,6 @@ class CartFragment : Fragment() ,OnDeleteFromCartListener,OnPayClickListener {
 //    }
 
     override fun onDeleteFromFavClicked(id: String) {
-        Toast.makeText(requireContext() , "kk" , Toast.LENGTH_SHORT).show()
 
         val retrofitService = RetrofitService.getInstance()
         val mainRepository = CartRepository(retrofitService)
@@ -244,6 +215,7 @@ class CartFragment : Fragment() ,OnDeleteFromCartListener,OnPayClickListener {
 //                    CartAdapter.notifyDataSetChanged()
 //
 //                })
+
 
             }else{
                 Toast.makeText(requireContext() , " cant delete this item " , Toast.LENGTH_SHORT).show()

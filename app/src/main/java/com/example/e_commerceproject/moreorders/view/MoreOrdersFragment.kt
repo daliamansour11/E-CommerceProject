@@ -55,7 +55,6 @@ class MoreOrdersFragment : Fragment(), OnOrderClickListener {
         moreorder_back.setOnClickListener(object : View.OnClickListener {
             override fun onClick(view: View?) {
 
-                Toast.makeText(context, "go to profile ", Toast.LENGTH_LONG).show()
                 var bundle = Bundle()
                 val df = ProfileFragment()
                 df.arguments = bundle

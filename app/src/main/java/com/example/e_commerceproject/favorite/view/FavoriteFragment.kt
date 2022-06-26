@@ -110,7 +110,7 @@ class FavoriteFragment : Fragment() , OnDeletefromFavoriteClikListener{
         viewModel.deleteFromFavorite.observe(viewLifecycleOwner, {
 
             if(it != null){
-                Toast.makeText(requireContext() , "deleted sucssefuly" , Toast.LENGTH_SHORT).show()
+               // Toast.makeText(requireContext() , "deleted sucssefuly" , Toast.LENGTH_SHORT).show()
 
                 viewModel.getFavoriteProducts()
                 viewModel.favoriteProducts.observe(viewLifecycleOwner, {
@@ -121,7 +121,7 @@ class FavoriteFragment : Fragment() , OnDeletefromFavoriteClikListener{
                 })
 
             }else{
-                Toast.makeText(requireContext() , " cant delete this item " , Toast.LENGTH_SHORT).show()
+              //  Toast.makeText(requireContext() , " cant delete this item " , Toast.LENGTH_SHORT).show()
             }
 
             favoriteAdapter.notifyDataSetChanged()

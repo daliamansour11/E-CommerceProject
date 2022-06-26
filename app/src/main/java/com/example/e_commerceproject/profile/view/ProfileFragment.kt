@@ -157,7 +157,6 @@ class ProfileFragment : Fragment() {
 
             val settingsFragment = SettingsFragment()
             fragmentManager?.beginTransaction()?.replace(R.id.fragmentContainerView, settingsFragment)?.commit()
-            Toast.makeText(context, "go to settings ", Toast.LENGTH_LONG).show()
         }
 
         moreorder_btn.setOnClickListener(object : View.OnClickListener {
@@ -169,7 +168,6 @@ class ProfileFragment : Fragment() {
                 bundle.putString("orders", Gson().toJson(orderList))
                 moreOrdersFragment.setArguments(bundle)
                 fragmentManager?.beginTransaction()?.replace(R.id.fragmentContainerView, moreOrdersFragment)?.commit()
-                Toast.makeText(context, "go to moreOrders ", Toast.LENGTH_LONG).show()
 
             }
 //                val intent = Intent(this,HomeFragment ::class.java)
@@ -191,21 +189,29 @@ class ProfileFragment : Fragment() {
         val retrofitService = RetrofitService.getInstance()
         val mainRepository = FavoriteRepository(retrofitService)
         favoriteviewModel = ViewModelProvider(this, FavoriteViewModelFactory(mainRepository)).get(FavoriteViewModel::class.java)
-        favoriteviewModel.getFavoriteProducts()
 
-        favoriteviewModel.favoriteProducts.observe(viewLifecycleOwner, {
+        if(userEmail != "" && userEmail != null ){
 
-            var ar = ArrayList<DraftOrder>()
-            ar.add(it.draft_orders[0])
-            ar.add(it.draft_orders[1])
-            favoriteAdapter.setlist(ar)
-            favoriteAdapter.notifyDataSetChanged()
-            it.draft_orders.filter { "email" == "jkjkjk@gmail.com" && "note" == "fav" }
-            Log.i("TAG", "onViewCreatedjjjjjjjjjjjjjjjjjjjjjjjjjj: ${it.draft_orders.filter { "email" == "reham33@gmail.com" }}")
-            // Log.i("TAG", "onViewCreatedjjjjjjjjjjjjjjjjjjjjjjjjjj: ${it.draft_orders }")
+            favoriteviewModel.getFavoriteProducts()
+
+            favoriteviewModel.favoriteProducts.observe(viewLifecycleOwner, {
+
+                var ar = ArrayList<DraftOrder>()
+                var arr = it.draft_orders.filter { it.email == userEmail && it.note == "fav" }
+
+                ar.add(arr[0])
+                ar.add(arr[1])
+                favoriteAdapter.setlist(ar)
+                favoriteAdapter.notifyDataSetChanged()
+                it.draft_orders.filter { "email" == "jkjkjk@gmail.com" && "note" == "fav" }
+                Log.i("TAG", "onViewCreatedjjjjjjjjjjjjjjjjjjjjjjjjjj: ${it.draft_orders.filter { "email" == "reham33@gmail.com" }}")
+                // Log.i("TAG", "onViewCreatedjjjjjjjjjjjjjjjjjjjjjjjjjj: ${it.draft_orders }")
 
 
-        })
+            })
+        }
+
+
 
 
         moreWishes_btn.setOnClickListener{
@@ -229,14 +235,13 @@ class ProfileFragment : Fragment() {
                     }.apply()
 
                     Toast.makeText(requireContext() ,"logout" , Toast.LENGTH_SHORT ).show()
+                    val homeFragment = HomeFragment()
+                    fragmentManager?.beginTransaction()?.replace(R.id.fragmentContainerView, homeFragment)?.commit()
 
                 }else { //  no data   -> login
 
                     val loginFragment = LoginFragment()
                     fragmentManager?.beginTransaction()?.replace(R.id.fragmentContainerView, loginFragment)?.commit()
-
-                    Toast.makeText(context, "login", Toast.LENGTH_LONG).show()
-
 
                 }
 
@@ -253,8 +258,6 @@ class ProfileFragment : Fragment() {
 
                 val loginFragment = HomeFragment()
                 fragmentManager?.beginTransaction()?.replace(R.id.fragmentContainerView, loginFragment)?.commit()
-
-                Toast.makeText(context, "login", Toast.LENGTH_LONG).show()
 
             }
 //                val intent = Intent(this,HomeFragment ::class.java)

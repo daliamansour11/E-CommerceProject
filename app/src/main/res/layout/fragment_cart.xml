@@ -5,12 +5,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".cart.view.CartFragment"
-    android:background="#B7C6C8">
+   >
+
+
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="#ccc"
+        android:background="@color/white"
         android:fitsSystemWindows="true"
         app:layout_collapseMode="pin"
         app:layout_constraintEnd_toEndOf="parent"
@@ -43,6 +45,7 @@
         android:id="@+id/cartRecyclerView"
         android:layout_width="431dp"
         android:layout_height="532dp"
+        android:background="@color/background"
         android:layout_marginTop="56dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -63,7 +66,7 @@
             android:layout_width="136dp"
             android:layout_height="45dp"
             android:layout_marginStart="28dp"
-            android:layout_marginBottom="184dp"
+            android:layout_marginBottom="200dp"
             android:background="@drawable/edittext_shape"
             android:gravity="center"
             android:text="@string/totalprice"
@@ -75,8 +78,8 @@
             android:id="@+id/textView3"
             android:layout_width="172dp"
             android:layout_height="45dp"
-            android:layout_marginEnd="36dp"
-            android:layout_marginBottom="184dp"
+            android:layout_marginEnd="32dp"
+            android:layout_marginBottom="200dp"
             android:background="@drawable/edittext_shape"
             android:gravity="center"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -86,13 +89,13 @@
             android:id="@+id/payButtonCart"
             android:layout_width="150dp"
             android:layout_height="54dp"
-            android:layout_marginBottom="92dp"
+            android:layout_marginBottom="120dp"
             android:background="@drawable/edittext_shape"
             android:text="@string/pay"
             android:textSize="20dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.541"
+            app:layout_constraintHorizontal_bias="0.539"
             app:layout_constraintStart_toStartOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 

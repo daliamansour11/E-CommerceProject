@@ -79,8 +79,10 @@ class LoginFragment : Fragment() {
                         putString("Name_LOGIN" ,  "${it.customers[0].first_name}")
                         putString("CUSTOMER_ID" ,  "${it.customers[0].id}")
                     }.apply()
+                    val homeFragment = HomeFragment()
+                    fragmentManager?.beginTransaction()?.replace(R.id.fragmentContainerView, homeFragment)?.commit()
 
-                   // saveDataInSharedPrefrence()
+                    // saveDataInSharedPrefrence()
                 }else if(it.customers[0].email == "${email.text}" && it.customers[0].tags != "${password.text}" ){
                     Toast.makeText(requireContext() , "invalid password" , Toast.LENGTH_SHORT).show()
                 }
@@ -91,7 +93,6 @@ class LoginFragment : Fragment() {
 
         registerbtn.setOnClickListener {
 
-            Toast.makeText(requireContext() , "register" , Toast.LENGTH_SHORT).show()
             val registerFragment = RegisterFragment()
             fragmentManager?.beginTransaction()?.replace(R.id.fragmentContainerView, registerFragment)?.commit()
 

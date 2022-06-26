@@ -56,7 +56,7 @@ class FavoriteAdapter (var context: Context , val onDeletefromFavoriteClikListen
 
         if(data.line_items?.count() != 0 ){
             holder.name.text = ("${data.line_items?.get(0)?.title}")
-            holder.price.text = ("${data.line_items?.get(0)?.price}$")
+            holder.price.text = ("${data.line_items?.get(0)?.price}")
 
         }
 

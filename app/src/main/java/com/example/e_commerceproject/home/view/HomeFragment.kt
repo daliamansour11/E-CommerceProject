@@ -185,11 +185,13 @@ class HomeFragment : Fragment() , OnBrandClickListener{
         fragmentManager?.beginTransaction()?.replace(R.id.fragmentContainerView, categoryFragment)?.commit()
     }
     override fun onDiscountCartClick(_code:String) {
-        var bundle=Bundle()
-        bundle.putString("COUPON",_code)
-        val cashFragment = CashFragment()
-        cashFragment.arguments =bundle
-        fragmentManager?.beginTransaction()?.replace(R.id.fragmentContainerView, cashFragment)?.commit()
+
+//        var bundle = Bundle()
+//        bundle.putString("COUPON" , _code)
+//        val cashFragment = CashFragment()
+//        cashFragment.arguments = bundle
+//        fragmentManager?.beginTransaction()?.replace(R.id.fragmentContainerView, cashFragment)?.commit()
+//
 
     }
     fun initCoupon(view: View) {
@@ -200,8 +202,6 @@ class HomeFragment : Fragment() , OnBrandClickListener{
         coupon_recycler.layoutManager = couponLinearLayoutManager
         coupon_recycler.adapter = couponsAdapter
 
-
     }
-
 
 }
