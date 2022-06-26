@@ -37,8 +37,6 @@ class CashFragment : Fragment() {
     lateinit var back_arrow : ImageView
  lateinit var   coupons: EditText
  lateinit var   subTotal: TextView
- lateinit var   shippingfees: TextView
- lateinit var   discount: TextView
  lateinit var   totalprice: TextView
   lateinit var viewModel : CashViewModel
   var coupon =""
@@ -70,8 +68,6 @@ class CashFragment : Fragment() {
         placeorderbtn = cashFrag.findViewById(R.id.placeorder_btn)
         back_arrow = cashFrag.findViewById(R.id.cash_backarrow)
         subTotal= cashFrag.findViewById(R.id.subtotal)
-        shippingfees= cashFrag.findViewById(R.id.shippingfee)
-        discount= cashFrag.findViewById(R.id.discount_cost)
         totalprice= cashFrag.findViewById(R.id.totalprice)
         validate_btn= cashFrag.findViewById(R.id.validate)
         return cashFrag

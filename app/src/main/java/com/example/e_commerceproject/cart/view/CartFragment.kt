@@ -27,13 +27,17 @@ import com.example.e_commerceproject.currencyConverter.view.CURRUNEY_TYPE
 import com.example.e_commerceproject.currencyConverter.view.SHARD_NAME
 import com.example.e_commerceproject.currencyConverter.viewModel.ConverterViewModel
 import com.example.e_commerceproject.currencyConverter.viewModel.ConverterViewModelFactory
+import com.example.e_commerceproject.favorite.viewmodel.FavoriteViewModel
+import com.example.e_commerceproject.favorite.viewmodel.FavoriteViewModelFactory
 import com.example.e_commerceproject.network.ConverterRepository
+import com.example.e_commerceproject.network.FavoriteRepository
 import com.example.e_commerceproject.network.remotesource.CartRepository
 import com.example.e_commerceproject.network.remotesource.ConverterApiService
 import com.example.e_commerceproject.network.remotesource.RetrofitService
 import com.example.e_commerceproject.payment.model.AddedOrderModel
 import com.example.e_commerceproject.payment.view.CashFragment
 import com.example.e_commerceproject.payment.view.PaymentFragment
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.gson.Gson
 import java.util.stream.Collectors
 import kotlin.streams.toList
@@ -195,7 +199,27 @@ class CartFragment : Fragment() ,OnDeleteFromCartListener,OnPayClickListener {
 //        viewModel.deleteCart(cart_id)
 //    }
 
+    fun showAlertDialog( id : String){
+        MaterialAlertDialogBuilder(requireContext())
+            .setTitle("Alert")
+            .setMessage("Are you sure you want to delete this item ")
+            .setNeutralButton(""){dialog  , which ->
+
+            }
+            .setNegativeButton("No"){dialog  , which ->
+
+            }
+            .setPositiveButton("Yes"){dialog  , which ->
+                deleteFavoriteProduct(id)
+            }.show()
+    }
+
     override fun onDeleteFromFavClicked(id: String) {
+
+        showAlertDialog(id)
+    }
+
+    fun deleteFavoriteProduct(id:String){
 
         val retrofitService = RetrofitService.getInstance()
         val mainRepository = CartRepository(retrofitService)
@@ -207,28 +231,17 @@ class CartFragment : Fragment() ,OnDeleteFromCartListener,OnPayClickListener {
             if(it != null){
                 Toast.makeText(requireContext() , "deleted sucssefuly" , Toast.LENGTH_SHORT).show()
 
-//                viewModel.getCart()
-//
-//                viewModel.cart_Response.observe(viewLifecycleOwner, {
-//
-//                    CartAdapter.(it.draft_orders)
-//                    CartAdapter.notifyDataSetChanged()
-//
-//                })
-
-
             }else{
                 Toast.makeText(requireContext() , " cant delete this item " , Toast.LENGTH_SHORT).show()
 
             }
 
-
-            // favoriteAdapter.setlist(it.draft_orders)
-            //CartAdapter.notifyDataSetChanged()
-
         })
 
+
     }
+
+
 
     override fun onPayBtnClicked(totalPrice: Double) {
         var bundle=Bundle()

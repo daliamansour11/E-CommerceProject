@@ -26,6 +26,8 @@ import com.example.e_commerceproject.home.view.HomeFragment
 import com.example.e_commerceproject.network.FavoriteRepository
 import com.example.e_commerceproject.network.remotesource.CartRepository
 import com.example.e_commerceproject.network.remotesource.RetrofitService
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.android.material.snackbar.Snackbar
 
 class FavoriteFragment : Fragment() , OnDeletefromFavoriteClikListener{
 
@@ -40,6 +42,9 @@ class FavoriteFragment : Fragment() , OnDeletefromFavoriteClikListener{
         super.onCreate(savedInstanceState)
 
     }
+
+
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -97,7 +102,29 @@ class FavoriteFragment : Fragment() , OnDeletefromFavoriteClikListener{
 
     }
 
+    fun showAlertDialog( id : String){
+        MaterialAlertDialogBuilder(requireContext())
+            .setTitle("Alert")
+            .setMessage("Are you sure you want to delete this item ")
+            .setNeutralButton(""){dialog  , which ->
+
+            }
+            .setNegativeButton("No"){dialog  , which ->
+
+            }
+            .setPositiveButton("Yes"){dialog  , which ->
+                deleteFavoriteProduct(id)
+            }.show()
+    }
+
     override fun onDeleteFromFavClicked(id: String) {
+
+        showAlertDialog(id)
+
+    }
+
+    fun deleteFavoriteProduct(id:String){
+
 
         val sharedPreferences: SharedPreferences = requireContext().getSharedPreferences("loginsharedprefs", Context.MODE_PRIVATE)
         var userEmail: String = sharedPreferences.getString("EMAIL_LOGIN", "").toString()
@@ -127,8 +154,8 @@ class FavoriteFragment : Fragment() , OnDeletefromFavoriteClikListener{
             favoriteAdapter.notifyDataSetChanged()
 
         })
-
     }
+
 
 
 }

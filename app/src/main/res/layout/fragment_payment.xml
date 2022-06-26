@@ -67,16 +67,16 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/homeToolBar" />
-    <Button
-        android:id="@+id/cashbtn"
-        android:layout_width="159dp"
-        android:layout_height="53dp"
-        android:layout_marginTop="172dp"
-        android:text="Cash"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/homeToolBar" />
+        app:layout_constraintTop_toBottomOf="@+id/homeToolBar" >
+
+        <Button
+            android:id="@+id/cashbtn"
+            android:layout_width="159dp"
+            android:layout_height="53dp"
+            android:text="Cash"
+            tools:layout_editor_absoluteX="120dp"
+            tools:layout_editor_absoluteY="210dp" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <Button
         android:id="@+id/onlinebtn"
