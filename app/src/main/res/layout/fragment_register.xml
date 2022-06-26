@@ -78,6 +78,7 @@
         android:background="@drawable/edittext_shape"
         android:hint="Password"
         android:padding="5dp"
+        android:inputType="textPassword"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.466"
         app:layout_constraintStart_toStartOf="parent"
