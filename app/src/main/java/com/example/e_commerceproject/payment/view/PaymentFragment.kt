@@ -45,8 +45,6 @@ class PaymentFragment : Fragment() {
         onlinebtn = view.findViewById(R.id.onlinebtn)
         back =view.findViewById(R.id.paymentoption_backarrow)
         cashbtn.setOnClickListener {
-            Toast.makeText(requireContext() , "cash" , Toast.LENGTH_SHORT).show()
-
             val cashFragment = CashFragment()
             var bundle = Bundle()
             bundle.putString("addedOrderModel", Gson().toJson(addedOrderModel))
@@ -56,13 +54,11 @@ class PaymentFragment : Fragment() {
         }
 
         onlinebtn.setOnClickListener {
-            Toast.makeText(requireContext() , "online" , Toast.LENGTH_SHORT).show()
             val onlinePaymentFragment = OnlinePaymentFragment()
             fragmentManager?.beginTransaction()?.replace(R.id.fragmentContainerView, onlinePaymentFragment)?.commit()
 
         }
         back.setOnClickListener {
-            Toast.makeText(requireContext() , "online" , Toast.LENGTH_SHORT).show()
             val cartFragment = CartFragment()
             fragmentManager?.beginTransaction()?.replace(R.id.fragmentContainerView, cartFragment)?.commit()
 

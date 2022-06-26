@@ -147,7 +147,7 @@ class ProfileFragment : Fragment() {
             orderList = orders as ArrayList<OrderModel>
             if(orderList!=null && orderList.size>0){
                 moreorder_btn.setEnabled(true)
-                priceTextView.text = orderList[0].total_price
+                priceTextView.text = "${orderList[0].total_price} EGP"
                 var createdAt = orderList[0].created_at.split("T")[0]
                 dateOfOrderTxtView.text = createdAt
             }

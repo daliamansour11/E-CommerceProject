@@ -39,14 +39,14 @@
 
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:text="Profile"
-        android:textSize="25dp"
+        android:layout_marginLeft="88dp"
+        android:text="More Orders"
         android:textColor="@color/black"
+        android:textSize="25dp"
         app:layout_constraintBottom_toBottomOf="@+id/toolbar"
-        app:layout_constraintTop_toTopOf="@+id/toolbar"
         app:layout_constraintLeft_toRightOf="@+id/moreOrdersArrowBack"
-        android:layout_marginLeft="20dp"/>
+        app:layout_constraintTop_toTopOf="@+id/toolbar"
+        app:layout_constraintVertical_bias="0.318" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"

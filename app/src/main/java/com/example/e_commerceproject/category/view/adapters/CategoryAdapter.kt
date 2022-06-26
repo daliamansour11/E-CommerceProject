@@ -62,7 +62,7 @@ class CategoryAdapter (var context: Context , val onProductClickInterface: OnPro
 
         var data = data[position]
 
-         holder.title.text = ("${data.variants[0].price}")
+         holder.title.text = ("${data.variants[0].price} EGP")
          Glide.with(context).load(data.image.src)
              .placeholder(R.drawable.ic_launcher_background)
              .error(R.drawable.ic_launcher_foreground)

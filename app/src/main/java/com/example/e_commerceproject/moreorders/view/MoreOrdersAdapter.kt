@@ -29,7 +29,7 @@ class MoreOrdersAdapter( var context: Context?, var onMoreOrdersClick: OnOrderCl
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.orderPrice.text = data[position].total_price
+        holder.orderPrice.text = "${data[position].total_price} EGP"
         var createdAt = data[position].created_at.split("T")[0]
         holder.orderDate.text = createdAt
         holder.itemView.setOnClickListener {

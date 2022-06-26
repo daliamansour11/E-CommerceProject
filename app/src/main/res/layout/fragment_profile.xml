@@ -277,7 +277,7 @@
                 android:layout_marginStart="32dp"
                 android:layout_marginTop="4dp"
                 android:minHeight="48dp"
-                android:text="@string/myWishes"
+                android:text="Favorites"
                 android:textAlignment="textStart"
                 android:textSize="25dp"
 

@@ -33,7 +33,7 @@ class HomeSearchAdapter (private  var context: Context): RecyclerView.Adapter<Ho
         Glide.with(context).load(imageSrc).into(holder.productImage)
         holder.productName.text= data[position].title
         // may throw null if variants equal null
-        holder.productPrice.text= data[position].variants[0].price
+        holder.productPrice.text= "${data[position].variants[0].price} EGP"
     }
 
 

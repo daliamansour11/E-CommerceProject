@@ -49,7 +49,6 @@ class SettingsFragment : Fragment() {
         backArrow.setOnClickListener(View.OnClickListener {
             val profileFragment = ProfileFragment()
             fragmentManager?.beginTransaction()?.replace(R.id.fragmentContainerView,profileFragment )?.commit()
-            Toast.makeText(requireContext() ,"uyuyhfuyu" , Toast.LENGTH_SHORT ).show()
 
         })
         addressArrow= settingsFragmentView.findViewById(R.id.navigateToAddressScreenBtn)
@@ -66,7 +65,6 @@ class SettingsFragment : Fragment() {
 
             val addressFragment = AddressFragment()
             fragmentManager?.beginTransaction()?.replace(R.id.fragmentContainerView, addressFragment)?.commit()
-            Toast.makeText(requireContext() ,"uyuyhfuyu" , Toast.LENGTH_SHORT ).show()
 
         }
 
@@ -76,14 +74,12 @@ class SettingsFragment : Fragment() {
 
             val currency_fragment =CurrencydiologFragment()
             fragmentManager?.beginTransaction()?.replace(R.id.fragmentContainerView, currency_fragment)?.commit()
-            Toast.makeText(requireContext() ,"currency dialog" , Toast.LENGTH_SHORT ).show()
         }
         navigateToContactusScreenBtn = settingsFragmentView.findViewById(R.id.navigateToContactusScreenBtn)
         navigateToContactusScreenBtn.setOnClickListener {
 
 //            val profileFragment = ProfileFragment()
 //            fragmentManager?.beginTransaction()?.replace(R.id.fragmentContainerView, profileFragment)?.commit()
-            Toast.makeText(requireContext() ,"uyuyhfuyu" , Toast.LENGTH_SHORT ).show()
 
         }
         navigateToaboutScreenBtn = settingsFragmentView.findViewById(R.id.navigateToaboutScreenBtn)
@@ -91,7 +87,6 @@ class SettingsFragment : Fragment() {
 
             val about_fragment = AboutFragment()
             fragmentManager?.beginTransaction()?.replace(R.id.fragmentContainerView,about_fragment )?.commit()
-            Toast.makeText(requireContext() ,"uyuyhfuyu" , Toast.LENGTH_SHORT ).show()
         }
         logoutButton = view.findViewById(R.id.logoutButton)
         logoutButton.setOnClickListener {
@@ -103,7 +98,6 @@ class SettingsFragment : Fragment() {
                 putString("EMAIL_LOGIN" ,  "")
                 putString("PASSWORD_LOGIN" ,  "")
             }.apply()
-            Toast.makeText(requireContext() ,"logout" , Toast.LENGTH_SHORT ).show()
         }
     }
 

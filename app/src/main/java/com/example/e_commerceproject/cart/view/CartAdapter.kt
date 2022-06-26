@@ -54,7 +54,7 @@ class CartAdapter(private var context: Context, var cartFragment: CartFragment, 
                 .into(holder.productImage)
         }
         holder.productName.text = data1[position].line_items?.get(0)?.name
-        holder.productPrice.text = data1[position].line_items?.get(0)?.price
+        holder.productPrice.text = "${data1[position].line_items?.get(0)?.price} EGP"
         holder.productCount.text = data1[position].line_items?.get(0)?.quantity.toString()
 
         //  data[position].note_attributes?.get(0)?.value?.let { holder.productImage.setImageResource(it)) }

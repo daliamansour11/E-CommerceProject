@@ -115,7 +115,7 @@ class DetailsFragment : Fragment() {
             Log.i("TAG", "onViewCreated:rrrrrrrrrrrr ${it}")
             imagearraysize = it.product.images.size
             productName.text = it.product.title
-            productPrice.text = "${it.product.variants[0].price}"
+            productPrice.text = "${it.product.variants[0].price} EGP"
             productDescription.text = it.product.body_html
             ratingBar.rating = (it.product.variants[0].inventory_quantity.toFloat()) / 2
 
@@ -130,9 +130,6 @@ class DetailsFragment : Fragment() {
 
         })
         viewPager.adapter = adapter
-
-
-
 
 
         detailsaddtofavorieButton = view.findViewById(R.id.detailsaddtofavorieButton)
@@ -253,8 +250,6 @@ class DetailsFragment : Fragment() {
                         Toast.makeText(requireContext(), "sucessfull post", Toast.LENGTH_LONG).show()
                     }
                 })
-                val cartFragment =  CartFragment()
-                fragmentManager?.beginTransaction()?.replace(R.id.fragmentContainerView, cartFragment)?.commit()
 
             }
         }

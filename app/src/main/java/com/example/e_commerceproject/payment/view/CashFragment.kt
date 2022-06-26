@@ -103,7 +103,6 @@ class CashFragment : Fragment() {
         })
         back_arrow.setOnClickListener(object : View.OnClickListener {
             override fun onClick(view: View?) {
-                Toast.makeText(context, "place your Order ", Toast.LENGTH_LONG).show()
                 val payment= PaymentFragment()
                 var bundle = Bundle()
 

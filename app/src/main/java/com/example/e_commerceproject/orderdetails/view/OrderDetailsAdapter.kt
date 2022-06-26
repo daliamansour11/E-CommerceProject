@@ -28,7 +28,7 @@ class OrderDetailsAdapter (private  var context: Context): RecyclerView.Adapter<
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.productName.text = data[position].title
-        holder.orderPrice.text = data[position].price
+        holder.orderPrice.text = "${data[position].price} EGP"
         holder.orderQuantity.text = data[position].quantity.toString()
     }
 

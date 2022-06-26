@@ -29,19 +29,19 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/toolbar" />
 
+
     <TextView
 
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:text="Back"
-        android:textSize="25dp"
+        android:layout_marginLeft="132dp"
+        android:text="Details"
         android:textColor="@color/black"
+        android:textSize="25dp"
         app:layout_constraintBottom_toBottomOf="@+id/toolbar"
-        app:layout_constraintTop_toTopOf="@+id/toolbar"
         app:layout_constraintLeft_toRightOf="@+id/orderDetailsArrowBack"
-        android:layout_marginLeft="20dp"/>
-
+        app:layout_constraintTop_toTopOf="@+id/toolbar"
+        app:layout_constraintVertical_bias="0.727" />
 
     <TextView
         android:id="@+id/textView7"

@@ -143,7 +143,7 @@ class CartFragment : Fragment() ,OnDeleteFromCartListener,OnPayClickListener {
                 }
 
                 cartAdapter.setlist(it.draft_orders.filter { it.email ==  userEmail && it.note == "cart" })
-                total_price.text = price.toString()
+                total_price.text = "${price.toString()} EGP"
                 cartAdapter.notifyDataSetChanged()
             })
         }
