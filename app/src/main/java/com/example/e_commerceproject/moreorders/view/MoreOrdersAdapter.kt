@@ -30,6 +30,7 @@ class MoreOrdersAdapter( var context: Context?, var onMoreOrdersClick: OnOrderCl
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.orderPrice.text = "${data[position].total_price} EGP"
+        holder.orderId.text = "${data[position].id} "
         var createdAt = data[position].created_at.split("T")[0]
         holder.orderDate.text = createdAt
         holder.itemView.setOnClickListener {
@@ -42,6 +43,8 @@ class MoreOrdersAdapter( var context: Context?, var onMoreOrdersClick: OnOrderCl
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var orderPrice: TextView = itemView.findViewById(R.id.order_price)
         var orderDate: TextView = itemView.findViewById(R.id.order_date)
+        var orderId: TextView = itemView.findViewById(R.id.order_id)
+
     }
 
     override fun getItemCount(): Int {

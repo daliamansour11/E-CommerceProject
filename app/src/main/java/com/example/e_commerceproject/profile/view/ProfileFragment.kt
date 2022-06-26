@@ -48,6 +48,7 @@ class ProfileFragment : Fragment() {
     //lateinit var register_btn : Button
     lateinit var profile_back : ImageView
     lateinit var profile_settings : ImageView
+    lateinit var orderIdTextView: TextView
     lateinit var priceTextView: TextView
     lateinit var dateOfOrderTxtView: TextView
     lateinit var viewModel: ProfileViewModel
@@ -98,6 +99,7 @@ class ProfileFragment : Fragment() {
         welcome_text = profile_frg.findViewById(R.id.welcome_text)
         //register_btn = profile_frg.findViewById(R.id.register_btn)
         //register_btn = profile_frg.findViewById(R.id.registerBtn)
+        orderIdTextView = profile_frg.findViewById(R.id.orderId)
         priceTextView = profile_frg.findViewById(R.id.priceTextView)
         dateOfOrderTxtView = profile_frg.findViewById(R.id.dateOfOrderTxtView)
 
@@ -148,8 +150,10 @@ class ProfileFragment : Fragment() {
             if(orderList!=null && orderList.size>0){
                 moreorder_btn.setEnabled(true)
                 priceTextView.text = "${orderList[0].total_price} EGP"
+                orderIdTextView.text = "${orderList[0].id}"
                 var createdAt = orderList[0].created_at.split("T")[0]
                 dateOfOrderTxtView.text = createdAt
+                orderList[0].id
             }
         }
 
