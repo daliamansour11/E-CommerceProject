@@ -199,8 +199,13 @@ class ProfileFragment : Fragment() {
                 var ar = ArrayList<DraftOrder>()
                 var arr = it.draft_orders.filter { it.email == userEmail && it.note == "fav" }
 
-                ar.add(arr[0])
-                ar.add(arr[1])
+                if(arr.size >= 2){
+                    ar.add(arr[0])
+                    ar.add(arr[1])
+                }else if(arr.size == 1){
+                    ar.add(arr[0])
+                }
+
                 favoriteAdapter.setlist(ar)
                 favoriteAdapter.notifyDataSetChanged()
                 it.draft_orders.filter { "email" == "jkjkjk@gmail.com" && "note" == "fav" }
