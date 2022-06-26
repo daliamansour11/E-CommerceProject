@@ -49,6 +49,7 @@ class Address2Fragment : Fragment() {
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         val retrofitService = RetrofitService.getInstance()
         val mainRepository = AdressRepository(retrofitService)
 

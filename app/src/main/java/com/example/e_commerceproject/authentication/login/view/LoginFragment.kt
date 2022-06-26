@@ -98,8 +98,6 @@ class LoginFragment : Fragment() {
 
         }
 
-
-
         backButton.setOnClickListener {
             val profileFragment = ProfileFragment()
             fragmentManager?.beginTransaction()?.replace(R.id.fragmentContainerView, profileFragment)?.commit()

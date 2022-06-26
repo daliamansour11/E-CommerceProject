@@ -19,7 +19,7 @@
         android:theme="?attr/actionBarTheme"
 
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -31,19 +31,6 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/homeToolBarIconEnd"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/paymentoption_Back"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:text="@string/back"
-            android:textColor="@color/black"
-            android:textSize="20sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-
-            app:layout_constraintEnd_toStartOf="@+id/homeToolBarTitleEnd"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
@@ -66,28 +53,33 @@
         android:layout_marginTop="4dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/homeToolBar" >
+        app:layout_constraintTop_toBottomOf="@+id/homeToolBar"
+        app:layout_constraintVertical_bias="0.0">
 
         <Button
             android:id="@+id/cashbtn"
             android:layout_width="159dp"
             android:layout_height="53dp"
+            android:layout_marginBottom="44dp"
             android:text="Cash"
-            tools:layout_editor_absoluteX="120dp"
-            tools:layout_editor_absoluteY="210dp" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            app:layout_constraintBottom_toTopOf="@+id/onlinebtn"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.502"
+            app:layout_constraintStart_toStartOf="parent" />
 
-    <Button
-        android:id="@+id/onlinebtn"
-        android:layout_width="149dp"
-        android:layout_height="54dp"
-        android:layout_marginBottom="312dp"
-        android:text="Online"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.48"
-        app:layout_constraintStart_toStartOf="parent" />
+        <Button
+            android:id="@+id/onlinebtn"
+            android:layout_width="149dp"
+            android:layout_height="54dp"
+            android:layout_marginBottom="320dp"
+            android:text="Online"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.521"
+            app:layout_constraintStart_toStartOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
