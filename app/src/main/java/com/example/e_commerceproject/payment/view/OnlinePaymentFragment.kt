@@ -10,12 +10,20 @@ import android.app.DownloadManager
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.Toast
+import androidx.lifecycle.ViewModelProvider
 import com.android.volley.AuthFailureError
 import com.android.volley.Request
 import com.android.volley.Request.Method.POST
 import com.android.volley.Response
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
+import com.example.e_commerceproject.payment.client.OrderClient
+import com.example.e_commerceproject.payment.model.AddedOrderModel
+import com.example.e_commerceproject.payment.model.OrderRepository
+import com.example.e_commerceproject.payment.viewModel.OrderViewModel
+import com.example.e_commerceproject.payment.viewModel.OrderViewModelFactory
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 import com.stripe.android.PaymentConfiguration
 import com.stripe.android.paymentsheet.PaymentSheet
 import com.stripe.android.paymentsheet.PaymentSheetResult
@@ -32,6 +40,27 @@ class OnlinePaymentFragment : Fragment() {
     lateinit var customerId: String
     lateinit var ephericalKey: String
     lateinit var clientSecret: String
+    lateinit var addedOrderModel: AddedOrderModel
+    lateinit var orderViewModel: OrderViewModel
+    lateinit var orderVmFactory: OrderViewModelFactory
+    var totalPric = 0.0
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        arguments?.let { bundle ->
+            class Token : TypeToken<AddedOrderModel>()
+            addedOrderModel = Gson().fromJson(bundle.getString("addedOrderModel"), Token().type)
+            totalPric = bundle.getDouble("TOTAL_PRICE")
+        }
+        orderVmFactory = OrderViewModelFactory(
+            OrderRepository.getInstance(
+                OrderClient.getInstance(),
+                requireContext()
+            )
+        )
+        orderViewModel = ViewModelProvider(this, orderVmFactory).get(OrderViewModel::class.java)
+
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -50,6 +79,7 @@ class OnlinePaymentFragment : Fragment() {
 
         btnConfirm.setOnClickListener {
             paymentFlow()
+            orderViewModel.postOrder(addedOrderModel)
         }
 
         PaymentConfiguration.init(requireContext(), PUBLISH_KEY)
@@ -91,7 +121,9 @@ class OnlinePaymentFragment : Fragment() {
             val payment = PaymentFragment()
             var bundle = Bundle()
 
-            payment.arguments = bundle
+            bundle.putString("addedOrderModel", Gson().toJson(addedOrderModel))
+            bundle.putDouble("TOTAL_PRICE" , totalPric)
+            payment.setArguments(bundle)
             fragmentManager?.beginTransaction()?.replace(R.id.fragmentContainerView, payment)
                 ?.commit()
         }
