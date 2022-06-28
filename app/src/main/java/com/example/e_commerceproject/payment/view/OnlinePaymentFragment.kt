@@ -35,6 +35,7 @@ import org.json.JSONObject
 import java.util.*
 
 class OnlinePaymentFragment : Fragment() {
+
         lateinit var btnConfirm : Button
         lateinit var back_Arrow : ImageView
         val SECRET_KEY = "sk_test_51LDbiOJJQIjHTLoEsrKxxy2IWsObOhcaKXHww3yZLYPb9uFgRkqg78LRJZVz04glPMQGRUxNx8H32JSXRcOM7t8v00bJ0Owzhy"
@@ -47,7 +48,7 @@ class OnlinePaymentFragment : Fragment() {
         lateinit var orderViewModel: OrderViewModel
         lateinit var orderVmFactory: OrderViewModelFactory
         lateinit var placeorderbtn :Button
-    lateinit var total_price: TextView
+        lateinit var total_price: TextView
         var totalPric = 0.0
 
         override fun onCreate(savedInstanceState: Bundle?) {
@@ -88,15 +89,18 @@ class OnlinePaymentFragment : Fragment() {
             total_price.text = "${totalPric} EGP"
 
              placeorderbtn.setOnClickListener{
-               //
+                 orderViewModel.postOrder(addedOrderModel)
+               
                  val profileFragment = ProfileFragment()
-
                  fragmentManager?.beginTransaction()?.replace(R.id.fragmentContainerView, profileFragment)?.commit()
 
              }
             btnConfirm.setOnClickListener {
-               // orderViewModel.postOrder(addedOrderModel)
+             
                 paymentFlow()
+
+        }
+
 
             }
 
@@ -134,6 +138,7 @@ class OnlinePaymentFragment : Fragment() {
             requestQueue.add(request)
 
 
+
             back_Arrow.setOnClickListener {
 //                Toast.makeText(context, "place your Order ", Toast.LENGTH_LONG).show()
                 val payment = PaymentFragment()
@@ -145,6 +150,13 @@ class OnlinePaymentFragment : Fragment() {
                 fragmentManager?.beginTransaction()?.replace(R.id.fragmentContainerView, payment)
                     ?.commit()
             }
+
+            bundle.putString("addedOrderModel", Gson().toJson(addedOrderModel))
+            bundle.putDouble("TOTAL_PRICE" , totalPric)
+            payment.setArguments(bundle)
+            fragmentManager?.beginTransaction()?.replace(R.id.fragmentContainerView, payment)
+                ?.commit()
+
         }
 
         fun onPaymentSheetResult(paymentSheetResult: PaymentSheetResult) {

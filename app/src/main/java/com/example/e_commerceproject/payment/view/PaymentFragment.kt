@@ -69,6 +69,9 @@ class PaymentFragment : Fragment() {
             var bundle = Bundle()
             bundle.putString("addedOrderModel", Gson().toJson(addedOrderModel))
             bundle.putDouble("TOTAL_PRICE" , totalPrice)
+
+            onlinePaymentFragment.arguments = bundle
+
             fragmentManager?.beginTransaction()?.replace(R.id.fragmentContainerView, onlinePaymentFragment)?.commit()
 
         }

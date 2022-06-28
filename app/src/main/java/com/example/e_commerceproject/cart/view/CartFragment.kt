@@ -91,10 +91,17 @@ class CartFragment : Fragment() ,OnDeleteFromCartListener,OnPayClickListener {
         val mainRepository = ConverterRepository(retrofitService)
         CviewModel = ViewModelProvider(this, ConverterViewModelFactory(mainRepository)).get(ConverterViewModel::class.java)
 
-        CviewModel.getcontvertedResponse("PonwHXimsWL7N3LyigLfHj3E1Rrj0V9R" ,"EGP" , "1" , "USD")
+        CviewModel.getcontvertedResponse("3GIiFoVpQ5kuwZAZF6XMRKrObHkctBuw" ,"EGP" , "1" , "USD")
         CviewModel._Convert_Response.observe(viewLifecycleOwner) { respo ->
-            Log.i(ContentValues.TAG, "onChangedDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD: ${respo.result}")
-            System.out.println("Re" + respo.result)
+
+           if(respo!=null) {
+                Log.i(
+                    ContentValues.TAG,
+                    "onChangedDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD: ${respo.result}"
+                )
+                System.out.println("Re" + respo.result)
+            }
+
         }
 
         // Inflate the layout for this fragment

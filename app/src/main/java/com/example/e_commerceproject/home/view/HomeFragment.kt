@@ -43,7 +43,7 @@ class HomeFragment : Fragment() , OnBrandClickListener{
     lateinit var coupon_viewModel: CouponsViewModel
     lateinit var coupon__vmFactory: CouponsViewModelFactory
     lateinit var couponsAdapter: CouponsAdapter
-    lateinit var   coupon_recycler:RecyclerView
+    lateinit var coupon_recycler:RecyclerView
     lateinit var viewModel: HomeViewModel
     lateinit var vmFactory: HomeViewModelFactory
     lateinit var recyclerView: RecyclerView
@@ -135,18 +135,25 @@ class HomeFragment : Fragment() , OnBrandClickListener{
         val mainRepositoryy = ConverterRepository(retrofitServicee)
         CviewModel = ViewModelProvider(this, ConverterViewModelFactory(mainRepositoryy)).get(ConverterViewModel::class.java)
 
-        CviewModel.getcontvertedResponse("PonwHXimsWL7N3LyigLfHj3E1Rrj0V9R" ,to , "1" , from)
+        CviewModel.getcontvertedResponse("3GIiFoVpQ5kuwZAZF6XMRKrObHkctBuw" ,to , "1" , from)
         CviewModel._Convert_Response.observe(viewLifecycleOwner) { respo ->
-         //   Log.i(ContentValues.TAG, "onChangedDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD: ${respo.result}")
-       //     System.out.println("Re" + respo.result)
 
-            val sharedPreferences : SharedPreferences = requireContext().getSharedPreferences("loginsharedprefs" ,Context.MODE_PRIVATE)
-            val editorr = sharedPreferences.edit()
-            editorr.apply(){
+            if(respo!=null){
+                Log.i(ContentValues.TAG, "onChangedDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD: ${respo.result}")
+                System.out.println("Re" + respo.result)
 
-            //    putString("CURRENCY_CONVERTER_RESULT" ,  "${respo.result}")
 
-            }.apply()
+                val sharedPreferences : SharedPreferences = requireContext().getSharedPreferences("loginsharedprefs" ,Context.MODE_PRIVATE)
+                val editorr = sharedPreferences.edit()
+                editorr.apply(){
+
+
+                    putString("CURRENCY_CONVERTER_RESULT" ,  "${respo.result}")
+
+                }.apply()
+            }
+
+
         }
 
 

@@ -178,10 +178,11 @@ class CashFragment : Fragment() {
                 val payment = PaymentFragment()
                 var bundle = Bundle()
 
-                payment.arguments = bundle
+//                payment.arguments = bundle
 
 
                 bundle.putString("addedOrderModel", Gson().toJson(addedOrderModel))
+                bundle.putDouble("TOTAL_PRICE" , totalPric)
                 payment.setArguments(bundle)
 
                 fragmentManager?.beginTransaction()?.replace(R.id.fragmentContainerView, payment)
