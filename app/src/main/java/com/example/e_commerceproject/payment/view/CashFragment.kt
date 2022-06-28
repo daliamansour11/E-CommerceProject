@@ -177,7 +177,7 @@ class CashFragment : Fragment() {
                 val payment = PaymentFragment()
                 var bundle = Bundle()
 
-                payment.arguments = bundle
+//                payment.arguments = bundle
 
 
                 bundle.putString("addedOrderModel", Gson().toJson(addedOrderModel))
