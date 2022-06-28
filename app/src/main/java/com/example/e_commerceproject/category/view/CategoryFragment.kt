@@ -199,7 +199,7 @@ class CategoryFragment : Fragment(), OnProductClickInterface , OnFavoriteButtonC
 
                     })
                 }else if(tab.position == 1){
-                    collectionId = "274329436299"
+                    collectionId = "274500059275"
                     viewModel.getCategoryProduct(collectionId, "", brandId)
                     viewModel.categoryList.observe(viewLifecycleOwner, {
 
@@ -208,7 +208,7 @@ class CategoryFragment : Fragment(), OnProductClickInterface , OnFavoriteButtonC
 
                     })
                 }else if(tab.position == 2) {
-                    collectionId = "274329469067"
+                    collectionId = "274500092043"
                     viewModel.getCategoryProduct(collectionId, "", brandId)
                     viewModel.categoryList.observe(viewLifecycleOwner, {
 
@@ -217,7 +217,7 @@ class CategoryFragment : Fragment(), OnProductClickInterface , OnFavoriteButtonC
 
                     })
                 } else if(tab.position == 3) {
-                    collectionId = "274329403531"
+                    collectionId = "274500026507"
                     viewModel.getCategoryProduct(collectionId, "", brandId)
                     viewModel.categoryList.observe(viewLifecycleOwner, {
 
@@ -226,7 +226,7 @@ class CategoryFragment : Fragment(), OnProductClickInterface , OnFavoriteButtonC
 
                     })
                 }else if(tab.position == 4) {
-                    collectionId = "274329501835"
+                    collectionId = "274500124811"
 
                     viewModel.getCategoryProduct(collectionId, "", brandId)
                     viewModel.categoryList.observe(viewLifecycleOwner, {
