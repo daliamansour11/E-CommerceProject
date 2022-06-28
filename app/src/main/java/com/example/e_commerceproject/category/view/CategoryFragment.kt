@@ -42,20 +42,16 @@ class CategoryFragment : Fragment(), OnProductClickInterface , OnFavoriteButtonC
     private lateinit var categoryAdapter: CategoryAdapter
     lateinit var recyclerView: RecyclerView;
     lateinit var viewModel: CategoryViewModel
-
     lateinit var shosebtn: Button;
     lateinit var accessoriesbtn: Button;
     lateinit var t_shirtbtn: Button;
     lateinit var profile : ImageView
     var productList: List<Product> = ArrayList()
-
     var brandId = ""
     var collectionId = ""
     var searchQueryText=""
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
     }
 
     override fun onResume() {

@@ -94,7 +94,8 @@ class CartFragment : Fragment() ,OnDeleteFromCartListener,OnPayClickListener {
         CviewModel.getcontvertedResponse("PonwHXimsWL7N3LyigLfHj3E1Rrj0V9R" ,"EGP" , "1" , "USD")
         CviewModel._Convert_Response.observe(viewLifecycleOwner) { respo ->
             Log.i(ContentValues.TAG, "onChangedDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD: ${respo.result}")
-            System.out.println("Re" + respo.result)}
+            System.out.println("Re" + respo.result)
+        }
 
         // Inflate the layout for this fragment
         var cart_frag = inflater.inflate(R.layout.fragment_cart, container, false)

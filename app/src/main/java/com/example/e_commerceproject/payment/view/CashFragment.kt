@@ -166,11 +166,12 @@ class CashFragment : Fragment() {
                     Log.d("TAG", "inside observe")
                     Log.i("TAG", "onViewCreated:rrrrrrrrrrrr ${it}")
                 })
+                val profileFragment = ProfileFragment()
+
+                fragmentManager?.beginTransaction()?.replace(R.id.fragmentContainerView, profileFragment)
+                    ?.commit()
             }
-//                val intent = Intent(this,HomeFragment ::class.java)
-//                intent.putExtra("key", "Kotlin")
-//                startActivity(intent)
-//            }
+
         })
         back_arrow.setOnClickListener(object : View.OnClickListener {
             override fun onClick(view: View?) {

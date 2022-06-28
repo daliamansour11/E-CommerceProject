@@ -76,7 +76,6 @@ class CurrencydiologFragment : Fragment() {
          with(sharedPref.edit()) {
              putString(CURRUNEY_TYPE, "" + respo.result)
                  commit()
-
            }
             val shared =
                 requireActivity().getSharedPreferences(SHARD_NAME, Context.MODE_PRIVATE)
