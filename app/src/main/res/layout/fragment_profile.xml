@@ -214,6 +214,12 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
 
+                    <androidx.constraintlayout.widget.Guideline
+                        android:id="@+id/orderCardGuideId"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        app:layout_constraintGuide_percent="0.35" />
 
                     <TextView
                         android:id="@+id/textView11"
@@ -232,11 +238,12 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
+                        android:layout_marginTop="12dp"
                         android:text="TextView"
                         android:textSize="20sp"
                         app:layout_constraintBottom_toBottomOf="@+id/textView11"
 
-                        app:layout_constraintStart_toEndOf="@+id/textView11" />
+                        app:layout_constraintStart_toEndOf="@+id/orderCardGuideId" />
 
                     <TextView
                         android:id="@+id/textView7"
@@ -254,22 +261,23 @@
                         android:id="@+id/priceTextView"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="60dp"
-                        android:layout_marginBottom="4dp"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="15dp"
                         android:text="TextView"
                         android:textSize="20sp"
 
                         app:layout_constraintBottom_toBottomOf="@+id/textView7"
-                        app:layout_constraintStart_toEndOf="@+id/textView7" />
+                        app:layout_constraintStart_toEndOf="@+id/orderCardGuideId" />
 
                     <TextView
                         android:id="@+id/textView8"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="4dp"
+                        android:layout_marginStart="16dp"
                         android:layout_marginTop="8dp"
                         android:text="Created at :  "
                         android:textSize="20sp"
+
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/textView7" />
 
@@ -277,13 +285,13 @@
                         android:id="@+id/dateOfOrderTxtView"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="24dp"
-                        android:layout_marginBottom="8dp"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="8dp"
                         android:text="TextView"
                         android:textSize="20sp"
 
                         app:layout_constraintBottom_toBottomOf="@+id/textView8"
-                        app:layout_constraintStart_toEndOf="@+id/textView8" />
+                        app:layout_constraintStart_toEndOf="@+id/orderCardGuideId" />
 
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
