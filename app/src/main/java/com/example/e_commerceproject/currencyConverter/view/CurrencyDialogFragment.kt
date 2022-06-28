@@ -72,8 +72,7 @@ class CurrencydiologFragment : Fragment() {
         CviewModel._Convert_Response.observe(viewLifecycleOwner) { respo ->
             Log.i(ContentValues.TAG, "onChanged: ${respo.result}")
             System.out.println("Re" + respo.result)
-            sharedPref  = requireActivity().getSharedPreferences(SHARD_NAME, Context.MODE_PRIVATE)
-                   ?: return@observe
+            sharedPref  = requireActivity().getSharedPreferences(SHARD_NAME, Context.MODE_PRIVATE) ?: return@observe
          with(sharedPref.edit()) {
              putString(CURRUNEY_TYPE, "" + respo.result)
                  commit()
@@ -87,16 +86,33 @@ class CurrencydiologFragment : Fragment() {
                 commit()
             }
 
+
+
         }
         Egp_currency?.setOnClickListener(object : View.OnClickListener {
             override fun onClick(view: View?) {
-                v = "EGP"
+
+                val sharedPreferences : SharedPreferences = requireContext().getSharedPreferences("loginsharedprefs" ,Context.MODE_PRIVATE)
+                val editorr = sharedPreferences.edit()
+
+                editorr.apply(){
+
+                    putString("CURRENCY_TYPE_RESULT" ,  "EGP")
+
+                }.apply()
             }
         })
 
         USD_currency.setOnClickListener(object : View.OnClickListener {
             override fun onClick(view: View?) {
                 v = "USD"
+
+                val sharedPreferences : SharedPreferences = requireContext().getSharedPreferences("loginsharedprefs" ,Context.MODE_PRIVATE)
+                val editorr = sharedPreferences.edit()
+
+                editorr.apply(){
+                    putString("CURRENCY_TYPE_RESULT" ,  "USD")
+                }.apply()
             }
         })
 

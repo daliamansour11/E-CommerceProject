@@ -84,16 +84,18 @@ class CartFragment : Fragment() ,OnDeleteFromCartListener,OnPayClickListener {
             to = "USD"
          //   Toast.makeText(requireContext(), "we are using USD", Toast.LENGTH_SHORT).show()
 
-            val retrofitService = ConverterApiService.getInstance()
-            val mainRepository = ConverterRepository(retrofitService)
-            CviewModel = ViewModelProvider(this, ConverterViewModelFactory(mainRepository)).get(ConverterViewModel::class.java)
 
-            CviewModel.getcontvertedResponse("PonwHXimsWL7N3LyigLfHj3E1Rrj0V9R" ,"USD" , "5" , "EGP")
-            CviewModel._Convert_Response.observe(viewLifecycleOwner) { respo ->
-                 Log.i(ContentValues.TAG, "onChanged: ${respo.result}")
-                System.out.println("Re" + respo.result)
             }
-        }
+
+        val retrofitService = ConverterApiService.getInstance()
+        val mainRepository = ConverterRepository(retrofitService)
+        CviewModel = ViewModelProvider(this, ConverterViewModelFactory(mainRepository)).get(ConverterViewModel::class.java)
+
+        CviewModel.getcontvertedResponse("PonwHXimsWL7N3LyigLfHj3E1Rrj0V9R" ,"EGP" , "1" , "USD")
+        CviewModel._Convert_Response.observe(viewLifecycleOwner) { respo ->
+            Log.i(ContentValues.TAG, "onChangedDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD: ${respo.result}")
+            System.out.println("Re" + respo.result)}
+
         // Inflate the layout for this fragment
         var cart_frag = inflater.inflate(R.layout.fragment_cart, container, false)
 
@@ -206,7 +208,7 @@ class CartFragment : Fragment() ,OnDeleteFromCartListener,OnPayClickListener {
 
     fun showAlertDialog( id : String){
         MaterialAlertDialogBuilder(requireContext())
-            .setTitle("Alert")
+            .setTitle("Delete")
             .setMessage("Are you sure you want to delete this item ")
             .setNeutralButton(""){dialog  , which ->
 

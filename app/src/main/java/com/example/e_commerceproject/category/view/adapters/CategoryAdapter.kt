@@ -12,6 +12,8 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.e_commerceproject.R
+import com.example.e_commerceproject.cart.model.CartListModel
+import com.example.e_commerceproject.cart.model.DraftOrder
 import com.example.e_commerceproject.category.model.CategoryModel
 import com.example.e_commerceproject.category.model.Product
 import com.example.e_commerceproject.category.view.OnFavoriteButtonClickListener
@@ -20,12 +22,19 @@ import com.example.e_commerceproject.category.view.OnProductClickInterface
 class CategoryAdapter (var context: Context , val onProductClickInterface: OnProductClickInterface , val onFavoriteButtonClickListener: OnFavoriteButtonClickListener) : RecyclerView.Adapter<CategoryAdapter.ViewHolder>() {
 
     var dataList : List<CategoryModel> = ArrayList()
+    var draftList : MutableSet<String> = mutableSetOf("")
+
 
     private var data:List<Product> = ArrayList()
 
     fun setlist(dataList: List<Product>){
         this.data = dataList
     }
+
+    fun setDraftlist(draftList: MutableSet<String>){
+        this.draftList = draftList
+    }
+
     internal fun setDataList(dataList: List<CategoryModel>) {
         this.dataList = dataList
     }
@@ -72,8 +81,23 @@ class CategoryAdapter (var context: Context , val onProductClickInterface: OnPro
             onProductClickInterface.onProductClick(data.id)
 
         }
-           holder.categoryaddfavorieimageButton.visibility = View.VISIBLE
-           holder.categoryReomveFromFavorieButton.visibility = View.GONE
+         Log.i("TAG", "onBindViewHolderrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr: ${draftList}")
+
+
+             if (data.id.toString() in draftList){
+                 Log.i("TAG", "onBindViewHolderrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr: ${data.id.toString()}  ")
+                 holder.categoryaddfavorieimageButton.visibility = View.GONE
+                 holder.categoryReomveFromFavorieButton.visibility = View.VISIBLE
+
+             }else{
+                 holder.categoryaddfavorieimageButton.visibility = View.VISIBLE
+                 holder.categoryReomveFromFavorieButton.visibility = View.GONE
+
+             }
+
+
+          // holder.categoryaddfavorieimageButton.visibility = View.VISIBLE
+          // holder.categoryReomveFromFavorieButton.visibility = View.GONE
 
          holder.categoryaddfavorieimageButton.setOnClickListener {
              holder.categoryaddfavorieimageButton.visibility = View.GONE

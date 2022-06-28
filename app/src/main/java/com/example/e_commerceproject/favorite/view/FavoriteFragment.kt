@@ -104,7 +104,7 @@ class FavoriteFragment : Fragment() , OnDeletefromFavoriteClikListener{
 
     fun showAlertDialog( id : String){
         MaterialAlertDialogBuilder(requireContext())
-            .setTitle("Alert")
+            .setTitle("Delete")
             .setMessage("Are you sure you want to delete this item ")
             .setNeutralButton(""){dialog  , which ->
 

@@ -7,23 +7,17 @@ import android.util.Log
 import android.view.*
 import android.widget.*
 import androidx.fragment.app.Fragment
-import androidx.core.view.get
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import androidx.viewpager.widget.ViewPager
 import com.example.e_commerceproject.R
 import com.example.e_commerceproject.authentication.login.view.LoginFragment
-import com.example.e_commerceproject.Settings.view.SettingsFragment
 import com.example.e_commerceproject.cart.model.CartModel
 import com.example.e_commerceproject.cart.model.DraftOrder
 import com.example.e_commerceproject.cart.model.LineItem
 import com.example.e_commerceproject.cart.model.NoteAttribute
-import com.example.e_commerceproject.category.model.CategoriesModel
 import com.example.e_commerceproject.category.model.Product
 import com.example.e_commerceproject.category.view.adapters.CategoryAdapter
-import com.example.e_commerceproject.category.view.adapters.ViewPagerAdapter
-import com.example.e_commerceproject.category.view.adapters.MyAdapter
 import com.example.e_commerceproject.category.viewmodel.CategoryViewModel
 import com.example.e_commerceproject.category.viewmodel.CategoryViewModelFactory
 import com.example.e_commerceproject.details.view.DetailsFragment
@@ -80,6 +74,10 @@ class CategoryFragment : Fragment(), OnProductClickInterface , OnFavoriteButtonC
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        val sharedPreferences: SharedPreferences = requireContext().getSharedPreferences("loginsharedprefs", Context.MODE_PRIVATE)
+        var userEmail: String = sharedPreferences.getString("EMAIL_LOGIN", "").toString()
+
+
         var args = this.arguments
         if(args == null){
         }else{
@@ -107,45 +105,74 @@ class CategoryFragment : Fragment(), OnProductClickInterface , OnFavoriteButtonC
         val mainRepository = CategoryRepository(retrofitService)
 
         viewModel = ViewModelProvider(this, CategoryViewModelFactory(mainRepository)).get(CategoryViewModel::class.java)
-        viewModel.getCategoryProduct(collectionId, "", brandId)
-        viewModel.categoryList.observe(viewLifecycleOwner, {
 
-            productList = it.products
-            showProducts()
+        var flag = false
+
+
+        viewModel.getFavoriteProducts()
+        viewModel.favoriteProducts.observe(viewLifecycleOwner, {
+            var arr = (it.draft_orders.filter { it.email == userEmail && it.note == "fav" })  // [0].line_items?.get(0)?.product_id.toString()
+            Log.i("TAG", "OnRemoveFromFavoriteButtonClickListener: ${arr.count()}")
+
+            var ar = mutableSetOf("")
+            for ( i in 0..arr.size-1){
+                ar.add(arr[i].line_items?.get(0)?.product_id.toString())
+            }
+
+            Log.i("TAG", "onViewCreatedssssssssssssssssssssssssssssssssssssssssssssssss: ${ar}")
+            categoryAdapter.setDraftlist(ar)
+
+
+                viewModel.getCategoryProduct(collectionId, "", brandId)
+                viewModel.categoryList.observe(viewLifecycleOwner, {
+
+                    productList = it.products
+                    showProducts()
+
+                })
+
+                Log.i("TAG", "onViewCreatedffffffffffffffffffffffffffffff: ${brandId}")
+                shosebtn.setOnClickListener {
+                    viewModel.getCategoryProduct(collectionId, "SHOES", brandId)
+                    viewModel.subCategoryList.observe(viewLifecycleOwner, {
+                        productList = it.products
+                        showProducts()
+                    })
+                }
+
+                accessoriesbtn.setOnClickListener {
+                    viewModel.getCategoryProduct(collectionId, "ACCESSORIES", brandId)
+                    viewModel.subCategoryList.observe(viewLifecycleOwner, {
+                        productList = it.products
+                        showProducts()
+                    })
+                }
+
+                category_back.setOnClickListener {
+
+                    val homeFragment = HomeFragment()
+                    fragmentManager?.beginTransaction()?.replace(R.id.fragmentContainerView, homeFragment)?.commit()
+
+                }
+
+                t_shirtbtn.setOnClickListener {
+                    viewModel.getCategoryProduct(collectionId, "T-SHIRTS", brandId)
+                    viewModel.subCategoryList.observe(viewLifecycleOwner, {
+                        productList = it.products
+                        showProducts()
+                    })
+                }
+
+
+
+
+
 
         })
 
-        Log.i("TAG", "onViewCreatedffffffffffffffffffffffffffffff: ${brandId}")
-        shosebtn.setOnClickListener {
-            viewModel.getCategoryProduct(collectionId, "SHOES", brandId)
-            viewModel.subCategoryList.observe(viewLifecycleOwner, {
-                productList = it.products
-                showProducts()
-            })
-        }
 
-        accessoriesbtn.setOnClickListener {
-            viewModel.getCategoryProduct(collectionId, "ACCESSORIES", brandId)
-            viewModel.subCategoryList.observe(viewLifecycleOwner, {
-                productList = it.products
-                showProducts()
-            })
-        }
 
-        category_back.setOnClickListener {
 
-            val homeFragment = HomeFragment()
-            fragmentManager?.beginTransaction()?.replace(R.id.fragmentContainerView, homeFragment)?.commit()
-
-        }
-
-        t_shirtbtn.setOnClickListener {
-            viewModel.getCategoryProduct(collectionId, "T-SHIRTS", brandId)
-            viewModel.subCategoryList.observe(viewLifecycleOwner, {
-                productList = it.products
-                showProducts()
-            })
-        }
 
 
         ////////////////////////////////////////////////////////////////////////////////////////////
@@ -172,7 +199,7 @@ class CategoryFragment : Fragment(), OnProductClickInterface , OnFavoriteButtonC
 
                     })
                 }else if(tab.position == 1){
-                    collectionId = "273053712523"
+                    collectionId = "274329436299"
                     viewModel.getCategoryProduct(collectionId, "", brandId)
                     viewModel.categoryList.observe(viewLifecycleOwner, {
 
@@ -181,7 +208,7 @@ class CategoryFragment : Fragment(), OnProductClickInterface , OnFavoriteButtonC
 
                     })
                 }else if(tab.position == 2) {
-                    collectionId = "273053745291"
+                    collectionId = "274329469067"
                     viewModel.getCategoryProduct(collectionId, "", brandId)
                     viewModel.categoryList.observe(viewLifecycleOwner, {
 
@@ -190,7 +217,7 @@ class CategoryFragment : Fragment(), OnProductClickInterface , OnFavoriteButtonC
 
                     })
                 } else if(tab.position == 3) {
-                    collectionId = "273053679755"
+                    collectionId = "274329403531"
                     viewModel.getCategoryProduct(collectionId, "", brandId)
                     viewModel.categoryList.observe(viewLifecycleOwner, {
 
@@ -199,27 +226,41 @@ class CategoryFragment : Fragment(), OnProductClickInterface , OnFavoriteButtonC
 
                     })
                 }else if(tab.position == 4) {
-                        collectionId = "273053778059"
-                        viewModel.getCategoryProduct(collectionId, "", brandId)
-                        viewModel.categoryList.observe(viewLifecycleOwner, {
+                    collectionId = "274329501835"
 
-                            productList = it.products
-                            showProducts()
+                    viewModel.getCategoryProduct(collectionId, "", brandId)
+                    viewModel.categoryList.observe(viewLifecycleOwner, {
 
-                        })
+                        productList = it.products
+                        showProducts()
+
+                    })
 
 //                searchClickListener = tabs.get(tab.position) as OnSearchClickListener
+                }
+
             }
 
-        }
+            ////////////////////////////////////////////////////////////
+
+
+
             override fun onTabUnselected(tab: TabLayout.Tab) {
 
             }
             override fun onTabReselected(tab: TabLayout.Tab) {
-             //   searchClickListener = tabs.get(tab.position) as OnSearchClickListener
+                //   searchClickListener = tabs.get(tab.position) as OnSearchClickListener
             }
 
         })
+
+
+
+
+
+        //////////////////////////////////////////////////////////////
+
+
 
         searchView = view.findViewById(R.id.categorySearch)
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
@@ -332,6 +373,17 @@ class CategoryFragment : Fragment(), OnProductClickInterface , OnFavoriteButtonC
         viewModel.favoriteProducts.observe(viewLifecycleOwner, {
             var arr = (it.draft_orders.filter { it.email == userEmail && it.note == "fav" })  // [0].line_items?.get(0)?.product_id.toString()
             Log.i("TAG", "OnRemoveFromFavoriteButtonClickListener: ${arr.count()}")
+
+            var ar = mutableSetOf("")
+            for ( i in 0..arr.size-1){
+                ar.add(arr[i].line_items?.get(0)?.product_id.toString())
+            }
+            ar.remove(productId)
+
+            Log.i("TAG", "onViewCreatedssssssssssssssssssssssssssssssssssssssssssssssss: ${ar}")
+            categoryAdapter.setDraftlist(ar)
+
+
 
             for (i in 0 until arr.size) {
                 if (productId in arr[i].line_items?.get(0)?.product_id.toString()) {

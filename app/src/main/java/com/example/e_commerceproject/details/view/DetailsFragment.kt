@@ -104,6 +104,22 @@ class DetailsFragment : Fragment() {
 //        }
 
 
+        var currency = "EGP"
+
+        var currencyTtpe: String = sharedPreferences.getString("CURRENCY_TYPE_RESULT", "").toString()
+        var converterResponse: String = sharedPreferences.getString("CURRENCY_CONVERTER_RESULT", "").toString()
+
+        if( currencyTtpe == "EGP"){
+            currency = "EGP"
+        }else if ( currencyTtpe == "USD"){
+            currency = "USD"
+        }
+
+        var r = converterResponse.toDouble()
+
+        Log.i("TAG", "onViewCreated*****************************: ${10*r}")
+
+
 
         val retrofitService = RetrofitService.getInstance()
         val mainRepository = DetailsRepository(retrofitService)
@@ -115,7 +131,7 @@ class DetailsFragment : Fragment() {
             Log.i("TAG", "onViewCreated:rrrrrrrrrrrr ${it}")
             imagearraysize = it.product.images.size
             productName.text = it.product.title
-            productPrice.text = "${it.product.variants[0].price} EGP"
+            productPrice.text = "${(it.product.variants[0].price).toDouble() * r} ${currency}"
             productDescription.text = it.product.body_html
             ratingBar.rating = (it.product.variants[0].inventory_quantity.toFloat()) / 2
 

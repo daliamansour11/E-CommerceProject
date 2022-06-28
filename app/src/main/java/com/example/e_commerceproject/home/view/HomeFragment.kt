@@ -1,5 +1,6 @@
 package com.example.e_commerceproject.home.view
 
+import android.content.ContentValues
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
@@ -19,6 +20,8 @@ import com.example.e_commerceproject.category.view.CategoryFragment
 import com.example.e_commerceproject.common.network.NetworkUtils
 import com.example.e_commerceproject.currencyConverter.view.CURRUNEY_TYPE
 import com.example.e_commerceproject.currencyConverter.view.SHARD_NAME
+import com.example.e_commerceproject.currencyConverter.viewModel.ConverterViewModel
+import com.example.e_commerceproject.currencyConverter.viewModel.ConverterViewModelFactory
 import com.example.e_commerceproject.home.client.HomeClient
 import com.example.e_commerceproject.home.model.HomeRepository
 import com.example.e_commerceproject.home.model.ViewPagerAdapter
@@ -27,6 +30,8 @@ import com.example.e_commerceproject.home.viewmodel.CouponsViewModelFactory
 import com.example.e_commerceproject.home.viewmodel.HomeViewModel
 import com.example.e_commerceproject.home.viewmodel.HomeViewModelFactory
 import com.example.e_commerceproject.homesearch.view.HomeSearchFragment
+import com.example.e_commerceproject.network.ConverterRepository
+import com.example.e_commerceproject.network.remotesource.ConverterApiService
 import com.example.e_commerceproject.network.remotesource.CouponsRepository
 import com.example.e_commerceproject.network.remotesource.RetrofitService
 import com.example.e_commerceproject.payment.view.CashFragment
@@ -52,6 +57,7 @@ class HomeFragment : Fragment() , OnBrandClickListener{
     lateinit var imageList: List<Int>
     lateinit var sharedPref: SharedPreferences
     lateinit var editor: SharedPreferences.Editor
+    lateinit var CviewModel: ConverterViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -60,6 +66,10 @@ class HomeFragment : Fragment() , OnBrandClickListener{
         editor = sharedPref.edit()
         val sharedPref =requireActivity() .getSharedPreferences(SHARD_NAME, Context.MODE_PRIVATE) ?: return
         val str_name = sharedPref.getString(CURRUNEY_TYPE, "")
+
+
+
+
 
         System.out.println("name = "+str_name)
         //Toast.makeText(this, "$str_name $int_number", Toast.LENGTH_LONG).show()
@@ -103,6 +113,46 @@ class HomeFragment : Fragment() , OnBrandClickListener{
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+
+
+
+
+        val sharedPreferences : SharedPreferences = requireContext().getSharedPreferences("loginsharedprefs" ,Context.MODE_PRIVATE)
+        var currencyTtpe: String = sharedPreferences.getString("CURRENCY_TYPE_RESULT", "").toString()
+
+        var from = "USD"
+        var to = "EGP"
+        if(currencyTtpe == "EGP"){
+            var to = "EGP"
+            from = "EGP"
+        }else if (currencyTtpe == "USD"){
+            var to = "EGP"
+            from = "USD"
+        }
+
+        val retrofitServicee = ConverterApiService.getInstance()
+        val mainRepositoryy = ConverterRepository(retrofitServicee)
+        CviewModel = ViewModelProvider(this, ConverterViewModelFactory(mainRepositoryy)).get(ConverterViewModel::class.java)
+
+        CviewModel.getcontvertedResponse("PonwHXimsWL7N3LyigLfHj3E1Rrj0V9R" ,to , "1" , from)
+        CviewModel._Convert_Response.observe(viewLifecycleOwner) { respo ->
+            Log.i(ContentValues.TAG, "onChangedDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD: ${respo.result}")
+            System.out.println("Re" + respo.result)
+
+            val sharedPreferences : SharedPreferences = requireContext().getSharedPreferences("loginsharedprefs" ,Context.MODE_PRIVATE)
+            val editorr = sharedPreferences.edit()
+            editorr.apply(){
+
+                putString("CURRENCY_CONVERTER_RESULT" ,  "${respo.result}")
+
+            }.apply()
+        }
+
+
+
+
+
         initUI(view)
         viewModel.brandList.observe(viewLifecycleOwner){brands ->
             brandsAdapter.setDataList(brands)
