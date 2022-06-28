@@ -43,12 +43,14 @@ class OnlinePaymentFragment : Fragment() {
     lateinit var addedOrderModel: AddedOrderModel
     lateinit var orderViewModel: OrderViewModel
     lateinit var orderVmFactory: OrderViewModelFactory
+    var totalPric = 0.0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let { bundle ->
             class Token : TypeToken<AddedOrderModel>()
             addedOrderModel = Gson().fromJson(bundle.getString("addedOrderModel"), Token().type)
+            totalPric = bundle.getDouble("TOTAL_PRICE")
         }
         orderVmFactory = OrderViewModelFactory(
             OrderRepository.getInstance(
@@ -120,6 +122,7 @@ class OnlinePaymentFragment : Fragment() {
             var bundle = Bundle()
 
             bundle.putString("addedOrderModel", Gson().toJson(addedOrderModel))
+            bundle.putDouble("TOTAL_PRICE" , totalPric)
             payment.setArguments(bundle)
             fragmentManager?.beginTransaction()?.replace(R.id.fragmentContainerView, payment)
                 ?.commit()

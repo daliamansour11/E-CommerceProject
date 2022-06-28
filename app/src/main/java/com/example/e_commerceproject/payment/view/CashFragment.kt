@@ -181,6 +181,7 @@ class CashFragment : Fragment() {
 
 
                 bundle.putString("addedOrderModel", Gson().toJson(addedOrderModel))
+                bundle.putDouble("TOTAL_PRICE" , totalPric)
                 payment.setArguments(bundle)
 
                 fragmentManager?.beginTransaction()?.replace(R.id.fragmentContainerView, payment)
