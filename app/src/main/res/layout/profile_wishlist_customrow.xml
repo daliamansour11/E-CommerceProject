@@ -31,28 +31,46 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
+
             <TextView
-                android:id="@+id/profile_fav_name_textview"
+                android:id="@+id/profile_fav_brand_name_textview"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="28dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
                 android:text="hgjhghhf"
+                android:textSize="20dp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.159"
+                app:layout_constraintHorizontal_bias="0.093"
                 app:layout_constraintStart_toEndOf="@+id/profile_favorite_imageView"
                 app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/profile_favorite_product_name_textview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="jgjhghghgfh"
+                android:textSize="18dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="@+id/profile_fav_brand_name_textview"
+                app:layout_constraintTop_toBottomOf="@+id/profile_fav_brand_name_textview" />
 
             <TextView
                 android:id="@+id/profile_favorite_price_textview"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:layout_marginEnd="172dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginEnd="28dp"
                 android:text="100"
+                android:textSize="20dp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintHorizontal_bias="0.233"
                 app:layout_constraintStart_toEndOf="@+id/profile_favorite_imageView"
-                app:layout_constraintTop_toBottomOf="@+id/profile_fav_name_textview" />
+                app:layout_constraintTop_toBottomOf="@+id/profile_favorite_product_name_textview" />
+
+
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

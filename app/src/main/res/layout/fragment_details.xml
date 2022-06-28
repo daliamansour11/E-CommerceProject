@@ -93,6 +93,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
+        android:paddingBottom="10dp"
         android:padding="10dp"
         app:cardElevation="2dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -102,18 +103,32 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="140dp">
 
             <TextView
-                android:id="@+id/producct_name_details"
+                android:id="@+id/product_Brand_details"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
+                android:layout_marginStart="20dp"
                 android:layout_marginTop="16dp"
                 android:text="Name : "
-                android:textSize="22dp"
+                android:textSize="20dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/product_name_details"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:layout_marginStart="28dp"
+                android:layout_marginTop="16dp"
+                android:text="lkjhggvv"
+                android:textSize="20dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.047"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/product_Brand_details" />
 
             <TextView
                 android:id="@+id/product_price_details"
@@ -122,24 +137,22 @@
                 android:layout_margin="5dp"
                 android:layout_marginTop="8dp"
                 android:text="price : "
-                android:textSize="22dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.047"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/producct_name_details" />
+                android:textSize="20dp"
+                app:layout_constraintStart_toStartOf="@+id/product_name_details"
+                app:layout_constraintTop_toBottomOf="@id/product_name_details" />
 
             <RatingBar
                 android:id="@+id/product_ratingbar_details"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="52dp"
+                android:layout_marginTop="84dp"
                 android:layout_marginEnd="4dp"
-                android:numStars="4"
-                android:stepSize=".25"
                 android:isIndicator="true"
+                android:numStars="4"
                 android:progressTint="#FF9800"
+                android:stepSize=".25"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintHorizontal_bias="0.965"
                 app:layout_constraintStart_toEndOf="@+id/product_price_details"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -151,7 +164,7 @@
     <ScrollView
         android:id="@+id/scrollview"
         android:layout_width="match_parent"
-        android:layout_height="280dp"
+        android:layout_height="260dp"
         android:layout_margin="20dp"
         android:padding="10dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -160,13 +173,13 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="280dp"
+            android:layout_height="match_parent"
             android:orientation="vertical"
             android:layout_marginBottom="20dp">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="280dp"
+                android:layout_height="match_parent"
                 android:layout_marginBottom="20dp">
 
                 <TextView

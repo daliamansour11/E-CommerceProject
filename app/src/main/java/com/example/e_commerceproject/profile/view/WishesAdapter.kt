@@ -24,12 +24,14 @@ class WishesAdapter (var context: Context) : RecyclerView.Adapter<WishesAdapter.
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var image: ImageView
-        var name: TextView
+        var brandName: TextView
+        var productName: TextView
         var price : TextView
 
         init {
             image = itemView.findViewById(R.id.profile_favorite_imageView)
-            name = itemView.findViewById(R.id.profile_fav_name_textview)
+            brandName = itemView.findViewById(R.id.profile_fav_brand_name_textview)
+            productName = itemView.findViewById(R.id.profile_favorite_product_name_textview)
             price = itemView.findViewById(R.id.profile_favorite_price_textview)
 
         }
@@ -47,8 +49,14 @@ class WishesAdapter (var context: Context) : RecyclerView.Adapter<WishesAdapter.
         var data = data[position]
 
         if(data.line_items?.count() != 0 ){
-            holder.name.text = ("${data.line_items?.get(0)?.title}")
-            holder.price.text = ("${data.line_items?.get(0)?.price}$")
+
+            var p = "${data.line_items?.get(0)?.title}"
+            val delim = "|"
+            val list = p.split(delim)
+
+            holder.brandName.text = list[0]
+            holder.productName.text = list[1]
+            holder.price.text = ("${data.line_items?.get(0)?.price} EGP")
         }
 
         if(data.note_attributes?.count() != 0 ){

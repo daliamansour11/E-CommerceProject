@@ -27,7 +27,8 @@ class FavoriteAdapter (var context: Context , val onDeletefromFavoriteClikListen
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var image: ImageView
-        var name: TextView
+        var brandName: TextView
+        var productName: TextView
         var price : TextView
         var deletefromFav : Button
         var addtoCart : Button
@@ -35,7 +36,8 @@ class FavoriteAdapter (var context: Context , val onDeletefromFavoriteClikListen
 
         init {
             image = itemView.findViewById(R.id.favorite_imageView)
-            name = itemView.findViewById(R.id.fav_name_textview)
+            brandName = itemView.findViewById(R.id.fav_brand_name_textview)
+            productName = itemView.findViewById(R.id.favorite_product_name_textview)
             price = itemView.findViewById(R.id.favorite_price_textview)
             deletefromFav = itemView.findViewById(R.id.favorite_delete_from_favorieButton)
             addtoCart = itemView.findViewById(R.id.favorite_addtocartbtn)
@@ -55,7 +57,12 @@ class FavoriteAdapter (var context: Context , val onDeletefromFavoriteClikListen
 
 
         if(data.line_items?.count() != 0 ){
-            holder.name.text = ("${data.line_items?.get(0)?.title}")
+            var p = "${data.line_items?.get(0)?.title}"
+            val delim = "|"
+            val list = p.split(delim)
+
+            holder.brandName.text = list[0]
+            holder.productName.text = list[1]
             holder.price.text = ("${data.line_items?.get(0)?.price} EGP")
 
         }

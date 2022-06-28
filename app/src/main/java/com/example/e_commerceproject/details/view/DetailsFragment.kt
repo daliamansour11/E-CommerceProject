@@ -33,6 +33,7 @@ class DetailsFragment : Fragment() {
     lateinit var detailsRemoveFromFavorite : Button
     lateinit var addtocartbtn: Button
     lateinit var viewModel: DetailsViewModel
+    lateinit var productBrand: TextView
     lateinit var productName: TextView
     lateinit var productPrice: TextView
     lateinit var productDescription: TextView
@@ -76,7 +77,8 @@ class DetailsFragment : Fragment() {
 
         viewPager = view.findViewById(R.id.images_viewpager2)
 
-        productName = view.findViewById(R.id.producct_name_details)
+        productBrand = view.findViewById(R.id.product_Brand_details)
+        productName = view.findViewById(R.id.product_name_details)
         productPrice = view.findViewById(R.id.product_price_details)
         productDescription = view.findViewById(R.id.product_description_for_details)
         ratingBar = view.findViewById(R.id.product_ratingbar_details)
@@ -112,7 +114,7 @@ class DetailsFragment : Fragment() {
         if( currencyTtpe == "EGP"){
             currency = "EGP"
         }else if ( currencyTtpe == "USD"){
-            currency = "USD"
+            currency = "$"
         }
 
         var r = converterResponse.toDouble()
@@ -130,8 +132,16 @@ class DetailsFragment : Fragment() {
 
             Log.i("TAG", "onViewCreated:rrrrrrrrrrrr ${it}")
             imagearraysize = it.product.images.size
-            productName.text = it.product.title
-            productPrice.text = "${(it.product.variants[0].price).toDouble() * r} ${currency}"
+           // productName.text = it.product.title
+
+            var p = it.product.title
+            val delim = "|"
+            val list = p.split(delim)
+
+            productBrand.text = list[0]
+            productName.text = list[1]
+
+            productPrice.text = "${((it.product.variants[0].price).toDouble() / r).toInt().plus(1)} .00 ${currency}"
             productDescription.text = it.product.body_html
             ratingBar.rating = (it.product.variants[0].inventory_quantity.toFloat()) / 2
 
@@ -139,7 +149,6 @@ class DetailsFragment : Fragment() {
             varientId = it.product.variants[0].id
             productIdd = "${it.product.id}"
             //productIdSet.add(productId)
-
 
             adapter.setListd(it.product.images)
             adapter.notifyDataSetChanged()
@@ -173,7 +182,7 @@ class DetailsFragment : Fragment() {
                         detailsaddtofavorieButton.visibility = View.GONE
                         detailsRemoveFromFavorite.visibility = View.VISIBLE
                     }
-               }
+                }
 
 
 
@@ -239,7 +248,7 @@ class DetailsFragment : Fragment() {
         addtocartbtn = view.findViewById(R.id.addtocartbtn)
         addtocartbtn.setOnClickListener {
 
-           if (userEmail == null || userEmail == "") {
+            if (userEmail == null || userEmail == "") {
                 // navigate to login screen
                 Toast.makeText(requireContext(), "you must login or register first",Toast.LENGTH_SHORT).show()
                 val loginFragment = LoginFragment()
@@ -256,7 +265,7 @@ class DetailsFragment : Fragment() {
 
                 var lineItem = LineItem( variant_id = varientId, quantity = 1)
                 val myorder = DraftOrder(email = userEmail,//reham33@gmail.com
-                     note = "cart", note_attributes = item_Image2, line_items = listOf(lineItem) )
+                    note = "cart", note_attributes = item_Image2, line_items = listOf(lineItem) )
                 val mylist = CartModel(myorder)
                 viewModel.pushPost(mylist)
                 viewModel.mRCartResonse.observe(viewLifecycleOwner, {

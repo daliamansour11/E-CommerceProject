@@ -53,7 +53,13 @@ class CartAdapter(private var context: Context, var cartFragment: CartFragment, 
             Glide.with(context).load(data1[position].note_attributes?.get(0)?.value)
                 .into(holder.productImage)
         }
-        holder.productName.text = data1[position].line_items?.get(0)?.name
+
+        var p = "${data1[position].line_items?.get(0)?.name}"
+        val delim = "|"
+        val list = p.split(delim)
+
+        holder.brandName.text = list[0]
+        holder.productName.text = list[1]
         holder.productPrice.text = "${data1[position].line_items?.get(0)?.price} EGP"
         holder.productCount.text = data1[position].line_items?.get(0)?.quantity.toString()
 
@@ -108,7 +114,8 @@ class CartAdapter(private var context: Context, var cartFragment: CartFragment, 
     }
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        var productName: TextView = itemView.findViewById(R.id.productName)
+        var brandName: TextView = itemView.findViewById(R.id.cart_brandName)
+        var productName: TextView = itemView.findViewById(R.id.cart_product_name_textview)
         var productImage: ImageView = itemView.findViewById(R.id.productImage)
         var productPrice: TextView = itemView.findViewById(R.id.productPrice)
         var productCount: TextView = itemView.findViewById(R.id.productsCount)
