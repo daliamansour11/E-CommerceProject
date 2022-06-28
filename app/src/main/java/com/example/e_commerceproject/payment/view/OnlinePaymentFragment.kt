@@ -87,17 +87,10 @@ class OnlinePaymentFragment : Fragment() {
         }
         total_price.text = "${totalPric} EGP"
 
-             placeorderbtn.setOnClickListener{
-                 orderViewModel.postOrder(addedOrderModel)
-               
-                 val profileFragment = ProfileFragment()
-                 fragmentManager?.beginTransaction()?.replace(R.id.fragmentContainerView, profileFragment)?.commit()
-
-             }
-            btnConfirm.setOnClickListener {
-                paymentFlow()
-
-            }
+        btnConfirm.setOnClickListener {
+            paymentFlow()
+          //  orderViewModel.postOrder(addedOrderModel)
+        }
 
             PaymentConfiguration.init(requireContext(), PUBLISH_KEY)
             paymentSheet = PaymentSheet(this, ::onPaymentSheetResult)
