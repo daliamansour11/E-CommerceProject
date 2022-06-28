@@ -137,18 +137,22 @@ class HomeFragment : Fragment() , OnBrandClickListener{
 
         CviewModel.getcontvertedResponse("3GIiFoVpQ5kuwZAZF6XMRKrObHkctBuw" ,to , "1" , from)
         CviewModel._Convert_Response.observe(viewLifecycleOwner) { respo ->
+
             if(respo!=null){
                 Log.i(ContentValues.TAG, "onChangedDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD: ${respo.result}")
                 System.out.println("Re" + respo.result)
+
 
                 val sharedPreferences : SharedPreferences = requireContext().getSharedPreferences("loginsharedprefs" ,Context.MODE_PRIVATE)
                 val editorr = sharedPreferences.edit()
                 editorr.apply(){
 
+
                     putString("CURRENCY_CONVERTER_RESULT" ,  "${respo.result}")
 
                 }.apply()
             }
+
 
         }
 

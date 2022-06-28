@@ -70,6 +70,7 @@ class CurrencydiologFragment : Fragment() {
         CviewModel = ViewModelProvider(this, ConverterViewModelFactory(mainRepository)).get(ConverterViewModel::class.java)
         CviewModel.getcontvertedResponse("PonwHXimsWL7N3LyigLfHj3E1Rrj0V9R" ,"USD" , "5" , "EGP")
         CviewModel._Convert_Response.observe(viewLifecycleOwner) { respo ->
+
             if(respo != null){
                 Log.i(ContentValues.TAG, "onChanged: ${respo.result}")
                 System.out.println("Re" + respo.result)
@@ -79,6 +80,7 @@ class CurrencydiologFragment : Fragment() {
                     commit()
 
                 }
+
 
            }
             val shared = requireActivity().getSharedPreferences(SHARD_NAME, Context.MODE_PRIVATE)

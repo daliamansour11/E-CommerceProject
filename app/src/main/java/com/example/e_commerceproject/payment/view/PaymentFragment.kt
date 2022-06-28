@@ -16,7 +16,6 @@ import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 
 class PaymentFragment : Fragment() {
-
     lateinit var cashbtn : Button
     lateinit var onlinebtn : Button
     lateinit var back:ImageView
@@ -72,6 +71,7 @@ class PaymentFragment : Fragment() {
             bundle.putDouble("TOTAL_PRICE" , totalPrice)
 
             onlinePaymentFragment.arguments = bundle
+
             fragmentManager?.beginTransaction()?.replace(R.id.fragmentContainerView, onlinePaymentFragment)?.commit()
 
         }

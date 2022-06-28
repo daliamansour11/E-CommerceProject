@@ -93,6 +93,7 @@ class CartFragment : Fragment() ,OnDeleteFromCartListener,OnPayClickListener {
 
         CviewModel.getcontvertedResponse("3GIiFoVpQ5kuwZAZF6XMRKrObHkctBuw" ,"EGP" , "1" , "USD")
         CviewModel._Convert_Response.observe(viewLifecycleOwner) { respo ->
+
            if(respo!=null) {
                 Log.i(
                     ContentValues.TAG,
@@ -100,6 +101,7 @@ class CartFragment : Fragment() ,OnDeleteFromCartListener,OnPayClickListener {
                 )
                 System.out.println("Re" + respo.result)
             }
+
         }
 
         // Inflate the layout for this fragment
