@@ -90,7 +90,7 @@ class OnlinePaymentFragment : Fragment() {
              orderViewModel.postOrder(addedOrderModel)
 //                Toast.makeText(context, "place your Order ", Toast.LENGTH_LONG).show()
      orderViewModel.postOrder(addedOrderModel)
-     val profileFragment = CashFragment()
+     val profileFragment = ProfileFragment()
 
      fragmentManager?.beginTransaction()?.replace(R.id.fragmentContainerView, profileFragment)?.commit()
 
@@ -194,7 +194,7 @@ class OnlinePaymentFragment : Fragment() {
                 try{
                     val jsonObject = JSONObject(response)
                     clientSecret = jsonObject.getString("client_secret")
-                    Toast.makeText(requireContext(),"Client Secret: "+ clientSecret, Toast.LENGTH_SHORT).show()
+//                    Toast.makeText(requireContext(),"Client Secret: "+ clientSecret, Toast.LENGTH_SHORT).show()
                     /// Lauch payment Flow
                     // paymentFlow()
                 }catch (e : JSONException){
