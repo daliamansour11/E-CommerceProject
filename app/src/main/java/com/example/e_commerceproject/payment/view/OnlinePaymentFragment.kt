@@ -86,7 +86,16 @@ class OnlinePaymentFragment : Fragment() {
             Log.i("TAG", "onViewCreatedmmmmmmmmmmmmmmmmmmmmmmm: ${totalPric}")
         }
         total_price.text = "${totalPric} EGP"
+ placeorderbtn.setOnClickListener{
+             orderViewModel.postOrder(addedOrderModel)
+//                Toast.makeText(context, "place your Order ", Toast.LENGTH_LONG).show()
+     orderViewModel.postOrder(addedOrderModel)
+     val profileFragment = CashFragment()
 
+     fragmentManager?.beginTransaction()?.replace(R.id.fragmentContainerView, profileFragment)?.commit()
+
+
+ }
         btnConfirm.setOnClickListener {
             paymentFlow()
           //  orderViewModel.postOrder(addedOrderModel)
