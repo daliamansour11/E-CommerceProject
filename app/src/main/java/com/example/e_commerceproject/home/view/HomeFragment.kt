@@ -132,6 +132,7 @@ class HomeFragment : Fragment() , OnBrandClickListener{
         val mainRepositoryy = ConverterRepository(retrofitServicee)
         CviewModel = ViewModelProvider(this, ConverterViewModelFactory(mainRepositoryy)).get(ConverterViewModel::class.java)
 
+
         CviewModel.getcontvertedResponse("RC0tVYRI3L5jctdjYL4Rx5FHmtFhO5mc" ,to , "1" , from)
         CviewModel._Convert_Response.observe(viewLifecycleOwner) { respo ->
 
