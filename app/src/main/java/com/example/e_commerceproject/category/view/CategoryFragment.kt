@@ -1,5 +1,6 @@
 package com.example.e_commerceproject.category.view
 
+import android.content.ContentValues
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
@@ -20,9 +21,13 @@ import com.example.e_commerceproject.category.model.Product
 import com.example.e_commerceproject.category.view.adapters.CategoryAdapter
 import com.example.e_commerceproject.category.viewmodel.CategoryViewModel
 import com.example.e_commerceproject.category.viewmodel.CategoryViewModelFactory
+import com.example.e_commerceproject.currencyConverter.viewModel.ConverterViewModel
+import com.example.e_commerceproject.currencyConverter.viewModel.ConverterViewModelFactory
 import com.example.e_commerceproject.details.view.DetailsFragment
 import com.example.e_commerceproject.home.view.HomeFragment
 import com.example.e_commerceproject.network.CategoryRepository
+import com.example.e_commerceproject.network.ConverterRepository
+import com.example.e_commerceproject.network.remotesource.ConverterApiService
 import com.example.e_commerceproject.network.remotesource.RetrofitService
 import com.example.e_commerceproject.profile.view.ProfileFragment
 import com.google.android.material.tabs.TabLayout
@@ -50,6 +55,8 @@ class CategoryFragment : Fragment(), OnProductClickInterface , OnFavoriteButtonC
     var brandId = ""
     var collectionId = ""
     var searchQueryText=""
+    lateinit var CviewModel: ConverterViewModel
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
@@ -72,6 +79,8 @@ class CategoryFragment : Fragment(), OnProductClickInterface , OnFavoriteButtonC
 
         val sharedPreferences: SharedPreferences = requireContext().getSharedPreferences("loginsharedprefs", Context.MODE_PRIVATE)
         var userEmail: String = sharedPreferences.getString("EMAIL_LOGIN", "").toString()
+        var currencyTtpe: String = sharedPreferences.getString("CURRENCY_TYPE_RESULT", "").toString()
+        var converterResponse: String = sharedPreferences.getString("CURRENCY_CONVERTER_RESULT", "").toString()
 
 
         var args = this.arguments
@@ -80,6 +89,41 @@ class CategoryFragment : Fragment(), OnProductClickInterface , OnFavoriteButtonC
             brandId =  args?.get("BRAND_ID") as String
             Log.i("TAG", "onViewCreatedmmmmmmmmmmmmmmmmmmmmmmm: ${brandId}")
         }
+
+        var from = "USD"
+        var to = "EGP"
+        if(currencyTtpe == "EGP"){
+            var to = "EGP"
+            from = "EGP"
+        }else if (currencyTtpe == "USD"){
+            var to = "EGP"
+            from = "USD"
+        }
+
+        val retrofitServicee = ConverterApiService.getInstance()
+        val mainRepositoryy = ConverterRepository(retrofitServicee)
+        CviewModel = ViewModelProvider(this, ConverterViewModelFactory(mainRepositoryy)).get(ConverterViewModel::class.java)
+/*
+        CviewModel.getcontvertedResponse("6gojh955Of5UkFW6fPN3W2nq1Isj5BqC" ,to , "1" , from)
+        CviewModel._Convert_Response.observe(viewLifecycleOwner) { respo ->
+
+            if(respo!=null){
+                Log.i(ContentValues.TAG, "onChangedDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD: ${respo.result}")
+                System.out.println("Re" + respo.result)
+
+
+                val sharedPreferences : SharedPreferences = requireContext().getSharedPreferences("loginsharedprefs" ,Context.MODE_PRIVATE)
+                val editorr = sharedPreferences.edit()
+                editorr.apply(){
+
+
+                    putString("CURRENCY_CONVERTER_RESULT" ,  "${respo.result}")
+
+                }.apply()
+            }
+        }
+
+*/
         category_back = view.findViewById(R.id.categoryArrowBack)
         shosebtn = view.findViewById(R.id.Shose_button)
         accessoriesbtn = view.findViewById(R.id.Accessories_button)
@@ -95,6 +139,14 @@ class CategoryFragment : Fragment(), OnProductClickInterface , OnFavoriteButtonC
         recyclerView.layoutManager = GridLayoutManager(requireContext(), 2)
         categoryAdapter = CategoryAdapter(requireContext(), this , this)
         recyclerView.adapter = categoryAdapter
+
+
+
+        var currencyTtp: String = sharedPreferences.getString("CURRENCY_TYPE_RESULT", "").toString()
+        var converterRespons: String = sharedPreferences.getString("CURRENCY_CONVERTER_RESULT", "").toString()
+
+        categoryAdapter.setCurrency(currencyTtp , converterRespons )
+
 
 
         val retrofitService = RetrofitService.getInstance()
@@ -255,7 +307,6 @@ class CategoryFragment : Fragment(), OnProductClickInterface , OnFavoriteButtonC
 
 
         //////////////////////////////////////////////////////////////
-
 
 
         searchView = view.findViewById(R.id.categorySearch)

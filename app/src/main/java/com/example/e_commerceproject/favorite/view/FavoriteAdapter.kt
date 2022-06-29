@@ -1,6 +1,7 @@
 package com.example.e_commerceproject.favorite.view
 
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,6 +18,8 @@ class FavoriteAdapter (var context: Context , val onDeletefromFavoriteClikListen
 
     var data: List<DraftOrder> = ArrayList()
     var lineItems: List<LineItem> = ArrayList()
+    var currencyTtpe = ""
+    var converterResponse = ""
 
     fun setlist(dataList: List<DraftOrder>){
         this.data = dataList
@@ -24,6 +27,12 @@ class FavoriteAdapter (var context: Context , val onDeletefromFavoriteClikListen
     fun setDatalist(dataList: List<LineItem>){
         this.lineItems = dataList
     }
+
+    fun setCurrency(type : String , response : String){
+        this.currencyTtpe = type
+        this.converterResponse = response
+    }
+
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var image: ImageView
@@ -55,6 +64,18 @@ class FavoriteAdapter (var context: Context , val onDeletefromFavoriteClikListen
 
         var data = data[position]
 
+        var currency = "EGP"
+
+        if( currencyTtpe == "EGP"){
+            currency = "EGP"
+        }else if ( currencyTtpe == "USD"){
+            currency = "$"
+        }
+
+        var r = converterResponse.toDouble()
+        Log.i("TAG", "onBindViewHolder: converterResponse ${r}")
+
+
 
         if(data.line_items?.count() != 0 ){
             var p = "${data.line_items?.get(0)?.title}"
@@ -63,7 +84,12 @@ class FavoriteAdapter (var context: Context , val onDeletefromFavoriteClikListen
 
             holder.brandName.text = list[0]
             holder.productName.text = list[1]
-            holder.price.text = ("${data.line_items?.get(0)?.price} EGP")
+            if(currency == "$"){
+                holder.price.text = ("${((data.line_items?.get(0)?.price)?.toDouble()!! / r ).toInt().plus(1)}.00 ${currency}")
+            }else{
+                holder.price.text = ("${((data.line_items?.get(0)?.price)?.toDouble()!! / r).toInt()}.00 ${currency}")
+            }
+          //  holder.price.text = ("${(data.line_items?.get(0)?.price)}.00 EGP")
 
         }
 

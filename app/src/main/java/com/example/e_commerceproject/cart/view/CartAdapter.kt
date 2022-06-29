@@ -19,6 +19,8 @@ import com.example.e_commerceproject.cart.model.NoteAttribute
 class CartAdapter(private var context: Context, var cartFragment: CartFragment, val onDeleteFromCartListener: OnDeleteFromCartListener) : RecyclerView.Adapter<CartAdapter.ViewHolder>() {
     // define array
     var cart_id: String = "873008693387"
+    var currencyTtpe = ""
+    var converterResponse = ""
 
     var lineItems: List<LineItem> = ArrayList()
     var data1: List<DraftOrder> = ArrayList()
@@ -38,6 +40,12 @@ class CartAdapter(private var context: Context, var cartFragment: CartFragment, 
 //       // lineItems = dataList1.draft_order.line_items!!
 //        notifyDataSetChanged()
 //    }
+
+    fun setCurrency(type : String , response : String){
+        this.currencyTtpe = type
+        this.converterResponse = response
+    }
+
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CartAdapter.ViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
@@ -60,7 +68,26 @@ class CartAdapter(private var context: Context, var cartFragment: CartFragment, 
 
         holder.brandName.text = list[0]
         holder.productName.text = list[1]
-        holder.productPrice.text = "${data1[position].line_items?.get(0)?.price} EGP"
+
+        var currency = "EGP"
+
+        if( currencyTtpe == "EGP"){
+            currency = "EGP"
+        }else if ( currencyTtpe == "USD"){
+            currency = "$"
+        }
+
+        var r = converterResponse.toDouble()
+        Log.i("TAG", "onBindViewHolder: converterResponse ${r}")
+
+        if(currency == "$"){
+            holder.productPrice.text = "${((data1[position].line_items?.get(0)?.price)?.toDouble()!! / r ).toInt()?.plus(1)}.00 ${currency}"
+        }else{
+            holder.productPrice.text = "${((data1[position].line_items?.get(0)?.price)?.toDouble()!! / r).toInt()}.00 ${currency}"
+        }
+
+
+       // holder.productPrice.text = "${data1[position].line_items?.get(0)?.price} EGP"
         holder.productCount.text = data1[position].line_items?.get(0)?.quantity.toString()
 
         //  data[position].note_attributes?.get(0)?.value?.let { holder.productImage.setImageResource(it)) }

@@ -141,7 +141,12 @@ class DetailsFragment : Fragment() {
             productBrand.text = list[0]
             productName.text = list[1]
 
-            productPrice.text = "${((it.product.variants[0].price).toDouble() / r).toInt().plus(1)} .00 ${currency}"
+            if(currency == "$"){
+                productPrice.text = "${((it.product.variants[0].price).toDouble() / r).toInt().plus(1)}.00 ${currency}"
+            }else{
+                productPrice.text = "${((it.product.variants[0].price).toDouble() / r).toInt()}.00 ${currency}"
+            }
+
             productDescription.text = it.product.body_html
             ratingBar.rating = (it.product.variants[0].inventory_quantity.toFloat()) / 2
 
@@ -221,7 +226,7 @@ class DetailsFragment : Fragment() {
 //                        editor.putStringSet("draftOrderIdSet", draftOrderIdSett).apply()
 //                        editor.putStringSet("productIdSet", productIdSett).apply()
 
-                        Toast.makeText(requireContext(), "added sucessfully", Toast.LENGTH_LONG).show()
+                      //  Toast.makeText(requireContext(), "added sucessfully", Toast.LENGTH_LONG).show()
                         detailsaddtofavorieButton.visibility = View.GONE
                         detailsRemoveFromFavorite.visibility = View.VISIBLE
 
@@ -235,7 +240,7 @@ class DetailsFragment : Fragment() {
             viewModel.deleteProductFromFavorite(draftOrderId)
             viewModel.deleteFromFavorite.observe(viewLifecycleOwner, {
                 if(it != null){
-                    Toast.makeText(requireContext() , "deleted sucssefuly" , Toast.LENGTH_SHORT).show()
+              //      Toast.makeText(requireContext() , "deleted sucssefuly" , Toast.LENGTH_SHORT).show()
                     detailsaddtofavorieButton.visibility = View.VISIBLE
                     detailsRemoveFromFavorite.visibility = View.GONE
                 }else{

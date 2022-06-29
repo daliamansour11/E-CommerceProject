@@ -60,6 +60,7 @@ class CartFragment : Fragment() ,OnDeleteFromCartListener,OnPayClickListener {
     lateinit var viewModel: CartViewModel
 
 
+
     var currecncy: String? = null
 //    var cart_id: String = "873008693387"
     var to: String = "USD"
@@ -77,32 +78,42 @@ class CartFragment : Fragment() ,OnDeleteFromCartListener,OnPayClickListener {
         val str_name = sharedPref.getString(CURRUNEY_TYPE, "")
 
 
-        if (currecncy == "EGP") {
-            to = "EGP"
-          //  Toast.makeText(requireContext(), "we are using EGP", Toast.LENGTH_SHORT).show()
-        } else if(currecncy == "USD"){
-            to = "USD"
-         //   Toast.makeText(requireContext(), "we are using USD", Toast.LENGTH_SHORT).show()
+        val sharedPreferences: SharedPreferences = requireContext().getSharedPreferences("loginsharedprefs", Context.MODE_PRIVATE)
+        var currencyTtpe: String = sharedPreferences.getString("CURRENCY_TYPE_RESULT", "").toString()
 
 
-            }
+        var from = "USD"
+        var to = "EGP"
+        if(currencyTtpe == "EGP"){
+            var to = "EGP"
+            from = "EGP"
+        }else if (currencyTtpe == "USD"){
+            var to = "EGP"
+            from = "USD"
+        }
 
-        val retrofitService = ConverterApiService.getInstance()
-        val mainRepository = ConverterRepository(retrofitService)
-        CviewModel = ViewModelProvider(this, ConverterViewModelFactory(mainRepository)).get(ConverterViewModel::class.java)
-
-        CviewModel.getcontvertedResponse("6gojh955Of5UkFW6fPN3W2nq1Isj5BqC" ,"EGP" , "1" , "USD")
+        val retrofitServicee = ConverterApiService.getInstance()
+        val mainRepositoryy = ConverterRepository(retrofitServicee)
+        CviewModel = ViewModelProvider(this, ConverterViewModelFactory(mainRepositoryy)).get(ConverterViewModel::class.java)
+/*
+        CviewModel.getcontvertedResponse("6gojh955Of5UkFW6fPN3W2nq1Isj5BqC" ,to , "1" , from)
         CviewModel._Convert_Response.observe(viewLifecycleOwner) { respo ->
 
-           if(respo!=null) {
-                Log.i(
-                    ContentValues.TAG,
-                    "onChangedDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD: ${respo.result}"
-                )
+            if(respo!=null){
+                Log.i(ContentValues.TAG, "onChangedDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD: ${respo.result}")
                 System.out.println("Re" + respo.result)
+
+                val sharedPreferences : SharedPreferences = requireContext().getSharedPreferences("loginsharedprefs" ,Context.MODE_PRIVATE)
+                val editorr = sharedPreferences.edit()
+                editorr.apply(){
+                    putString("CURRENCY_CONVERTER_RESULT" ,  "${respo.result}")
+                }.apply()
             }
 
+
         }
+
+*/
 
         // Inflate the layout for this fragment
         var cart_frag = inflater.inflate(R.layout.fragment_cart, container, false)
@@ -152,7 +163,7 @@ class CartFragment : Fragment() ,OnDeleteFromCartListener,OnPayClickListener {
 
                     if (it.draft_orders.get(i).email == userEmail && it.draft_orders.get(i).note == "cart" ) {  //"reham33@gmail.com"
 
-                        price += it.draft_orders[i].total_price?.toDouble() ?: 0.0
+                       price = it.draft_orders[i].total_price?.toDouble() ?: 0.0
                     }
 
                 }
@@ -162,6 +173,11 @@ class CartFragment : Fragment() ,OnDeleteFromCartListener,OnPayClickListener {
                 cartAdapter.notifyDataSetChanged()
             })
         }
+
+
+        var currencyTtp: String = sharedPreferences.getString("CURRENCY_TYPE_RESULT", "").toString()
+        var converterRespons: String = sharedPreferences.getString("CURRENCY_CONVERTER_RESULT", "").toString()
+        cartAdapter.setCurrency(currencyTtp , converterRespons )
 
 
 

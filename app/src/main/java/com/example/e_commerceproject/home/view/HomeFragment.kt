@@ -115,9 +115,6 @@ class HomeFragment : Fragment() , OnBrandClickListener{
         super.onViewCreated(view, savedInstanceState)
 
 
-
-
-
         val sharedPreferences : SharedPreferences = requireContext().getSharedPreferences("loginsharedprefs" ,Context.MODE_PRIVATE)
         var currencyTtpe: String = sharedPreferences.getString("CURRENCY_TYPE_RESULT", "").toString()
 
