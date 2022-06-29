@@ -179,9 +179,6 @@ class CartFragment : Fragment() ,OnDeleteFromCartListener,OnPayClickListener {
         var converterRespons: String = sharedPreferences.getString("CURRENCY_CONVERTER_RESULT", "").toString()
         cartAdapter.setCurrency(currencyTtp , converterRespons )
 
-
-
-
 //        viewModel.getTotalPrice().observe(viewLifecycleOwner,{
 //            total_price = view.findViewById(R.id.total_price)
         //   total_price.("")

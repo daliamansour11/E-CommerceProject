@@ -52,9 +52,10 @@
         android:layout_marginBottom="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/homeToolBar">
+        app:layout_constraintTop_toBottomOf="@+id/homeToolBar"
+        app:layout_constraintVertical_bias="0.0">
 
 
         <LinearLayout
@@ -71,12 +72,12 @@
 
             <TextView
                 android:id="@+id/subtotaltxt"
-                android:layout_width="99dp"
+                android:layout_width="145dp"
                 android:layout_height="37dp"
                 android:layout_marginLeft="29dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="10dp"
-
+                android:gravity="center"
                 android:text="SubTotal:"
                 android:textColor="@color/black"
                 android:textSize="20dp"
@@ -85,9 +86,9 @@
 
             <TextView
                 android:id="@+id/subtotal"
-                android:layout_width="160dp"
+                android:layout_width="141dp"
                 android:layout_height="37dp"
-                android:layout_marginLeft="92dp"
+                android:layout_marginLeft="80dp"
                 android:layout_marginTop="13dp"
                 android:layout_marginBottom="10dp"
                 android:gravity="center"
@@ -115,8 +116,8 @@
                 android:layout_marginLeft="26dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="10dp"
-                android:gravity="center"
                 android:background="@drawable/edittext_shape"
+                android:gravity="center"
                 android:textColor="@color/black"
                 android:textSize="20dp" />
 
@@ -135,19 +136,17 @@
         </LinearLayout>
 
 
-
-
         <LinearLayout
             android:id="@+id/dicount_value"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical|center_horizontal"
-            android:layout_marginTop="32dp"
+            android:layout_marginTop="28dp"
             android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/linearLayout3"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout4"
             tools:ignore="MissingConstraints">
 
             <TextView
@@ -158,7 +157,7 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="10dp"
                 android:padding="5dp"
-                android:text="Guard Total:"
+                android:text="Discount"
                 android:textColor="@color/black"
                 android:textSize="20dp"
 
@@ -182,12 +181,12 @@
             android:layout_width="match_parent"
             android:layout_height="70dp"
             android:layout_gravity="center_vertical|center_horizontal"
-            android:layout_marginTop="28dp"
+            android:layout_marginTop="40dp"
             android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/dicount_value"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout3"
             tools:ignore="MissingConstraints">
 
             <TextView
@@ -197,7 +196,7 @@
                 android:layout_marginStart="26dp"
                 android:layout_marginTop="10dp"
                 android:padding="5dp"
-                android:text="Discount:"
+                android:text="Guard Total:"
                 android:textColor="@color/black"
 
                 android:textSize="20dp" />
@@ -215,8 +214,6 @@
 
         </LinearLayout>
 
-
-
         <Button
             android:id="@+id/placeorder_btn"
             android:layout_width="wrap_content"
@@ -224,10 +221,9 @@
             android:layout_marginBottom="168dp"
             android:background="@drawable/edittext_shape"
             android:text="Place Order"
-
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.541"
+            app:layout_constraintHorizontal_bias="0.501"
             app:layout_constraintStart_toStartOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
